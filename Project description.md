@@ -30,7 +30,7 @@ I have been working out in gym for several decades even if not too seriously. I 
 -   **Database**: Dockerized MongoDB for the development environment
 -   **GitHub co-pilot:** planned to be utilized for productivity as well as learning experience
 
-Functionality
+# Functionality
 
 Initial functionality is divided into epics and corresponding user stories. A HTML prototype (available in GitHub) is used to refine ideas and plan the app structure but it’s not supposed to be used as a basis of the implementation as such.
 
