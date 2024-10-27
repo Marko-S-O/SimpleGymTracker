@@ -1,9 +1,9 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Program from '../components/Program';
+import CurrentProgram from '../components/CurrentProgram';
 import PastPrograms from '../components/PastPrograms';
 import PastWorkouts from '../components/PastWorkouts';
-import Workout from '../components/Workout';
+import CurrentWorkout from '../components/CurrentWorkout';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -16,9 +16,9 @@ export default function AppNavigator() {
         tabBarLabelStyle: { color: '#f9fafb', fontWeight: 'bold' },
       }}
     >
-      <Tab.Screen name="Workout" component={Workout} />      
+      <Tab.Screen name="Workout" component={CurrentWorkout} />      
       <Tab.Screen name="Past Workouts" component={PastWorkouts} />
-      <Tab.Screen name="Program" component={Program} />
+      <Tab.Screen name="Program" component={CurrentProgram} />
       <Tab.Screen name="Past Programs" component={PastPrograms} />
     </Tab.Navigator>
   );
