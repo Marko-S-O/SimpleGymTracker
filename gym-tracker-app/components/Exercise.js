@@ -16,17 +16,17 @@ function Exercise({exercise, editable}) {
     return (
 
         <View style={AppStyles.exercise}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{exercise.name}</Text>      
+            <Text style={AppStyles.boldText}>{exercise.name}</Text>      
             {exercise.sets.map((set, setIndex) => (
                 <View key={setIndex} style={AppStyles.setInput}>
                     <Text>Set {setIndex + 1}: </Text>
                     {editable ? (
                         <>
-                        <NumericInput value={8} onChange={handleSetReps} minValue={1} step={1} />                        
-                        <Text> reps </Text>
-                        <View style={{ width: 30 }} />                         
-                        <NumericInput value={0} onChange={handleSetReps} minValue={1} step={1} />
-                        <Text> kg</Text>
+                            <NumericInput value={8} onChange={handleSetReps} minValue={1} step={1} />                        
+                            <Text> reps </Text>
+                            <View style={{ width: 30 }} />                         
+                            <NumericInput value={0} onChange={handleSetReps} minValue={1} step={1} />
+                            <Text> kg</Text>
                         </>
                     ) : (
                         <Text style={{ marginRight: 10 }}>{set.reps} reps {set.weight} kg</Text>

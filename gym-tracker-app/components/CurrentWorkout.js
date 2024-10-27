@@ -1,9 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
 import Workout from './Workout';
-import AppStyles from '../styles/AppStyles';
 
-function PastWorkouts() {
+function CurrentWorkout() {
 
     const exercises = [
         { name: 'Jalkakyykky', sets: [{ reps: 8, weight: 60 }, { reps: 6, weight: 70 }] },        
@@ -18,10 +16,9 @@ function PastWorkouts() {
         { name: 'Roikkuminen', sets: [{ reps: 8, weight: 60 }, { reps: 6, weight: 70 }] },                                                  
     ];
 
-    const workoutNotes = 'This is a non-editable test workout'
+    const workoutNotes = ''
     const creationTime = '12.09.1969 13:33'
-    const saveTime = '12.09.2024 23:59'
-
+    const saveTime = ''
     const workout = {
         exercises: exercises,
         workoutNotes: workoutNotes,
@@ -29,28 +26,8 @@ function PastWorkouts() {
         saveTime: saveTime
     }
 
-    const navigate = (direction) => {
-      console.log('navigate ' + direction)
-  }
-
     return(
-      <>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-            <TouchableOpacity style={AppStyles.smallButton} onPress={navigate('previous')}>
-                <Text style={AppStyles.buttonText}>Previous</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={AppStyles.smallButton} onPress={navigate('previous')}>
-                <Text style={AppStyles.buttonText}>Copy New</Text>
-            </TouchableOpacity>   
-            <TouchableOpacity style={AppStyles.smallButton} onPress={navigate('previous')}>
-                <Text style={AppStyles.buttonText}>Delete</Text>
-            </TouchableOpacity>                        
-            <TouchableOpacity style={AppStyles.smallButton} onPress={navigate('next')}>
-                <Text style={AppStyles.buttonText}>Next</Text>
-            </TouchableOpacity>                            
-        </View>              
-        <Workout workout={workout} editable={false} />
-      </>
+        <Workout workout={workout} editable={true} />
     )
 }
-export default PastWorkouts
+export default CurrentWorkout
