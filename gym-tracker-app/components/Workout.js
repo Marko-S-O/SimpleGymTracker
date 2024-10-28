@@ -1,39 +1,41 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, TextInput } from 'react-native';
-import AppStyles from '../styles/AppStyles';
-import Exercise from './Exercise';
+import React, { useState } from 'react'
+import { View, Text, ScrollView, TouchableOpacity, TextInput } from 'react-native'
+import AppStyles from '../styles/AppStyles'
+import Exercise from './Exercise'
 
 function Workout({workout, editable, programView=false}) {
   
-    console.log(workout)
+    if(!workout) {
+        return(<></>)
+    }
 
     const exercises = workout.exercises
-    const workoutNotes = workout.workoutNotes
-    const creationTime = workout.creationTime
-    const saveTime = workout.saveTime
 
-    const [exerciseData, setExerciseData] = useState(exercises);
+    const [exerciseData, setExerciseData] = useState(exercises)
 
     const handleAddExercise = () => {
-        setExerciseData([...exerciseData, { name: '', sets: [{ reps: 0, weight: 0 }] }]);
-    };
+        //setExerciseData([...exerciseData, { name: '', sets: [{ reps: 0, weight: 0 }] }]);
+    }
+
+    const handleSaveExercise = () => {
+        //console.log('handleSaveExercise')
+    }
 
     const handleSaveWorkout = () => {
-        console.log('save workout...')
-    };
+        //console.log('save workout...')
+    }
 
-    const setWorkoutNotes = () => {
-        console.log('setWorkoutNotes...')
-    };    
-
+    const handleSetNotes = () => {
+        //console.log('setWorkoutNotes...')
+    }    
 
     const updateSet = (exerciseIndex, setIndex, field, value) => {
-        const newExercises = [...exerciseData];
-        newExercises[exerciseIndex].sets[setIndex][field] = parseInt(value, 10);
-        setExerciseData(newExercises);
-    };
+        const newExercises = [...exerciseData]
+        newExercises[exerciseIndex].sets[setIndex][field] = parseInt(value, 10)
+        setExerciseData(newExercises)
+    }
 
-    const placeholderText = editable ? "  <Write additional workout notes here>" : ""
+    const placeholderText = editable ? '  <Write additional workout notes here>' : ''
     const showButtons = editable && !programView
 
     return (
@@ -43,19 +45,19 @@ function Workout({workout, editable, programView=false}) {
 
                 <View style={AppStyles.infoTextContainer}>
                     <Text style={AppStyles.boldText}> Last saved: </Text>             
-                    <Text style={AppStyles.normalText}> {saveTime} </Text>                                                        
+                    <Text style={AppStyles.normalText}> {workout.saved} </Text>                                                        
                 </View>                     
 
                 <View style={{ flex: 1 }}>                
-                    {exerciseData.map((exercise, index) => (
-                        <Exercise key={index} exercise={exercise} editable={editable} />
+                    {workout.exercises.map((exercise, index) => (
+                        <Exercise key={index} exercise={exercise} editable={editable} handleSaveExercise={handleSaveExercise} />
                     ))}
 
                     <TextInput
                         style={[AppStyles.textInput, {borderColor: AppStyles.smallButton.backgroundColor, borderWidth: 1, borderRadius: 6}]}
                         placeholder={placeholderText}
-                        value={workoutNotes}
-                        onChangeText={setWorkoutNotes}
+                        value={workout.notes}
+                        onChangeText={handleSetNotes}
                         multiline
                         numberOfLines={3}
                         editable={editable}
@@ -63,14 +65,11 @@ function Workout({workout, editable, programView=false}) {
 
                     {showButtons && (
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 10 }}>
-                            <TouchableOpacity style={AppStyles.smallButton} onPress={handleAddExercise}>
-                                <Text style={AppStyles.buttonText}>Add Exercise</Text>
+                            <TouchableOpacity style={AppStyles.smallButton} onPress={handleSaveWorkout}>
+                                <Text style={AppStyles.buttonText}>Save Workout</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={AppStyles.smallButton} onPress={handleSaveWorkout}>
-                                <Text style={AppStyles.buttonText}>Save Program</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={AppStyles.smallButton} onPress={handleSaveWorkout}>
-                                <Text style={AppStyles.buttonText}>End Program</Text>
+                                <Text style={AppStyles.buttonText}>Finish Workout</Text>
                             </TouchableOpacity>                            
                         </View>
                     )}
@@ -78,7 +77,7 @@ function Workout({workout, editable, programView=false}) {
             </ScrollView>
         </View>
 
-    );
+    )
 }
 
-export default Workout;
+export default Workout

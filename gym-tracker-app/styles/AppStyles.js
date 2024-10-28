@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform } from 'react-native'
 
 export default StyleSheet.create({
   container: {
@@ -195,4 +195,4 @@ export default StyleSheet.create({
     fontSize: 16,
     color: '#1F2937',    
   }
-});
+})

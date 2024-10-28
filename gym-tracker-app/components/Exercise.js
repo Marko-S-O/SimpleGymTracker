@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import AppStyles from '../styles/AppStyles';
-import NumericInput from './NumericInput';
+import React from 'react'
+import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import AppStyles from '../styles/AppStyles'
+import NumericInput from './NumericInput'
 
 function Exercise({exercise, editable}) {
   

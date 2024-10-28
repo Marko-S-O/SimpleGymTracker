@@ -1,0 +1,34 @@
+
+{ 
+	useraname: string,
+	token: string,
+	programs: [{
+        name: string,
+		created: string,
+		saved: timestamp,
+		weeks: integer [{
+            number: integer,
+            days: [{
+                number: integer,
+                exercises: [{
+                    name: string,
+                    sets: [{
+                        reps: integer,
+                        weight: integer
+                    }]
+                }]
+            }]
+        }]
+    }]
+    workouts: [{
+        created: timestamp,
+        saved: timestamp
+        exercises: [{
+            name: string,
+            sets: [{
+                reps: integer,
+                weight: integer
+            }]
+        }]        
+    }]
+}

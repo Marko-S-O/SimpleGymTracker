@@ -1,11 +1,11 @@
-import React from 'react';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import CurrentProgram from '../components/CurrentProgram';
-import PastPrograms from '../components/PastPrograms';
-import PastWorkouts from '../components/PastWorkouts';
-import CurrentWorkout from '../components/CurrentWorkout';
+import React from 'react'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+import CurrentProgram from '../components/CurrentProgram'
+import PastPrograms from '../components/PastPrograms'
+import PastWorkouts from '../components/PastWorkouts'
+import CurrentWorkout from '../components/CurrentWorkout'
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator()
 
 export default function AppNavigator() {
   return (
@@ -21,5 +21,5 @@ export default function AppNavigator() {
       <Tab.Screen name="Program" component={CurrentProgram} />
       <Tab.Screen name="Past Programs" component={PastPrograms} />
     </Tab.Navigator>
-  );
+  )
 }

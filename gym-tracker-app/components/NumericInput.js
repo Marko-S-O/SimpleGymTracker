@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import AppStyles from '../styles/AppStyles';
+import React from 'react'
+import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import AppStyles from '../styles/AppStyles'
 
 function NumericInput({ value, onChange, minValue = 0, step = 1 }) {
 
@@ -32,4 +32,4 @@ function NumericInput({ value, onChange, minValue = 0, step = 1 }) {
     );
 }
 
-export default NumericInput;
+export default NumericInput

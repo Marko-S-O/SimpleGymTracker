@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import AppStyles from '../styles/AppStyles';
-import Workout from './Workout';
+import React, { useState } from 'react'
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import AppStyles from '../styles/AppStyles'
+import Workout from './Workout'
 
 function Program({ program, editable }) {
     //const [weeks, setWeeks] = useState(program.weeks || []);
 
-    weeks = program.weeks
+    if(!program) {
+        return(<></>)
+    }
 
     const handleAddWeek = () => {
-        console.log('add week');
+        //console.log('add week')
     };
 
     const handleAddDay = (weekIndex) => {
-        console.log('add day');
+        //console.log('add day')
     };
 
     return (
@@ -35,7 +37,7 @@ function Program({ program, editable }) {
                     </View>
                 )}
 
-                {weeks.map((week, weekIndex) => (
+                {program.weeks.map((week, weekIndex) => (
                     <View key={weekIndex} style={AppStyles.week}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
                             <Text style={AppStyles.boldText}>Week {week.weekNumber}</Text>
@@ -65,4 +67,4 @@ function Program({ program, editable }) {
     );
 }
 
-export default Program;
+export default Program
