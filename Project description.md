@@ -31,7 +31,7 @@ I have been working out in gym for several decades even if not too seriously. I 
 
 # Functionality
 
-Initial functionality is divided into epics and corresponding user stories. A HTML prototype (available in GitHub) is used to refine ideas and plan the app structure but it’s not supposed to be used as a basis of the implementation as such. The following is the story list refined on 28.10.2024.
+Initial functionality is divided into epics and corresponding user stories. A HTML prototype (available in GitHub) is used to refine ideas and plan the app structure but it’s not supposed to be used as a basis of the implementation as such. The following is the list refined on 28.10.2024
 
 **Epic 0. Initialization**
 
@@ -73,15 +73,13 @@ Initial functionality is divided into epics and corresponding user stories. A HT
 
 *Story 3.4.* Save the program
 
-*Story 3.5.* Initialize a workout from a program
-
 **Epic 4. Browse past programs**
 
-*Story 4.1* Show past programs
+*Story 2.1* Show past programs
 
-*Story 4.2.* Navigate to next / previous programs
+*Story 2.2.* Navigate to next / previous programs
 
-*Story 4.3.* Clone a program to create new
+*Story 2.3.* Clone a program to create new
 
 # Design principles
 
@@ -90,7 +88,7 @@ Initial functionality is divided into epics and corresponding user stories. A HT
 -   **Design for usability**: The primary goal is real-world usability in a gym environment.
 -   **Design for simplicity**: Both functional and technical design focus on simplicity over features, extensibility and versatility.
 
-    These principles imply that:
+These principles imply that:
 
 -   **No Localization**: The interface will not include internalization and localization. Terms like "program," "workout," "exercise," "set," and "weight" are universally understood. English will be the UI language, aligning with the course language.
 -   **Selective Test Automation**: Test automation will only be implemented if it adds clear value within the foreseeable lifecycle. No test automation will be implemented for the sake of having test automation.
