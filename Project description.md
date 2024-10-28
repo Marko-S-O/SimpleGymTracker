@@ -28,23 +28,32 @@ I have been working out in gym for several decades even if not too seriously. I 
 -   **IDE**: VSCode with necessary plugins
 -   **Emulators**: Android Studio
 -   **Database**: Dockerized MongoDB for the development environment
--   **GitHub co-pilot:** planned to be utilized for productivity as well as learning experience
 
 # Functionality
 
-Initial functionality is divided into epics and corresponding user stories. A HTML prototype (available in GitHub) is used to refine ideas and plan the app structure but it’s not supposed to be used as a basis of the implementation as such.
+Initial functionality is divided into epics and corresponding user stories. A HTML prototype (available in GitHub) is used to refine ideas and plan the app structure but it’s not supposed to be used as a basis of the implementation as such. The following is the story list refined on 28.10.2024.
+
+**Epic 0. Initialization**
+
+*Story 0.1.* Create user
+
+*Story 0.2.* Login
+
+*Story 0.3.* Initialize data from server
 
 **Epic 1. Track workout**
 
-*Story 1.1.* Add a new exercise to workout
+*Story 1.1.* Add new workout
 
-*Story 1.2.* Delete an exercise
+*Story 1.2.* Add a new exercise to workout
 
-*Story 1.3.* Add a new set to an exercise
+*Story 1.3.* Delete an exercise
 
-*Story 1.4.* Delete a set
+*Story 1.4.* Add a new set to an exercise
 
-*Story 1.5.* Save the workout
+*Story 1.5.* Delete a set
+
+*Story 1.6.* Save the workout
 
 **Epic 2. Browse past workouts**
 
@@ -52,7 +61,7 @@ Initial functionality is divided into epics and corresponding user stories. A HT
 
 *Story 2.2.* Navigate to next / previous workouts
 
-*Story 2.3.* Clone a workout to initialize the current session
+*Story 2.3.* Clone past workout to create new
 
 **Epic 3. Plan program**
 
@@ -64,10 +73,26 @@ Initial functionality is divided into epics and corresponding user stories. A HT
 
 *Story 3.4.* Save the program
 
+*Story 3.5.* Initialize a workout from a program
+
 **Epic 4. Browse past programs**
 
-*Story 2.1* Show past programs
+*Story 4.1* Show past programs
 
-*Story 2.2.* Navigate to next / previous programs
+*Story 4.2.* Navigate to next / previous programs
 
-*Story 2.3.* Clone a program to create a new program
+*Story 4.3.* Clone a program to create new
+
+# Design principles
+
+-   **Focus on value**: All functional and technical design decisions prioritize actual value to the user.
+-   **Decoupling Node.js**: Node will be decoupled in a way that allows easily forking an app-only version in the future.
+-   **Design for usability**: The primary goal is real-world usability in a gym environment.
+-   **Design for simplicity**: Both functional and technical design focus on simplicity over features, extensibility and versatility.
+
+    These principles imply that:
+
+-   **No Localization**: The interface will not include internalization and localization. Terms like "program," "workout," "exercise," "set," and "weight" are universally understood. English will be the UI language, aligning with the course language.
+-   **Selective Test Automation**: Test automation will only be implemented if it adds clear value within the foreseeable lifecycle. No test automation will be implemented for the sake of having test automation.
+-   **Only Necessary Features**: Features implemented will be immediately useful, with no additions primarily for future-proofing.
+-   **Data Storage as a Single Object**: All data for an individual user will be stored as a single object, even if this may not be theoretically optimal. The very limited data volume and expected minimal impact on responsiveness should allow making this decision safely.
