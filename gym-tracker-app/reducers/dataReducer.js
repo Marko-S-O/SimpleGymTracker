@@ -7,6 +7,7 @@ export const initialState = {
     pastWorkouts: [],
     currentProgram: null,   
     pastPrograms: [],
+    exerciseNames: []
 }
 
 const dataReducer = (state = initialState, action) => {
@@ -20,7 +21,7 @@ const dataReducer = (state = initialState, action) => {
                 pastWorkouts: action.payload.data.pastWorkouts,
                 currentProgram: action.payload.data.currentProgram,
                 pastPrograms: action.payload.data.pastPrograms,
-
+                exerciseNames: action.payload.data.exerciseNames
             }
 
         case actionTypes.SET_CURRENT_WORKOUT: 

@@ -1,20 +1,14 @@
 import React from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import AppStyles from '../styles/AppStyles'
+import * as setConstants from './setConstants'
 
-function NumericInput({ value, onChange, minValue = 0, step = 1 }) {
+function NumericInput({ value, handleValueChange }) {
 
-    const handleIncrement = () => {
-        onChange(Math.max(minValue, value + step)); // Increase by step
-    };
-
-    const handleDecrement = () => {
-        onChange(Math.max(minValue, value - step)); // Decrease by step but no lower than minValue
-    };
-
+    
     return (
         <View style={AppStyles.numericInputContainer}>
-            <TouchableOpacity onPress={handleDecrement} style={AppStyles.incrementButton}>
+            <TouchableOpacity onPress={() => handleValueChange(setConstants.SET_FIELD_ACTION_DECREASE) } style={AppStyles.incrementButton}>
                 <Text style={AppStyles.incrementButtonText}>−</Text>
             </TouchableOpacity>
 
@@ -22,14 +16,14 @@ function NumericInput({ value, onChange, minValue = 0, step = 1 }) {
                 style={AppStyles.inputField}
                 keyboardType="numeric"
                 value={`${value}`}
-                onChangeText={(text) => onChange(parseInt(text) || minValue)}
+                onChangeText={(text) => handleValueChange(setConstants.SET_FIELD_ACTION_UPDATE, parseInt(text) || 0) }
             />
 
-            <TouchableOpacity onPress={handleIncrement} style={AppStyles.incrementButton}>
+            <TouchableOpacity onPress={() => handleValueChange(setConstants.SET_FIELD_ACTION_INCREASE) } style={AppStyles.incrementButton}>
                 <Text style={AppStyles.incrementButtonText}>+</Text>
             </TouchableOpacity>
         </View>
-    );
+    )
 }
 
 export default NumericInput

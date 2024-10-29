@@ -8,10 +8,11 @@ function CurrentWorkout() {
 
     const { state } = useData();
     const workout = state.currentWorkout
-
+    const exerciseNames = state.exerciseNames
+  
     return(
         workout ? (
-            <Workout workout={workout} editable={true} />
+            <Workout workout={workout} editable={true} programView={false} exerciseNames={exerciseNames} />
         ):(
             <View style={[AppStyles.container, {padding: 15, alignItems: 'center'}]}>
                 <Text style={{ marginBottom: 10 }}>No Active workout</Text>

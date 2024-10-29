@@ -60,6 +60,19 @@ const pastPrograms = [
     }
 ]
 
+const exerciseNames = [
+    'Jalkakyykky',
+    'Reisikoukistus',
+    'Pohkeet jalkaprässissä',
+    'Penkkipunnerrus',
+    'Ylätalja',
+    'Olkapunnerrus käsipainoilla',
+    'Hauiskääntö käsipainoilla',
+    'Vatsalihaspenkki',
+    'Selkäojennus',
+    'Roikkuminen'
+]
+
 const data = {
     username: 'testuser',
     token: 'test-token-123',
@@ -67,10 +80,11 @@ const data = {
     pastWorkouts: pastWorkouts,
     currentProgram: currentProgram,
     pastPrograms: pastPrograms,
+    exerciseNames: exerciseNames
 }
 
 const testData = {
-    data    : data
+    data: data
 }
 
 export default testData

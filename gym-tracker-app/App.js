@@ -3,17 +3,19 @@ import { NavigationContainer } from '@react-navigation/native'
 import AppNavigator from './navigation/AppNavigator'
 import { useData, DataProvider } from './context/DataContext'
 import { setData } from './reducers/dataActions'
-import testData from './test/testData'
+import { readData } from './services/dataService'
 
 function MainApp() {
 
   const { dispatch } = useData()
 
-  // Using test data to test state management and component functionality
   useEffect(() => {
-    const data = testData.data
-    console.log("Dispatching setData with:", data)    
-    dispatch(setData(data))
+    const readInitialData = async() => {
+      const data = await readData() 
+      //console.log(data)
+      dispatch(setData(data))
+    }
+    readInitialData()
   }, [dispatch])
 
   return (

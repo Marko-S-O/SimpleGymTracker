@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import Workout from './Workout'
 import AppStyles from '../styles/AppStyles'
-import { useData } from '../context/DataContext';
+import { useData } from '../context/DataContext'
 
 function PastWorkouts() {
 

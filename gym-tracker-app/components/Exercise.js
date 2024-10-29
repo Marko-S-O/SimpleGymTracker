@@ -1,31 +1,25 @@
 import React from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import AppStyles from '../styles/AppStyles'
 import NumericInput from './NumericInput'
+import * as setConstants from './setConstants'
 
-function Exercise({exercise, editable}) {
-  
-    const handleAddSet = () => {
-        console.log('add set...')
-    };
-
-    const handleSetReps = () => {
-        console.log('set reps...')
-    };    
+function Exercise({exercise, editable, handleAddSet, handleDeleteSet, handleDeleteExercise, handleUpdateSet}) {
 
     return (
 
         <View style={AppStyles.exercise}>
             <Text style={AppStyles.boldText}>{exercise.name}</Text>      
+
             {exercise.sets.map((set, setIndex) => (
                 <View key={setIndex} style={AppStyles.setInput}>
                     <Text>Set {setIndex + 1}: </Text>
                     {editable ? (
                         <>
-                            <NumericInput value={8} onChange={handleSetReps} minValue={1} step={1} />                        
+                            <NumericInput value={set.reps} handleValueChange={(action, value) => handleUpdateSet(exercise.id, set.id, setConstants.SET_FIELD_REPS, action, value)} />                        
                             <Text> reps </Text>
                             <View style={{ width: 30 }} />                         
-                            <NumericInput value={0} onChange={handleSetReps} minValue={1} step={1} />
+                            <NumericInput value={set.weight} handleValueChange={(action, value) => handleUpdateSet(exercise.id, set.id, setConstants.SET_FIELD_WEIGHT, action, value)} />
                             <Text> kg</Text>
                         </>
                     ) : (
@@ -36,13 +30,13 @@ function Exercise({exercise, editable}) {
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 }}>
                 {editable && (
                     <>
-                        <TouchableOpacity style={AppStyles.smallButton} onPress={handleAddSet}>
+                        <TouchableOpacity style={AppStyles.mediumButton} onPress={() => handleAddSet(exercise.id) }>
                             <Text style={AppStyles.buttonText}>Add Set</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={AppStyles.smallButton} onPress={handleAddSet}>
+                        <TouchableOpacity style={AppStyles.mediumButton} onPress={() => handleDeleteSet(exercise.id) }>
                             <Text style={AppStyles.buttonText}>Delete Set</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={AppStyles.smallButton} onPress={handleAddSet}>
+                        <TouchableOpacity style={AppStyles.mediumButton} onPress={() => handleDeleteExercise(exercise.id)}>
                             <Text style={AppStyles.buttonText}>Del Exercise</Text>
                         </TouchableOpacity>
                     </>
@@ -52,4 +46,4 @@ function Exercise({exercise, editable}) {
     )
 }
 
-export default Exercise;
+export default Exercise
