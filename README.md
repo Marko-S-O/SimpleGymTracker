@@ -83,7 +83,7 @@ Initial functionality is divided into epics and corresponding user stories. A HT
 
 *Story 4.3.* Clone a program to create new
 
-*Story 5.4.* Delete past program
+*Story 4.4.* Delete past program
 
 # Design principles
 
