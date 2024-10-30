@@ -31,7 +31,7 @@ I have been working out in gym for several decades even if not too seriously. I 
 
 # Functionality
 
-Initial functionality is divided into epics and corresponding user stories. A HTML prototype (available in GitHub) was used to refine ideas and plan the app structure but it’s not supposed to be used as a basis of the implementation as such. The following is the list refined on 28.10.2024
+Initial functionality is divided into epics and corresponding user stories. A HTML prototype was used to refine ideas and plan the app structure but it’s not supposed to be used as a basis of the implementation as such. The following is the list refined on 28.10.2024
 
 **Epic 0. Initialization**
 
