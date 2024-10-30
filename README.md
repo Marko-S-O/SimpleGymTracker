@@ -63,6 +63,8 @@ Initial functionality is divided into epics and corresponding user stories. A HT
 
 *Story 2.3.* Clone past workout to create new
 
+*Story 2.4.* Delete past workout
+
 **Epic 3. Plan program**
 
 *Story 3.1.* Add a week
@@ -75,11 +77,13 @@ Initial functionality is divided into epics and corresponding user stories. A HT
 
 **Epic 4. Browse past programs**
 
-*Story 2.1* Show past programs
+*Story 4.1* Show past programs
 
-*Story 2.2.* Navigate to next / previous programs
+*Story 4.2.* Navigate to next / previous programs
 
-*Story 2.3.* Clone a program to create new
+*Story 4.3.* Clone a program to create new
+
+*Story 5.4.* Delete past program
 
 # Design principles
 
@@ -90,9 +94,9 @@ Initial functionality is divided into epics and corresponding user stories. A HT
 
 These principles imply that:
 
--   **No Localization**: The interface will not include internalization and localization. Terms like "program," "workout," "exercise," "set," and "weight" are universally understood. English will be the UI language, aligning with the course language.
--   **Selective Test Automation**: Test automation will only be implemented if it adds clear value within the foreseeable lifecycle. No test automation will be implemented for the sake of having test automation.
--   **Only Necessary Features**: Features implemented will be immediately useful, with no additions primarily for future-proofing.
--   **Data Persistence as a Single Object**: All data for an individual user will be stored as a single object, even if this may not be theoretically optimal. The very limited data volume and expected minimal impact on responsiveness should allow making this decision safely.
--   **Minimized Modals and Messages**. Confirmation modals are avoided if possible and added only when found out to be necessary in usability testing. Design is done in a way that makes the app informative and safe to use as such.
--   **No Support for Low-resolution Screens.** Smaller premium phones like Pixel 5 and Galaxy S23 set the minimum bar for supported screen sizes and resolutions in design and testing.
+-   **No localization**: The interface will not include internalization and localization. Terms like "program," "workout," "exercise," "set," and "weight" are universally understood. English will be the UI language, aligning with the course language.
+-   **Selective test automation**: Test automation will only be implemented if it adds clear value within the foreseeable lifecycle. No test automation will be implemented for the sake of having test automation.
+-   **Only necessary features**: Features implemented will be immediately useful, with no additions primarily for future-proofing.
+-   **Data persistence as a single object**: All data for an individual user will be stored as a single object, even if this may not be theoretically optimal. The very limited data volume and expected minimal impact on responsiveness should allow making this decision safely.
+-   **Minimized modals and messages**. Confirmation modals are avoided if possible and added only when found out to be necessary in usability testing. Design is done in a way that makes the app informative and safe to use as such.
+-   **No support for low-resolution screens.** Smaller premium phones like Pixel 5 and Galaxy S23 set the minimum bar for supported screen sizes and resolutions in design and testing.
