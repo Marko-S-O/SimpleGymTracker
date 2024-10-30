@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import AppStyles from '../styles/AppStyles'
 import NumericInput from './NumericInput'
-import * as setConstants from './setConstants'
+import * as UIconstants from './UIconstants'
 
 function Exercise({exercise, editable, handleAddSet, handleDeleteSet, handleDeleteExercise, handleUpdateSet}) {
 
@@ -16,10 +16,10 @@ function Exercise({exercise, editable, handleAddSet, handleDeleteSet, handleDele
                     <Text>Set {setIndex + 1}: </Text>
                     {editable ? (
                         <>
-                            <NumericInput value={set.reps} handleValueChange={(action, value) => handleUpdateSet(exercise.id, set.id, setConstants.SET_FIELD_REPS, action, value)} />                        
+                            <NumericInput value={set.reps} handleValueChange={(action, value) => handleUpdateSet(exercise.id, set.id, UIconstants.SET_FIELD_REPS, action, value)} />                        
                             <Text> reps </Text>
                             <View style={{ width: 30 }} />                         
-                            <NumericInput value={set.weight} handleValueChange={(action, value) => handleUpdateSet(exercise.id, set.id, setConstants.SET_FIELD_WEIGHT, action, value)} />
+                            <NumericInput value={set.weight} handleValueChange={(action, value) => handleUpdateSet(exercise.id, set.id, UIconstants.SET_FIELD_WEIGHT, action, value)} />
                             <Text> kg</Text>
                         </>
                     ) : (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, TextInput, Modal, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import AppStyles from '../styles/AppStyles'
 

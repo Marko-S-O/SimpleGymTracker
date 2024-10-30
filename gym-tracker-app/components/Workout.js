@@ -1,29 +1,42 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { View, Text, ScrollView, TouchableOpacity, TextInput } from 'react-native'
 import AppStyles from '../styles/AppStyles'
 import Exercise from './Exercise'
 import AddExerciseModal from './AddExerciseModal'
-import * as setConstants from './setConstants'
+import * as UIconstants from './UIconstants'
 
-function Workout({workout, editable, programView=false, exerciseNames=[]}) {
-  
-        if(!workout) {
+function Workout({workout, editable, programView=false, exerciseNames=[], saveWorkout, finishWorkout}) {
+
+    if(!workout) {
         return(<></>)
     }
 
-    const [exerecises, setExercises] = useState(workout.exercises)
+    const [exercises, setExercises] = useState(workout.exercises)
     const [notes, setNotes] = useState(workout.notes)    
 
+    useEffect(() => {
+        setExercises(workout.exercises || [])
+        setNotes(workout.notes || '')
+    }, [workout])
+
+    const scrollViewRef = useRef(null)
+
     const addExecise = (name) => {
-        setExercises([...exerecises, { name: name, sets: [{ reps: setConstants.DEFAULT_REPS, weight: 0 }] }])
+        setExercises([...exercises, { name: name, sets: [{ reps: UIconstants.DEFAULT_REPS, weight: 0 }] }])
     }
 
     const handleSaveWorkout = () => {
-        //console.log('save workout...')
+        saveWorkout(exercises, notes)
+        if (scrollViewRef.current) {
+            scrollViewRef.current.scrollTo({ y: 0, animated: true });
+        }        
     }
 
+    const handleFinishWorkout = () => {
+        finishWorkout(exercises, notes)
+    }    
+
     const handleSetNotes = (text) => {
-        console.log(text)
         setNotes(text)
     }    
 
@@ -32,18 +45,17 @@ function Workout({workout, editable, programView=false, exerciseNames=[]}) {
     }
 
     const handleAddSet = (exerciseId) => {
-        console.log('handleAddSet: ' + exerciseId)
 
         const setId = getSetId()
         setExercises((prevExercises) =>
             prevExercises.map((exercise) =>
-                exercise.id === exerciseId ? {...exercise, sets: [...exercise.sets, { id: setId, reps: setConstants.DEFAULT_REPS, weight: 0 }]} : exercise
+                exercise.id === exerciseId ? {...exercise, sets: [...exercise.sets, { id: setId, reps: UIconstants.DEFAULT_REPS, weight: 0 }]} : exercise
             )
         )
     }
 
     const handleDeleteSet = (exerciseId) => {
-        console.log('handleDeleteSet: ' + exerciseId)
+
         setExercises((prevExercises) =>
             prevExercises.map((exercise) =>
                 exercise.id === exerciseId ? {...exercise, sets: [...exercise.sets.slice(0, -1)]} : exercise
@@ -52,7 +64,7 @@ function Workout({workout, editable, programView=false, exerciseNames=[]}) {
     }
 
     const handleDeleteExercise = (exerciseId) => {
-        console.log('handleDeleteExercise: ' + exerciseId)
+
         setExercises((prevExercises) =>
             prevExercises.filter((exercise) => exercise.id !== exerciseId)
         )
@@ -60,17 +72,17 @@ function Workout({workout, editable, programView=false, exerciseNames=[]}) {
 
     const updateSetValue = (set, field, action, value) => {
 
-        if(field === setConstants.SET_FIELD_REPS) {
-            if(action === setConstants.SET_FIELD_ACTION_DECREASE) {
+        if(field === UIconstants.SET_FIELD_REPS) {
+            if(action === UIconstants.SET_FIELD_ACTION_DECREASE) {
                 const reps = Math.max(1, set.reps-1)
                 return { ...set, reps: reps }
-            } else if(action === setConstants.SET_FIELD_ACTION_INCREASE) {
+            } else if(action === UIconstants.SET_FIELD_ACTION_INCREASE) {
                 return { ...set, reps: set.reps + 1 }
             } else {
                 return { ...set, reps: value }
             }
         } else { // else == weight
-            if(action === setConstants.SET_FIELD_ACTION_DECREASE) {
+            if(action === UIconstants.SET_FIELD_ACTION_DECREASE) {
                 let weight = set.weight
                 if(weight >= 50 ) {
                     weight = weight - 10
@@ -81,7 +93,7 @@ function Workout({workout, editable, programView=false, exerciseNames=[]}) {
                 }
                 return { ...set, weight: Math.max(weight, 0) } // make 0 possible as a minimum to indicate using only own weight
 
-            } else if(action === setConstants.SET_FIELD_ACTION_INCREASE) {
+            } else if(action === UIconstants.SET_FIELD_ACTION_INCREASE) {
                 let weight = set.weight
                 if(weight >= 50 ) {
                     weight = weight + 10
@@ -117,16 +129,27 @@ function Workout({workout, editable, programView=false, exerciseNames=[]}) {
     return (
 
         <View style={{ flex: 1 }}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 10 }}>
-
-                <View style={AppStyles.infoTextContainer}>
-                    <Text style={AppStyles.boldText}> Last saved: </Text>             
-                    <Text style={AppStyles.normalText}> {workout.saved} </Text>                                                        
-                </View>                     
+            <ScrollView ref={scrollViewRef} contentContainerStyle={{ flexGrow: 1, padding: 10 }}>
+                {editable ? (
+                    <View style={AppStyles.infoTextContainer}>
+                        <Text style={AppStyles.boldText}> Last saved: </Text>      
+                        { workout.saved && (
+                            <Text style={AppStyles.normalText}> {workout.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
+                        )}
+                    </View>                    
+                    ) : (
+                        <View style={AppStyles.infoTextContainer}>
+                            <Text style={AppStyles.boldText}> Created: </Text>             
+                            <Text style={AppStyles.normalText}> {workout.created.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
+                            <Text style={AppStyles.boldText}> Finished: </Text>             
+                            <Text style={AppStyles.normalText}> {workout.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
+                        </View>                    
+                    )
+                }
 
                 <View style={{ flex: 1 }}>
-                    {exerecises?.length > 0 && 
-                        exerecises.map((exercise, index) => (
+                    {exercises?.length > 0 && 
+                        exercises.map((exercise, index) => (
                            <Exercise key={index} exercise={exercise} editable={editable} handleAddSet={handleAddSet} handleDeleteSet={handleDeleteSet} handleDeleteExercise={handleDeleteExercise} handleUpdateSet={handleUpdateSet} />
                         ))
                     }
@@ -149,7 +172,7 @@ function Workout({workout, editable, programView=false, exerciseNames=[]}) {
                             <TouchableOpacity style={AppStyles.fixedButton} onPress={handleSaveWorkout}>
                                 <Text style={AppStyles.buttonText}>Save Workout</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={AppStyles.fixedButton} onPress={handleSaveWorkout}>
+                            <TouchableOpacity style={AppStyles.fixedButton} onPress={handleFinishWorkout}>
                                 <Text style={AppStyles.buttonText}>Finish Workout</Text>
                             </TouchableOpacity>     
                    

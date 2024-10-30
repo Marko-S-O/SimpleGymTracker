@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes'
+import { saveData } from './services/dataService'
 
 export const initialState = {
     username: '',
@@ -8,6 +9,14 @@ export const initialState = {
     currentProgram: null,   
     pastPrograms: [],
     exerciseNames: []
+}
+
+const storeData = () => {
+    // TODO: change this to use asynchronous persistens later
+    data = [...state]
+    delete saveData.exerciseNames
+    delete saveData.token
+    saveData(data)
 }
 
 const dataReducer = (state = initialState, action) => {
@@ -24,34 +33,29 @@ const dataReducer = (state = initialState, action) => {
                 exerciseNames: action.payload.data.exerciseNames
             }
 
-        case actionTypes.SET_CURRENT_WORKOUT: 
-            return {
-                ...state,
-                currentWorkout: action.payload   
-            }
+        case actionTypes.SET_CURRENT_WORKOUT: {
+            data = {...state, currentWorkout: action.payload}
+            storeData(data)
+            return data
+        }
+        case actionTypes.FINISH_CURRENT_WORKOUT: {
+            data = {...state, pastWorkouts: [action.payload, ...state.pastWorkouts], currentWorkout: null} 
+            storeData(data)
+            return data           
+        }
+        
+        case actionTypes.ADD_PAST_WORKOUT: {
+            data = {...state, pastWorkouts: [action.payload, ...state.pastWorkouts]}
+            storeData(data)
+            return data      
+        }
 
-        case actionTypes.UPDATE_CURRENT_WORKOUT: 
-            return {
-                ...state,
-                currentWorkout: {
-                    ...state.currentWorkout,
-                    ...action.payload,  
-                }
-            }
-
-        case actionTypes.ADD_PAST_WORKOUT:
-            return {
-                ...state,
-                pastWorkouts: [...state.pastWorkouts, action.payload]
-            }
-
-        case actionTypes.DELETE_PAST_WORKOUT:
-            return {
-                ...state,
-                pastWorkouts: state.pastWorkouts.filter(
-                    workout => workout.created !== action.payload.created
-                )
-            }
+        case actionTypes.DELETE_PAST_WORKOUT: {
+            data = {...state, pastWorkouts: state.pastWorkouts.filter(
+                workout => workout.created !== action.payload.created)}
+            storeData(data)
+            return data      
+        }
 
         case actionTypes.SET_CURRENT_PROGRAM:
             return {

@@ -12,34 +12,53 @@ const exercises = [
 ]
 
 const currentWorkout = {
-    created: '01.01.2024 00:11', 
-    saved: '27.10.2024 23:59',
+    created: new Date('2024-10-26T23:59:59Z'), 
+    saved: new Date('2024-10-27T01:01:01Z'),
     exercises: exercises,
     notes: 'This is the current workout' 
 }
 
-const pastWorkouts = [{
-    created: '01.01.2023 00:11', 
-    saved: '27.10.2023 23:59',
-    exercises: exercises,
-    notes: 'This is a past workout' 
-}]
+const pastWorkouts = [
+    {
+        created: new Date('2023-10-26T23:59:59Z'), 
+        saved: new Date('2023-10-27T01:01:01Z'),
+        exercises: [...exercises],
+        notes: 'This is a past workout'
+    },
+    {
+        created: new Date('2022-10-26T23:59:59Z'), 
+        saved: new Date('2022-10-27T01:01:01Z'),
+        exercises: [...exercises],
+        notes: 'This is a past workou 2t'
+    },
+    {
+        created: new Date('2021-10-26T23:59:59Z'), 
+        saved: new Date('2021-10-27T01:01:01Z'),
+        exercises: [...exercises],
+        notes: 'This is a past workout 3'
+    }        
+]
 
 const programWorkouts = [{
-    // Program workouts are workout templates and don't have timestamps or notes
-    exercises: exercises 
+    // Program workouts are workout templates and don't have timestamps
+    exercises: [...exercises] 
 }]
 
 const currentProgram = { 
     name: 'Yleisohjelma',
-    created: '01.01.2024', 
-    saved: '26.10.2024',
+    created: new Date('2024-10-26T23:59:59Z'), 
+    saved: new Date('2024-10-27T01:01:01Z'),
     weeks: [{
         number: 1, 
-        days: [{
-            number: 1,
-            workouts: programWorkouts
-        }]
+        workouts: programWorkouts
+    },
+    {
+        number: 2, 
+        workouts: [...programWorkouts]
+    },
+    {
+        number: 3, 
+        workouts: [...programWorkouts]
     }],
     notes: 'This is the current program'
 }
@@ -47,31 +66,40 @@ const currentProgram = {
 const pastPrograms = [
     { 
         name: 'Yleisohjelma',
-        created: '01.01.2023', 
-        saved: '26.10.2023',
+        created: new Date('2023-10-26T23:59:59Z'), 
+        saved: new Date('2023-10-27T01:01:01Z'),
         weeks: [{
-            number: 1, 
-            days: [{
-                number: 1,
-                workouts: programWorkouts
-            }]
+            number: 1,
+            workouts: programWorkouts
+        },
+        {
+            number: 2,
+            workouts: [...programWorkouts]
         }],
-        notes: 'This is a past program'
-    }
+        notes: 'Yleinen ohjelma'
+    },
+    { 
+        name: 'Maksimivoima',
+        created: new Date('2022-10-26T23:59:59Z'), 
+        saved: new Date('2022-10-27T01:01:01Z'),
+        weeks: [{
+            number: 1,
+            workouts: [...programWorkouts]
+        }],
+        notes: 'Maksimivoimaohjelma'
+    },
+    { 
+        name: 'Kestävyysharjoittelu',
+        created: new Date('2021-10-26T23:59:59Z'), 
+        saved: new Date('2021-10-27T01:01:01Z'),
+        weeks: [{
+            number: 1,
+            workouts: [...programWorkouts]
+        }],
+        notes: 'This is another past program'
+    }    
 ]
 
-const exerciseNames = [
-    'Jalkakyykky',
-    'Reisikoukistus',
-    'Pohkeet jalkaprässissä',
-    'Penkkipunnerrus',
-    'Ylätalja',
-    'Olkapunnerrus käsipainoilla',
-    'Hauiskääntö käsipainoilla',
-    'Vatsalihaspenkki',
-    'Selkäojennus',
-    'Roikkuminen'
-]
 
 const data = {
     username: 'testuser',
@@ -79,8 +107,7 @@ const data = {
     currentWorkout: currentWorkout,
     pastWorkouts: pastWorkouts,
     currentProgram: currentProgram,
-    pastPrograms: pastPrograms,
-    exerciseNames: exerciseNames
+    pastPrograms: pastPrograms
 }
 
 const testData = {

@@ -88,10 +88,10 @@ export default StyleSheet.create({
   mediumButton: {
     backgroundColor: '#6B7280',
     paddingVertical: 5,
-    paddingHorizontal: 8,
+    paddingHorizontal: 4,
     borderRadius: 6,
-    marginHorizontal: 5,
-    width: 107,
+    marginHorizontal: 4,
+    width: 100,
     alignItems: 'center',  
     justifyContent: 'center',  
     color: '#FFFFFF',   
@@ -132,12 +132,12 @@ export default StyleSheet.create({
   },
   exerciseList: {
     width: '100%',
-    padding: 10,
+    padding: 7,
     color: '#3b82f6',
   },
   exercise: {
     marginBottom: 15,
-    padding: 15,
+    padding: 10,
     borderRadius: 8,
     backgroundColor: '#E5E7EB',
     shadowColor: '#000',

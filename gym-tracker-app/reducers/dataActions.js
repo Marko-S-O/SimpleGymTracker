@@ -22,13 +22,8 @@ export const setCurrentWorkout = (workout) => ({
     payload: workout
 })
 
-export const updateCurrentWorkout = (workout) => ({
-    type: actionTypes.UPDATE_CURRENT_WORKOUT,
-    payload: workout
-})
-
-export const addPastWorkout = (workout) => ({
-    type: actionTypes.ADD_PAST_WORKOUT,
+export const finishCurrentWorkout = (workout) => ({
+    type: actionTypes.FINISH_CURRENT_WORKOUT,
     payload: workout
 })
 
