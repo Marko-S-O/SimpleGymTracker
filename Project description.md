@@ -31,7 +31,7 @@ I have been working out in gym for several decades even if not too seriously. I 
 
 # Functionality
 
-Initial functionality is divided into epics and corresponding user stories. A HTML prototype (available in GitHub) is used to refine ideas and plan the app structure but it’s not supposed to be used as a basis of the implementation as such. The following is the list refined on 28.10.2024
+Initial functionality is divided into epics and corresponding user stories. A HTML prototype (available in GitHub) was used to refine ideas and plan the app structure but it’s not supposed to be used as a basis of the implementation as such. The following is the list refined on 28.10.2024
 
 **Epic 0. Initialization**
 
@@ -93,4 +93,6 @@ These principles imply that:
 -   **No Localization**: The interface will not include internalization and localization. Terms like "program," "workout," "exercise," "set," and "weight" are universally understood. English will be the UI language, aligning with the course language.
 -   **Selective Test Automation**: Test automation will only be implemented if it adds clear value within the foreseeable lifecycle. No test automation will be implemented for the sake of having test automation.
 -   **Only Necessary Features**: Features implemented will be immediately useful, with no additions primarily for future-proofing.
--   **Data Storage as a Single Object**: All data for an individual user will be stored as a single object, even if this may not be theoretically optimal. The very limited data volume and expected minimal impact on responsiveness should allow making this decision safely.
+-   **Data Persistence as a Single Object**: All data for an individual user will be stored as a single object, even if this may not be theoretically optimal. The very limited data volume and expected minimal impact on responsiveness should allow making this decision safely.
+-   **Minimized Modals and Messages**. Confirmation modals are avoided if possible and added only when found out to be necessary in usability testing. Design is done in a way that makes the app informative and safe to use as such.
+-   **No Support for Low-resolution Screens.** Smaller premium phones like Pixel 5 and Galaxy S23 set the minimum bar for supported screen sizes and resolutions in design and testing.
