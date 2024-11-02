@@ -9,7 +9,7 @@ function Exercise({exercise, editable, handleAddSet, handleDeleteSet, handleDele
     return (
 
         <View style={AppStyles.exercise}>
-            <Text style={AppStyles.boldText}>{exercise.name}</Text>      
+            <Text style={AppStyles.normalText}>{exercise.name}</Text>      
 
             {exercise.sets.map((set, setIndex) => (
                 <View key={setIndex} style={AppStyles.setInput}>

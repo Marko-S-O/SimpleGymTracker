@@ -6,4 +6,4 @@ export const SET_FIELD_ACTION_DECREASE = 2
 export const SET_FIELD_ACTION_UPDATE = 3
 
 export const UI_LOCALE = 'fi-FI'
-export const UI_DATE_TIME_FORMAT = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'}
+export const UI_DATE_TIME_FORMAT = { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'}

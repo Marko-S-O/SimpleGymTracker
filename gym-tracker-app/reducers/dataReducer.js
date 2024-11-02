@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes'
-import { saveData } from './services/dataService'
+import { saveData } from '../services/dataService'
 
 export const initialState = {
     username: '',
@@ -13,10 +13,10 @@ export const initialState = {
 
 const storeData = () => {
     // TODO: change this to use asynchronous persistens later
-    data = [...state]
-    delete saveData.exerciseNames
-    delete saveData.token
-    saveData(data)
+    // data = [...state]
+    // delete saveData.exerciseNames
+    //delete saveData.token
+    //saveData(data)
 }
 
 const dataReducer = (state = initialState, action) => {

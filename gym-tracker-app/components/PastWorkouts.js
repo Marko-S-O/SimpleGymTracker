@@ -39,31 +39,32 @@ function PastWorkouts() {
     }
 
     
-    isDeleteDisabled = state.pastWorkouts.length == 0
-    isNewDisabled = state.currentWorkout && (state.currentWorkout.exercises.length > 0)
-    isNextDisabled = index<=0 
-    isPreviousDisabled = index==(state.pastWorkouts.length-1) || state.pastWorkouts.length == 0
-
-    console.log("isNewDisabled: " + isNewDisabled)
+    const isDeleteDisabled = state.pastWorkouts.length == 0
+    const isNewDisabled = state.currentWorkout && (state.currentWorkout.exercises.length > 0)
+    const isNextDisabled = index<=0 
+    const isPreviousDisabled = index==(state.pastWorkouts.length-1) || state.pastWorkouts.length == 0
 
     return(
       <>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
-            <TouchableOpacity style={[AppStyles.smallButton, isPreviousDisabled && { opacity: 0.5 }]} disabled={isPreviousDisabled} onPress={() => handleNavigate('previous')} >
-                <Text style={AppStyles.buttonText}>Previous</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[AppStyles.smallButton, isNewDisabled && { opacity: 0.5 }]} disabled={isNewDisabled} onPress={() => handleCopyNew()} >
-                <Text style={AppStyles.buttonText}>Copy New</Text>
-            </TouchableOpacity>   
-            <TouchableOpacity style={[AppStyles.smallButton, isDeleteDisabled && { opacity: 0.5 }]} disabled={isDeleteDisabled} onPress={() => handleDelete()} >
-                <Text style={AppStyles.buttonText}>Delete</Text>
-            </TouchableOpacity>                        
-            <TouchableOpacity style={[AppStyles.smallButton, isNextDisabled && { opacity: 0.5 }]} disabled={isNextDisabled} onPress={() => handleNavigate('next')} >
-                <Text style={AppStyles.buttonText}>Next</Text>
-            </TouchableOpacity>                            
-        </View>    
+        <View style={[AppStyles.WorkoutHeader, {marginLeft: 4, marginRight: 4, marginBottom: 0}]}>
+            <Text style={[AppStyles.boldText, {paddingLeft: 5}]}>My Past Workouts</Text>     
+            <View style={[AppStyles.WorkoutHeader, { flexDirection: 'row', justifyContent: 'space-between', marginLeft: 4, marginRight: 4, marginBottom: 0}]}>
+                <TouchableOpacity style={[AppStyles.smallButton, isPreviousDisabled && { opacity: 0.5 }]} disabled={isPreviousDisabled} onPress={() => handleNavigate('previous')} >
+                    <Text style={AppStyles.buttonText}>Previous</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[AppStyles.smallButton, isNewDisabled && { opacity: 0.5 }]} disabled={isNewDisabled} onPress={() => handleCopyNew()} >
+                    <Text style={AppStyles.buttonText}>Copy New</Text>
+                </TouchableOpacity>   
+                <TouchableOpacity style={[AppStyles.smallButton, isDeleteDisabled && { opacity: 0.5 }]} disabled={isDeleteDisabled} onPress={() => handleDelete()} >
+                    <Text style={AppStyles.buttonText}>Delete</Text>
+                </TouchableOpacity>                        
+                <TouchableOpacity style={[AppStyles.smallButton, isNextDisabled && { opacity: 0.5 }]} disabled={isNextDisabled} onPress={() => handleNavigate('next')} >
+                    <Text style={AppStyles.buttonText}>Next</Text>
+                </TouchableOpacity>                            
+            </View> 
+        </View>   
         { workout && (
-            <Workout workout={workout} editable={false} />
+            <Workout workout={workout} editable={false} programView={false} />
         )}
         { !workout && (            
             <View style={[AppStyles.container, {padding: 15, alignItems: 'center'}]}>

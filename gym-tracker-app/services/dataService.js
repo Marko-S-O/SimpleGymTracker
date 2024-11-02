@@ -97,13 +97,14 @@ const getEmptyData = () => {
 }
 
 export const readData = async () => {
-    //console.log('getting data from the service...')
-    //const data = testData.data
-    //createIds(data)
-    //createExerciseList(data)
-    //sortData(data)
-
-    return await readDataLocal()
+    console.log('getting data from the service...')
+    const data = testData.data
+    createIds(data)
+    createExerciseList(data)
+    sortData(data)
+    return data
+    
+    //return await readDataLocal()
 }
 
 export const readDataLocal = async () => {

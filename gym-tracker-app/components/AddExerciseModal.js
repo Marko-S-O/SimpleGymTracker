@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, TextInput, Modal, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import AppStyles from '../styles/AppStyles'
 
-const AddExerciseModal = ({exerciseNames, addExecise}) => {
+const AddExerciseModal = ({exerciseNames, addExecise, programView}) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [exerciseName, setExerciseName] = useState('')
@@ -20,7 +20,7 @@ const AddExerciseModal = ({exerciseNames, addExecise}) => {
     return (
         <View>
 
-            <TouchableOpacity style={AppStyles.fixedButton} onPress={handleAddExercise}>
+            <TouchableOpacity style={programView ? AppStyles.mediumButton : AppStyles.fixedButton} onPress={handleAddExercise}>
                 <Text style={AppStyles.buttonText}>Add Exercise</Text>
             </TouchableOpacity>     
 

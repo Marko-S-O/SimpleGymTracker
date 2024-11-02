@@ -5,7 +5,7 @@ import Exercise from './Exercise'
 import AddExerciseModal from './AddExerciseModal'
 import * as UIconstants from './UIconstants'
 
-function Workout({workout, editable, programView=false, exerciseNames=[], saveWorkout, finishWorkout}) {
+function Workout({workout, editable, programView, exerciseNames=[], saveWorkout, finishWorkout}) {
 
     if(!workout) {
         return(<></>)
@@ -123,29 +123,30 @@ function Workout({workout, editable, programView=false, exerciseNames=[], saveWo
         )
     }
 
-    const placeholderText = editable ? '  <Write additional workout notes here...>' : ''
-    const showButtons = editable && !programView
-
     return (
+        <View style={[AppStyles.day, { flex: 1 }]}>
+            <ScrollView ref={scrollViewRef} contentContainerStyle={{ flexGrow: 1, padding: 5 }}>
 
-        <View style={{ flex: 1 }}>
-            <ScrollView ref={scrollViewRef} contentContainerStyle={{ flexGrow: 1, padding: 10 }}>
-                {editable ? (
-                    <View style={AppStyles.infoTextContainer}>
-                        <Text style={AppStyles.boldText}> Last saved: </Text>      
-                        { workout.saved && (
-                            <Text style={AppStyles.normalText}> {workout.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
-                        )}
-                    </View>                    
-                    ) : (
-                        <View style={AppStyles.infoTextContainer}>
-                            <Text style={AppStyles.boldText}> Created: </Text>             
-                            <Text style={AppStyles.normalText}> {workout.created.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
-                            <Text style={AppStyles.boldText}> Finished: </Text>             
-                            <Text style={AppStyles.normalText}> {workout.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
+                {(editable && !programView) && (
+                    <View style={AppStyles.WorkoutHeader}>
+                        <Text style={[AppStyles.boldText, {paddingLeft: 5}]}>Workout Tracker</Text>     
+                        <View style={[AppStyles.WorkoutHeader, {flexDirection: 'row'}]}>
+                            <Text style={AppStyles.normalText}>Saved: </Text>      
+                            { workout.saved && (
+                                <Text style={AppStyles.normalText}> {workout.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
+                            )}
                         </View>                    
-                    )
-                }
+                    </View>
+                )}
+
+                {(!editable && !programView) && (
+                    <View style={[AppStyles.WorkoutHeader, {flexDirection: 'row'}]}>
+                        <Text style={AppStyles.boldText}> Created: </Text>             
+                        <Text style={AppStyles.normalText}> {workout.created.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
+                        <Text style={AppStyles.boldText}> Finished: </Text>             
+                        <Text style={AppStyles.normalText}> {workout.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
+                    </View>                    
+                )}
 
                 <View style={{ flex: 1 }}>
                     {exercises?.length > 0 && 
@@ -153,29 +154,30 @@ function Workout({workout, editable, programView=false, exerciseNames=[], saveWo
                            <Exercise key={index} exercise={exercise} editable={editable} handleAddSet={handleAddSet} handleDeleteSet={handleDeleteSet} handleDeleteExercise={handleDeleteExercise} handleUpdateSet={handleUpdateSet} />
                         ))
                     }
-
                     <TextInput
-                        style={[AppStyles.textInput, {borderColor: 'gray', borderWidth: 1, borderRadius: 6, padding: 5}]}
-                        placeholder={placeholderText}
+                        style={{borderColor: 'gray', borderWidth: 1, borderRadius: 6, padding: 5}}
+                        placeholder={editable? '  <Write additional workout notes here...>' : ''}
                         value={notes}
                         onChangeText={handleSetNotes}
                         multiline
-                        numberOfLines={3}
+                        numberOfLines={programView ? 1 : 2}
                         editable={editable}
                     />                        
-
-                    {showButtons && (
+                    {editable && (
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 10 }}>
 
-                            <AddExerciseModal exerciseNames={exerciseNames} addExecise={addExecise} />    
+                            <AddExerciseModal exerciseNames={exerciseNames} addExecise={addExecise} programView={programView} />    
 
-                            <TouchableOpacity style={AppStyles.fixedButton} onPress={handleSaveWorkout}>
-                                <Text style={AppStyles.buttonText}>Save Workout</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={AppStyles.fixedButton} onPress={handleFinishWorkout}>
-                                <Text style={AppStyles.buttonText}>Finish Workout</Text>
-                            </TouchableOpacity>     
-                   
+                            {!programView && (
+                                <>
+                                    <TouchableOpacity style={AppStyles.fixedButton} onPress={handleSaveWorkout}>
+                                        <Text style={AppStyles.buttonText}>Save Workout</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={AppStyles.fixedButton} onPress={handleFinishWorkout}>
+                                        <Text style={AppStyles.buttonText}>Finish Workout</Text>
+                                    </TouchableOpacity>     
+                                </>
+                            )}
                         </View>
                     )}
                 </View>
