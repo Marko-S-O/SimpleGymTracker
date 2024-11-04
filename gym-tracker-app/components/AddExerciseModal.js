@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, TextInput, Modal, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, Modal, ScrollView, Keyboard } from 'react-native'
 import AppStyles from '../styles/AppStyles'
 
-const AddExerciseModal = ({exerciseNames, addExecise, programView}) => {
+const AddExerciseModal = ({exerciseNames, addExecise, programView, weekIndex, workoutIndex}) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [exerciseName, setExerciseName] = useState('')
@@ -11,8 +11,8 @@ const AddExerciseModal = ({exerciseNames, addExecise, programView}) => {
         setIsModalVisible(true)
     }
 
-    const addNewExercise = (name) => {
-        addExecise(name)
+    const addNewExercise = (name, weekIndex, workoutIndex) => {
+        addExecise(name, weekIndex, workoutIndex)
         setIsModalVisible(false) 
         setExerciseName('')
     }
@@ -39,7 +39,7 @@ const AddExerciseModal = ({exerciseNames, addExecise, programView}) => {
                             {exerciseNames.map((exercise, index) => (
                                 <TouchableOpacity 
                                     key={index} 
-                                    onPress={() => addNewExercise(exercise)}
+                                    onPress={() => addNewExercise(exercise, weekIndex, workoutIndex)}
                                     style={{ paddingVertical: 8 }}
                                 >
                                     <Text style={{ fontSize: 15 }}>{exercise}</Text>

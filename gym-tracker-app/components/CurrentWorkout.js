@@ -1,18 +1,22 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Text, TouchableOpacity, View } from 'react-native'
 import Workout from './Workout'
-import { useData } from '../context/DataContext'
 import AppStyles from '../styles/AppStyles'
 import { setCurrentWorkout, finishCurrentWorkout } from '../reducers/dataActions'
 import { useNavigation } from '@react-navigation/native'
+import cloneDeep from 'lodash/cloneDeep'
 
 function CurrentWorkout() {
 
-    const { state, dispatch } = useData()
-    const workout = state.currentWorkout
-    const exerciseNames = state.exerciseNames
+    const state = useSelector(state => state.data);
+
+    const dispatch = useDispatch()
     const navigation = useNavigation()
   
+    const workout = cloneDeep(state.currentWorkout)
+    const exerciseNames = state.exerciseNames
+
     const saveWorkout = (exercises, notes) => {
         const workout = {...state.currentWorkout, exercises: exercises, notes: notes, saved: new Date()}
         dispatch(setCurrentWorkout(workout))
@@ -28,7 +32,6 @@ function CurrentWorkout() {
         const workout = {exercises: [], notes: '', created: new Date()}
         dispatch(setCurrentWorkout(workout))
     }
-
 
     return(
         workout ? (

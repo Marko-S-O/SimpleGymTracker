@@ -1,16 +1,19 @@
 import React, {useState} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, TouchableOpacity } from 'react-native'
 import Workout from './Workout'
 import AppStyles from '../styles/AppStyles'
-import { useData } from '../context/DataContext'
 import { setCurrentWorkout, deletePastWorkout } from '../reducers/dataActions'
 import { useNavigation } from '@react-navigation/native'
 
 function PastWorkouts() {
 
     const navigation = useNavigation()
-    const { state, dispatch } = useData()
+    const dispatch = useDispatch()
+    const state = useSelector(state => state.data);  
+    
     const [index, setIndex] = useState(0)
+
     const workout = (state.pastWorkouts && (state.pastWorkouts.length >= index)) ? state.pastWorkouts[index] : null
 
     const handleStartWorkout = () => {
@@ -37,7 +40,6 @@ function PastWorkouts() {
         dispatch(deletePastWorkout(state.pastWorkouts[index]))
         setIndex(Math.max(index-1, 0))
     }
-
     
     const isDeleteDisabled = state.pastWorkouts.length == 0
     const isNewDisabled = state.currentWorkout && (state.currentWorkout.exercises.length > 0)
@@ -45,7 +47,7 @@ function PastWorkouts() {
     const isPreviousDisabled = index==(state.pastWorkouts.length-1) || state.pastWorkouts.length == 0
 
     return(
-      <>
+        <>
         <View style={[AppStyles.WorkoutHeader, {marginLeft: 4, marginRight: 4, marginBottom: 0}]}>
             <Text style={[AppStyles.boldText, {paddingLeft: 5}]}>My Past Workouts</Text>     
             <View style={[AppStyles.WorkoutHeader, { flexDirection: 'row', justifyContent: 'space-between', marginLeft: 4, marginRight: 4, marginBottom: 0}]}>
@@ -67,7 +69,7 @@ function PastWorkouts() {
             <Workout workout={workout} editable={false} programView={false} />
         )}
         { !workout && (            
-            <View style={[AppStyles.container, {padding: 15, alignItems: 'center'}]}>
+            <View style={[AppStyles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
                 <Text style={{ marginBottom: 10 }}>No past workouts</Text>                
                 {isNewDisabled ? (
                     <Text style={{ marginTop: 10 }}>You have an ongoing active workout.</Text>  
@@ -83,7 +85,7 @@ function PastWorkouts() {
             </View>
             
         )}
-      </>
+        </>
     )
 }
 export default PastWorkouts

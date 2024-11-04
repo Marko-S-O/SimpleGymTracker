@@ -4,18 +4,20 @@ import AppStyles from '../styles/AppStyles'
 import Workout from './Workout'
 import { TextInput } from 'react-native'
 import * as UIconstants from './UIconstants'
-import { getEmptyWorkout } from './util/dataHelper'
+import { getEmptyWorkout } from '../util/dataHelper'
 
-function Program({ program, editable, saveProgram, startProgram, startWorkout }) {
+function Program({ program, editable, saveProgram, startProgram, startWorkout, exerciseNames }) {
 
     if(!program) {
         return(<></>)
     }
 
     const [weeks, setWeeks] = useState(program.weeks || [])
+    const [name, setName] = useState(program.name || '')
 
     useEffect(() => {
         setWeeks(program.weeks || [])
+        setName(program.name || '')
     }, [program])
 
     const scrollViewRef = useRef(null)
@@ -37,7 +39,6 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout })
     }
 
     const handleAddWorkout = (weekIndex) => {
-      
         const weekToUpdate = {...weeks[weekIndex]}
         weekToUpdate.workouts.push(getEmptyWorkout())
         const updatedWeeks = [...weeks].map((week, index) => 
@@ -61,17 +62,33 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout })
     }
 
     const handleSaveProgram = () => {
-        saveProgram(weeks)
+        console.log(handleSaveProgram)
+        console.log(weeks)
+        saveProgram(weeks, name)
         if (scrollViewRef.current) {
             scrollViewRef.current.scrollTo({ y: 0, animated: true });
         }        
     }
 
     const handleStartWorkout = (weekIndex, workoutIndex) => {
-        const workout = {...weeks[weekIndex].workouts[workoutIndex]}
+        const workout = weeks[weekIndex].workouts[workoutIndex]
         workout.created = new Date()
         startWorkout(workout)
     }
+
+    // Update program data when an individual set or exercise has been updated in the Workout component
+    const updateProgramWorkout = (workout, weekIndex, workoutIndex) => {
+        
+        const updatedWeeks = [...weeks]
+        updatedWeeks[weekIndex].workouts[workoutIndex] = workout
+        setWeeks(updatedWeeks)
+
+    }
+
+    const handleSetName = (text) => {
+        console.log('handleSetName: ' + text)
+        setName(text)
+    }    
 
     return (
         <View style={{ flex: 1 }}>
@@ -81,12 +98,12 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout })
                     <View style={AppStyles.programHeader}>
                         <Text style={AppStyles.boldText}>Active Program</Text>                        
                         <View style={[AppStyles.programHeader, {flexDirection: 'row'}]}>
-                            <Text style={[AppStyles.normalText, {fontSize: 16, verticalAlign: 'middle', paddingRight: 10}]}>Name: </Text>
+                            <Text style={[AppStyles.normalText, {fontSize: 16, verticalAlign: 'middle', marginBottom:6, paddingRight: 10}]}>Name: </Text>
                             <TextInput
                                 style={{borderColor: 'gray', borderWidth: 1, borderRadius: 6, padding: 5, marginBottom: 6, fontWeight: 'normal', fontSize: 16}}
                                 placeholder={'<Program Name>'}
-                                value={program.name}
-                                onChangeText={()=>{}}
+                                value={name}
+                                onChangeText={handleSetName}
                                 multiline
                                 numberOfLines={1}
                                 editable={editable}
@@ -145,7 +162,15 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout })
                                         <Text style={AppStyles.buttonText}>Start →</Text>
                                     </TouchableOpacity>                                
                                 </View>
-                                <Workout workout={workout} editable={editable} programView={true} />
+                                <Workout 
+                                    workout={workout} 
+                                    editable={editable} 
+                                    programView={true} 
+                                    exerciseNames={exerciseNames} 
+                                    weekIndex={weekIndex} 
+                                    workoutIndex={workoutIndex}
+                                    updateProgramWorkout={updateProgramWorkout} 
+                                />
 
                             </View>
                         ))}

@@ -1,42 +1,54 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { Text, TouchableOpacity, View  } from 'react-native'
+import AppStyles from '../styles/AppStyles'
 import Program from './Program'
-import { useData } from '../context/DataContext'
-import { getEmptyProgram } from './util/dataHelper'
+import {getEmptyProgram} from '../util/dataHelper'
 import { setCurrentProgram, addPastProgram, setCurrentWorkout } from '../reducers/dataActions'
 import { useNavigation } from '@react-navigation/native'
+import cloneDeep from 'lodash/cloneDeep'
 
 export default function CurrentProgram() {
 
-  const { state, dispatch } = useData()
+  const dispatch = useDispatch()
   const navigation = useNavigation()
-  const program = state.currentProgram
-  
-  const exerciseNames = state.exerciseNames
+  const state = useSelector(state => state.data)
 
-  const saveProgram = (weeks) => {
-    const workout = {...state.currentProgram, weeks: weeks, saved: new Date()}
-    dispatch(setCurrentProgram(workout))
+  const program = cloneDeep(state.currentProgram)
+  const exerciseNames = state.exerciseNames
+  
+  const saveProgram = (weeks, name) => {
+    const updatedWeeks = cloneDeep(weeks)
+    const updatedProgram = {...program, weeks: updatedWeeks, name: name, saved: new Date()}
+    dispatch(setCurrentProgram(updatedProgram))
   }
 
   const startProgram = () => {
-    closedProgram = {...state.currentProgram}
-    dispatch(addPastProgram(closedProgram))
-    dispatch(setCurrentProgram(getEmptyProgram()))
+    if(state.currentProgram) {
+      const closedProgram = cloneDeep(state.currentProgram)
+      closedProgram.saved = new Date()
+      dispatch(addPastProgram(closedProgram))
+    }
+    const emptyProgram = getEmptyProgram()
+    dispatch(setCurrentProgram(emptyProgram))
   }
 
   const startWorkout = (workout) => {
-    dispatch(setCurrentWorkout(workout))
+    const newWorkout = cloneDeep(workout)
+    dispatch(setCurrentWorkout(newWorkout))
     navigation.navigate('Workout')
   }
 
   return (
     program ? (
-      <Program program={program} editable={true} programView={true} saveProgram={saveProgram} startProgram={startProgram} startWorkout={startWorkout} />
+      <Program program={program} editable={true} programView={true} saveProgram={saveProgram} startProgram={startProgram} startWorkout={startWorkout} exerciseNames={exerciseNames} />
     ):(
-      <>
-          <Text>No current Program.</Text>
-      </>
+      <View style={[AppStyles.container, {padding: 15, alignItems: 'center'}]}>
+        <Text style={{ marginBottom: 10 }}>No active program</Text>
+        <TouchableOpacity style={AppStyles.largeButton} onPress={startProgram} >
+            <Text style={AppStyles.buttonText}>Start Program</Text>
+        </TouchableOpacity>                     
+    </View>
     )
   )
 }

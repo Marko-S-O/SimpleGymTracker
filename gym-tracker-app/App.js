@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react'
+import { Provider, useDispatch } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
 import AppNavigator from './navigation/AppNavigator'
-import { useData, DataProvider } from './context/DataContext'
+import { DataProvider } from './context/DataContext'
 import { setData } from './reducers/dataActions'
 import { readData } from './services/dataService'
+import store from './store/configureStore'
 
 function MainApp() {
 
-  const { dispatch } = useData()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const readInitialData = async() => {
       const data = await readData() 
-      //console.log(data)
       dispatch(setData(data))
     }
     readInitialData()
@@ -28,8 +29,10 @@ function MainApp() {
 export default function App() {
 
   return (
-    <DataProvider>
-      <MainApp />
-    </DataProvider>
+    <Provider store={store}> 
+      <DataProvider>
+        <MainApp />
+      </DataProvider>
+    </Provider>
   )
 }

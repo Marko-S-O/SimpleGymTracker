@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes'
-import { saveData } from '../services/dataService'
+import cloneDeep from 'lodash/cloneDeep'
 
 export const initialState = {
     username: '',
@@ -11,18 +11,10 @@ export const initialState = {
     exerciseNames: []
 }
 
-const storeData = () => {
-    // TODO: change this to use asynchronous persistens later
-    // data = [...state]
-    // delete saveData.exerciseNames
-    //delete saveData.token
-    //saveData(data)
-}
-
 const dataReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.SET_DATA: 
-            return {
+        case actionTypes.SET_DATA: {
+            data = {
                 ...state,
                 username: action.payload.data.username,
                 token: action.payload.data.token,
@@ -32,41 +24,41 @@ const dataReducer = (state = initialState, action) => {
                 pastPrograms: action.payload.data.pastPrograms,
                 exerciseNames: action.payload.data.exerciseNames
             }
-
-        case actionTypes.SET_CURRENT_WORKOUT: {
-            data = {...state, currentWorkout: action.payload}
-            storeData(data)
             return data
         }
+        case actionTypes.SET_CURRENT_WORKOUT: {            
+            data = {...state}
+            data.currentWorkout = cloneDeep(action.payload)
+            return data
+        }
+
         case actionTypes.FINISH_CURRENT_WORKOUT: {
             data = {...state, pastWorkouts: [action.payload, ...state.pastWorkouts], currentWorkout: null} 
-            storeData(data)
             return data           
         }
         
         case actionTypes.ADD_PAST_WORKOUT: {
             data = {...state, pastWorkouts: [action.payload, ...state.pastWorkouts]}
-            storeData(data)
             return data      
         }
 
         case actionTypes.DELETE_PAST_WORKOUT: {
             data = {...state, pastWorkouts: state.pastWorkouts.filter(
-                workout => workout.created !== action.payload.created)}
-            storeData(data)
+                workout => workout.created !== action.payload.created)
+            }
             return data      
         }
 
-        case actionTypes.SET_CURRENT_PROGRAM:
-            return {
-                ...state,
-                currentProgram: action.payload   
-            }
+        case actionTypes.SET_CURRENT_PROGRAM: {
+            data = {...state}
+            data.currentProgram = cloneDeep(action.payload)
+            return data
+        }
 
         case actionTypes.ADD_PAST_PROGRAM: 
             return {
                 ...state,
-                pastPrograms: [...state.pastPrograms, action.payload]
+                pastPrograms: [action.payload, ...state.pastPrograms]
             }
 
         case actionTypes.DELETE_PAST_PROGRAM:

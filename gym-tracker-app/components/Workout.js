@@ -5,12 +5,15 @@ import Exercise from './Exercise'
 import AddExerciseModal from './AddExerciseModal'
 import * as UIconstants from './UIconstants'
 
-function Workout({workout, editable, programView, exerciseNames=[], saveWorkout, finishWorkout}) {
+function Workout({workout, editable, programView, exerciseNames=[], saveWorkout, finishWorkout, weekIndex, workoutIndex, updateProgramWorkout}) {
 
     if(!workout) {
         return(<></>)
     }
 
+    // The state of workout is maintained in the internal state of Workout.
+    // Updating the global state with every update would be too heavy.
+    // Global state is updated only when the user saves the data either in workout tracking or program editing.
     const [exercises, setExercises] = useState(workout.exercises)
     const [notes, setNotes] = useState(workout.notes)    
 
@@ -21,8 +24,22 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
 
     const scrollViewRef = useRef(null)
 
-    const addExecise = (name) => {
-        setExercises([...exercises, { name: name, sets: [{ reps: UIconstants.DEFAULT_REPS, weight: 0 }] }])
+    // If we are in the program view, also the internal state of program needs to be updated
+    // when set or exercise data changes. This does not trigger global state and persistence update.
+    const handleProgramUpdate = (exercises, notes, weekIndex, workoutIndex) => {
+        const updatedWorkout = {
+            exercises: [...exercises],
+            notes: notes
+        }
+        updateProgramWorkout(updatedWorkout, weekIndex, workoutIndex)
+    }
+
+    const addExecise = (name, weekIndex, workoutIndex) => {
+        const updatedExercises = [...exercises, { name: name, sets: [{ reps: UIconstants.DEFAULT_REPS, weight: 0 }] }]
+        setExercises(updatedExercises)
+        if(programView) {
+            handleProgramUpdate(updatedExercises, notes, weekIndex, workoutIndex)
+        }
     }
 
     const handleSaveWorkout = () => {
@@ -36,40 +53,50 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
         finishWorkout(exercises, notes)
     }    
 
-    const handleSetNotes = (text) => {
+    const handleSetNotes = (text, weekIndex, workoutIndex) => {
         setNotes(text)
+        if(programView) {
+            handleProgramUpdate(exercises, text, weekIndex, workoutIndex)
+        }        
     }    
 
-    const getSetId = () => {
-        return 1000
-    }
-
-    const handleAddSet = (exerciseId) => {
-
-        const setId = getSetId()
-        setExercises((prevExercises) =>
-            prevExercises.map((exercise) =>
-                exercise.id === exerciseId ? {...exercise, sets: [...exercise.sets, { id: setId, reps: UIconstants.DEFAULT_REPS, weight: 0 }]} : exercise
+    const handleAddSet = (exerciseIndex, weekIndex, workoutIndex) => {
+        const updatedExercises = (prevExercises) =>
+            prevExercises.map((exercise, iExercise) =>
+                iExercise === exerciseIndex ? {...exercise, sets: [...exercise.sets, { reps: UIconstants.DEFAULT_REPS, weight: 0 }]} : exercise
             )
-        )
+
+        setExercises(updatedExercises)
+        if(programView) {
+            handleProgramUpdate(updatedExercises, notes, weekIndex, workoutIndex)
+        }
     }
 
-    const handleDeleteSet = (exerciseId) => {
+    const handleDeleteSet = (exerciseIndex, weekIndex, workoutIndex) => {
 
-        setExercises((prevExercises) =>
-            prevExercises.map((exercise) =>
-                exercise.id === exerciseId ? {...exercise, sets: [...exercise.sets.slice(0, -1)]} : exercise
+        const updatedExercises = (prevExercises) =>
+            prevExercises.map((exercise, iExercise) =>
+                iExercise === exerciseIndex ? {...exercise, sets: [...exercise.sets.slice(0, -1)]} : exercise
             )
-        )
+        setExercises(updatedExercises)
+        if(programView) {
+            handleProgramUpdate(updatedExercises, notes, weekIndex, workoutIndex)
+        }        
+
     }
 
-    const handleDeleteExercise = (exerciseId) => {
+    const handleDeleteExercise = (exerciseIndex, weekIndex, workoutIndex) => {
+        const updatedExercises = exercises.filter((exercise, iExercise) => iExercise !== exerciseIndex)
+        setExercises(updatedExercises)
 
-        setExercises((prevExercises) =>
-            prevExercises.filter((exercise) => exercise.id !== exerciseId)
-        )
+        if(programView) {
+            handleProgramUpdate(updatedExercises, notes, weekIndex, workoutIndex)
+        }        
+
     }
 
+    // Utility method to update set values. Does not manipulate the state.
+    // Internal workout state is updated in handleUpdateSet.
     const updateSetValue = (set, field, action, value) => {
 
         if(field === UIconstants.SET_FIELD_REPS) {
@@ -109,18 +136,23 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
         }
     }
 
-    const handleUpdateSet = (exerciseId, setId, field, action, value) => {
+    const handleUpdateSet = (exerciseIndex, setIndex, field, action, value) => {
 
-        setExercises((prevExercises) => 
-            prevExercises.map((exercise) => 
-                exercise.id === exerciseId ? {
+        const updatedExercises = (prevExercises) => 
+            prevExercises.map((exercise, iExercise) => 
+                iExercise == exerciseIndex ? {
                     ...exercise,
-                    sets: exercise.sets.map((set) => 
-                        set.id === setId ? updateSetValue(set, field, action, value) : set
+                    sets: exercise.sets.map((set, iSet) => 
+                        iSet == setIndex ? updateSetValue(set, field, action, value) : set
                     ),
                 } : exercise
             )
-        )
+        setExercises(updatedExercises)
+
+        // In program view, the internal state of Program component needs to be updated as well
+        if(programView) {
+            handleProgramUpdate(updatedExercises, notes, weekIndex, workoutIndex)
+        }
     }
 
     return (
@@ -149,9 +181,20 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
                 )}
 
                 <View style={{ flex: 1 }}>
-                    {exercises?.length > 0 && 
-                        exercises.map((exercise, index) => (
-                           <Exercise key={index} exercise={exercise} editable={editable} handleAddSet={handleAddSet} handleDeleteSet={handleDeleteSet} handleDeleteExercise={handleDeleteExercise} handleUpdateSet={handleUpdateSet} />
+                    {exercises.length > 0 && 
+                        exercises.map((exercise, exerciseIndex) => (
+                           <Exercise 
+                                key={exerciseIndex} 
+                                exercise={exercise} 
+                                exerciseIndex={exerciseIndex} 
+                                editable={editable} 
+                                handleAddSet={handleAddSet} 
+                                handleDeleteSet={handleDeleteSet} 
+                                handleDeleteExercise={handleDeleteExercise} 
+                                handleUpdateSet={handleUpdateSet} 
+                                weekIndex={weekIndex}
+                                workoutIndex={workoutIndex}
+                            />
                         ))
                     }
                     <TextInput
@@ -166,7 +209,13 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
                     {editable && (
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 10 }}>
 
-                            <AddExerciseModal exerciseNames={exerciseNames} addExecise={addExecise} programView={programView} />    
+                            <AddExerciseModal 
+                                exerciseNames={exerciseNames} 
+                                addExecise={addExecise} 
+                                programView={programView} 
+                                weekIndex={weekIndex}
+                                workoutIndex={workoutIndex}
+                            />    
 
                             {!programView && (
                                 <>

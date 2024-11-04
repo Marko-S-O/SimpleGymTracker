@@ -1,15 +1,16 @@
 import React, {useState} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, TouchableOpacity } from 'react-native'
 import AppStyles from '../styles/AppStyles'
 import Program from './Program'
-import { useData } from '../context/DataContext'
 import { addPastProgram, deletePastProgram, setCurrentProgram, setCurrentWorkout } from '../reducers/dataActions'
 import { useNavigation } from '@react-navigation/native'
 
 export default function CurrentProgram() {
 
     const navigation = useNavigation()
-    const { state, dispatch } = useData()
+    const dispatch = useDispatch()
+    const state = useSelector(state => state.data);  
 
     const [index, setIndex] = useState(0)
 
@@ -38,26 +39,27 @@ export default function CurrentProgram() {
     }
 
     const program = (state.pastPrograms && (state.pastPrograms.length > 0)) ? state.pastPrograms[index] : null
+    const isActionsDisabled = !program
     const isNextDisabled = index<=0 
     const isPreviousDisabled = index==(state.pastPrograms.length-1) || state.pastPrograms.length == 0
 
     return (
         <>
-        <View style={[AppStyles.programHeader, {marginBottom: 0}]}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 5 }}>
-                <TouchableOpacity style={[AppStyles.smallButton, isPreviousDisabled && { opacity: 0.5 }]} onPress={()=> handleNavigate('previous')} >
+        <View style={[AppStyles.programHeader, {marginBottom: 0, marginLeft: 3, marginRight: 3}]}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 2 }}>
+                <TouchableOpacity style={[AppStyles.smallButton, isPreviousDisabled && { opacity: 0.5 }]} onPress={()=> handleNavigate('previous')} disabled={isPreviousDisabled} >
                     <Text style={AppStyles.buttonText}>Previous</Text>
                 </TouchableOpacity>                          
 
-                <TouchableOpacity style={AppStyles.smallButton} onPress={handleDelete} >
+                <TouchableOpacity style={[AppStyles.smallButton, isActionsDisabled && { opacity: 0.5 }]} onPress={handleDelete} disabled={isActionsDisabled} >
                     <Text style={AppStyles.buttonText}>Delete</Text>
                 </TouchableOpacity>  
 
-                <TouchableOpacity style={AppStyles.smallButton} onPress={handleActivate} >
+                <TouchableOpacity style={[AppStyles.smallButton, isActionsDisabled && { opacity: 0.5 }]} onPress={handleActivate} disabled={isActionsDisabled} >
                     <Text style={AppStyles.buttonText}>Activate</Text>
                 </TouchableOpacity>                            
 
-                <TouchableOpacity style={[AppStyles.smallButton, isNextDisabled && { opacity: 0.5 }]} onPress={()=> handleNavigate('next')} >
+                <TouchableOpacity style={[AppStyles.smallButton, isNextDisabled && { opacity: 0.5 }]} onPress={()=> handleNavigate('next')} disabled={isNextDisabled} >
                     <Text style={AppStyles.buttonText}>Next</Text>
                 </TouchableOpacity>                  
             </View>
@@ -66,9 +68,9 @@ export default function CurrentProgram() {
         {program ? (
             <Program program={program} editable={false} programView={true} startWorkout={startWorkout} />
         ):(
-            <>
+            <View style={[AppStyles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
                 <Text>No past programs</Text>
-            </>
+            </View>
         )}
         </>
     )
