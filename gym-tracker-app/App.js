@@ -6,8 +6,13 @@ import { DataProvider } from './context/DataContext'
 import { setData } from './reducers/dataActions'
 import { readData } from './services/dataService'
 import store from './store/configureStore'
+import { IconButton } from 'react-native-paper'
 
 function MainApp() {
+
+  const handleRefresh = () => {
+    console.log('foo')
+  }
 
   const dispatch = useDispatch()
 
@@ -20,7 +25,7 @@ function MainApp() {
   }, [dispatch])
 
   return (
-    <NavigationContainer>
+    <NavigationContainer>      
       <AppNavigator />
     </NavigationContainer>
   )
