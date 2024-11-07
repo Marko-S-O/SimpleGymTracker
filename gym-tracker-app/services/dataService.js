@@ -1,12 +1,12 @@
 // Server communications part of this program makes use of the Uni Helsinki 
 // FullStackOpen example program 
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Platform } from 'react-native'
 import axios from 'axios'
 import testData from '../test/testData'
-import { Platform } from 'react-native'
+import { getEmptyData } from '../util/dataHelper'
 
-const isDevelopment = true
-const TEST_API_URL = Platform.OS == 'android' ? 'http://10.0.2.2:3001/api/data' : 'http://localhost:3001/api/data' 
+const API_URL = Platform.OS == 'android' ? 'http://10.0.2.2:3001/api/data' : 'http://localhost:3001/api/data' 
 const testUserId = 'testuser'
 
 
@@ -18,6 +18,16 @@ const saveDataToServer = async (data) => {
     } catch (error) {
         // eslint-disable-next-line
         console.log('Error saving data to server', error)
+    }
+}
+
+export const saveDataLocal = async (data) => {
+
+    try {
+        data.data.username = 'testuser'
+        await AsyncStorage.setItem(`gym-tracker-data`, JSON.stringify(data))
+    } catch (error) {
+        console.error('Error saving data to local storage:', error)
     }
 }
 
@@ -37,59 +47,65 @@ export const saveData = async (data) => {
 
 }
 
-export const saveDataLocal = async (data) => {
-    try {
-        await AsyncStorage.setItem(`gym-tracker-data`, JSON.stringify(data))
-    } catch (error) {
-        console.error('Error saving data to local storage:', error)
-    }
-}
 
-// Fix serialized dates and re-build the list of used exercise names to be used in UI
-const fixDatesAndExerciseList = (data) => {
+// Fix serialized dates to Date objects
+const convertDates = (data) => {
     const fixedData = {...data}
-    const exerciseNameSet = new Set()
 
-    if(fixedData.currentWorkout) {
-        fixedData.currentWorkout.exercises.forEach(exercise => exerciseNameSet.add(exercise.name))
+    if (fixedData.currentWorkout?.created) {
         fixedData.currentWorkout.created = new Date(fixedData.currentWorkout.created)
+    }
+    if (fixedData.currentWorkout?.saved) {
         fixedData.currentWorkout.saved = new Date(fixedData.currentWorkout.saved)
     }
 
-    if(fixedData.pastWorkouts) {
-        fixedData.pastWorkouts.forEach(workout => {
-            workout.exercises.forEach(exercise => exerciseNameSet.add(exercise.name))        
-            workout.created = new Date(workout.created)
-            workout.saved = new Date(workout.saved)
-        })
-    }
+    fixedData.pastWorkouts?.forEach(workout => {
+        workout.created = new Date(workout.created)
+        workout.saved = new Date(workout.saved)
+    })
 
-    if(fixedData.currentProgram) {
-        fixedData.currentProgram.weeks.forEach(week => {
-            week.workouts.forEach(workout => {
-                workout.exercises.forEach(exercise => exerciseNameSet.add(exercise.name))     
-            })
-        })
+    if (fixedData.currentProgram?.created) {
         fixedData.currentProgram.created = new Date(fixedData.currentProgram.created)
+    }
+    if (fixedData.currentProgram?.saved) {
         fixedData.currentProgram.saved = new Date(fixedData.currentProgram.saved)
     }
 
-    if(fixedData.pastPrograms) {
-        fixedData.pastPrograms.forEach(program => {
-            program?.weeks.forEach(week => {
-                week.workouts.forEach(workout => {
-                    workout.exercises.forEach(exercise => exerciseNameSet.add(exercise.name))     
-                })
-            program.created = new Date(program.created)
-            program.saved = new Date(program.saved)                
+    fixedData.pastPrograms?.forEach(program => {
+        program.created = new Date(program.created)
+        program.saved = new Date(program.saved)     
+    })
+    return fixedData
+}
+
+const createExerciseList = (data) => {
+
+    const fixedData = {...data}
+    const exerciseNameSet = new Set()
+
+    fixedData.currentWorkout?.exercises?.forEach(exercise => exerciseNameSet.add(exercise.name))
+
+    fixedData.pastWorkouts?.forEach(workout => {
+        workout.exercises?.forEach(exercise => exerciseNameSet.add(exercise.name))        
+    })
+
+    fixedData.currentProgram?.weeks?.forEach(week => {
+        week.workouts?.forEach(workout => {
+            workout.exercises?.forEach(exercise => exerciseNameSet.add(exercise.name))     
+        })
+    })
+
+    fixedData.pastPrograms?.forEach(program => {
+        program?.weeks?.forEach(week => {
+            week.workouts?.forEach(workout => {
+                workout.exercises?.forEach(exercise => exerciseNameSet.add(exercise.name))     
             })
         })
-    }
+    })
 
     const exerciseNames = [...exerciseNameSet].sort()
     fixedData.exerciseNames = exerciseNames
     return fixedData
-    
 }
 
 const sortData = (data) => {
@@ -99,19 +115,10 @@ const sortData = (data) => {
     return sortedData
 }
 
-const getEmptyData = () => {
-    data = {
-        currentWorkout: null,
-        pastWorkouts: [],
-        currentProgram: null,
-        pastPrograms: [],
-        exerciseNames: []
-    }
-    return data
-}
 
 const selectNewer = (object1, object2) => {
-    return object1.created >= object2.created ? object1 : object2
+
+    return object1.saved >= object2.saved ? object1 : object2
 }
 
 // Merge server and local data. This is done always when reading the data. Reading data
@@ -166,8 +173,10 @@ const readDataLocal = async () => {
     try {
         const localInput = await AsyncStorage.getItem(`gym-tracker-data`)
         if (localInput !== null) {
-            localData = JSON.parse(localInput)            
-            return localData.data
+            let localData = JSON.parse(localInput)    
+            localData = convertDates(localData.data)
+            localData = sortData(localData)
+            return localData
         } else {
             console.log('No local data found')
             return getEmptyData()
@@ -178,15 +187,17 @@ const readDataLocal = async () => {
     }
 }
 
-const readDataServer = async () => {
+export const readDataServer = async (username) => {
 
     try {
-        const url = API_URL + '/' + testUserId
+        const url = API_URL + '/' + username
         const response = await axios.get(url)
-        const serverData = response.data.data
-        if (serverData !== null) {
-            const data = JSON.parse(serverData)
-            return data
+        const serverInput = response.data.data
+        if (serverInput !== null) {
+            let serverData = JSON.parse(serverInput)
+            serverData = convertDates(serverData)
+            serverData = sortData(serverData)
+            return serverData
         } else {
             console.log('No server data found')
             return getEmptyData()
@@ -201,14 +212,34 @@ export const readData = async () => {
 
     //let data = testData.data
     
-    const localData = await readDataLocal()    
-    const serverData = await readDataServer()
+    const localData = await readDataLocal()   
+    const username  = localData.username 
+    const serverData = await readDataServer(username)
+    console.log('---- LOCAL')
+    console.log(localData)
+    console.log('---- REMOTE')
+    console.log(serverData)
 
     let data = mergeData(localData, serverData)
-    data = fixDatesAndExerciseList(data)
+    data = createExerciseList(data)
     data = sortData(data)
 
-    return data    
+    console.log('---- MERGED')
+    console.log(data)
 
+    return data    
+}
+
+export const hasLocalData = async () => {
+    try {
+        const localInput = await AsyncStorage.getItem(`gym-tracker-data`)
+        hasData = localInput != null
+        return hasData
+
+    } catch (error) {
+        console.error('Failed to read local data in hasLocalData:', error)
+        return false
+    }
+    
 }
 

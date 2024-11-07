@@ -21,3 +21,14 @@ export const getEmptyWorkout = () => {
     }
     return workout
 }
+
+export const getEmptyData = () => {
+    data = {
+        currentWorkout: null,
+        pastWorkouts: [],
+        currentProgram: null,
+        pastPrograms: [],
+        exerciseNames: []
+    }
+    return data
+}

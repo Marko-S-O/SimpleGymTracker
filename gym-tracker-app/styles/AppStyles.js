@@ -145,7 +145,19 @@ export default StyleSheet.create({
     alignItems: 'center',  
     justifyContent: 'center',   
     color: '#FFFFFF',  
-  },  
+  }, 
+  modalButton: {
+    backgroundColor: '#6B7280',
+    paddingVertical: 5,
+    paddingHorizontal: 8,
+    borderRadius: 6,
+    marginHorizontal: 5,
+    marginVertical: 10,
+    width: 130,
+    alignItems: 'center',  
+    justifyContent: 'center',   
+    color: '#FFFFFF',  
+  },    
   buttonText: {
     fontSize: 14,
     color: '#FFFFFF',
@@ -228,5 +240,56 @@ export default StyleSheet.create({
     fontWeight: 'normal',
     fontSize: 16,
     color: '#1F2937',    
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+      width: '80%',
+      backgroundColor: '#EEEEFF',
+      borderRadius: 10,
+      padding: 20,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.8,
+      shadowRadius: 2,
+      elevation: 5,
+  },
+  messageText: {
+      fontSize: 18,
+      marginBottom: 20,
+      textAlign: 'center',
+  },
+  buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+  },
+
+  cancelButton: {
+      backgroundColor: '#6c757d',
+  },
+  tabBar: { 
+    backgroundColor: '#4b5563', 
+    height: 37, 
+    padding: 0, 
+    marginTop: 0 
+  },
+  tabBarIndicator: { 
+    backgroundColor: '#E0E0FF' 
+  },
+  tabBarLabel: { 
+    color: 
+    '#f9fafb', 
+    fontWeight: 'bold' 
+  },
+  stackNavigatorHeader: { 
+    backgroundColor: '#4b5563', 
+    height:30
   }
+
 })

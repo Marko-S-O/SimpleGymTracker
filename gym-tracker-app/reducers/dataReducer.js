@@ -26,6 +26,11 @@ const dataReducer = (state = initialState, action) => {
             }
             return data
         }
+        case actionTypes.REFRESH_AND_SET_DATA: {
+            console.log('REFRESH_AND_SET_DATA')
+            data = {...action.payload}
+            return data
+        }
         case actionTypes.SET_CURRENT_WORKOUT: {            
             data = {...state}
             data.currentWorkout = cloneDeep(action.payload)

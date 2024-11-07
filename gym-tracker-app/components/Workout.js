@@ -5,6 +5,8 @@ import Exercise from './Exercise'
 import AddExerciseModal from './AddExerciseModal'
 import * as UIconstants from './UIconstants'
 
+// Workout is the core component of the app used across all the tabs. 
+// It provides most of the rendering and editing functionality across all tabs.
 function Workout({workout, editable, programView, exerciseNames=[], saveWorkout, finishWorkout, weekIndex, workoutIndex, updateProgramWorkout}) {
 
     if(!workout) {

@@ -47,4 +47,9 @@ export const deletePastProgram = (program) => ({
     payload: program
 })
 
+export const refreshAndSetData = () => ({
+    type: actionTypes.REFRESH_AND_SET_DATA,
+    payload: {}
+})
+
 

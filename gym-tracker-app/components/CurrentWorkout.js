@@ -10,13 +10,11 @@ import cloneDeep from 'lodash/cloneDeep'
 function CurrentWorkout() {
 
     const state = useSelector(state => state.data);
+    const workout = state.currentWorkout ? cloneDeep(state.currentWorkout) : null
 
     const dispatch = useDispatch()
     const navigation = useNavigation()
   
-    const workout = cloneDeep(state.currentWorkout)
-    const exerciseNames = state.exerciseNames
-
     const saveWorkout = (exercises, notes) => {
         const workout = {...state.currentWorkout, exercises: exercises, notes: notes, saved: new Date()}
         dispatch(setCurrentWorkout(workout))
@@ -35,9 +33,10 @@ function CurrentWorkout() {
 
     return(
         workout ? (
-            <Workout workout={workout} editable={true} programView={false} exerciseNames={exerciseNames} saveWorkout={saveWorkout} finishWorkout={finishWorkout} />
+            <Workout workout={workout} editable={true} programView={false} exerciseNames={state.exerciseNames} saveWorkout={saveWorkout} finishWorkout={finishWorkout} />
         ):(
-            <View style={[AppStyles.container, {padding: 15, alignItems: 'center'}]}>
+            <View style={[AppStyles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
+
                 <Text style={{ marginBottom: 10 }}>No active workout</Text>
                 <TouchableOpacity style={AppStyles.largeButton} onPress={handleStartWorkout} >
                     <Text style={AppStyles.buttonText}>Start Workout</Text>

@@ -14,8 +14,7 @@ export default function CurrentProgram() {
   const navigation = useNavigation()
   const state = useSelector(state => state.data)
 
-  const program = cloneDeep(state.currentProgram)
-  const exerciseNames = state.exerciseNames
+  const program = state.currentProgram ? cloneDeep(state.currentProgram) : null
   
   const saveProgram = (weeks, name) => {
     const updatedWeeks = cloneDeep(weeks)
@@ -41,7 +40,7 @@ export default function CurrentProgram() {
 
   return (
     program ? (
-      <Program program={program} editable={true} programView={true} saveProgram={saveProgram} startProgram={startProgram} startWorkout={startWorkout} exerciseNames={exerciseNames} />
+      <Program program={program} editable={true} programView={true} saveProgram={saveProgram} startProgram={startProgram} startWorkout={startWorkout} exerciseNames={state.exerciseNames} />
     ):(
       <View style={[AppStyles.container, {padding: 15, alignItems: 'center'}]}>
         <Text style={{ marginBottom: 10 }}>No active program</Text>

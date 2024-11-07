@@ -8,11 +8,13 @@ import { useNavigation } from '@react-navigation/native'
 
 export default function CurrentProgram() {
 
-    const navigation = useNavigation()
-    const dispatch = useDispatch()
+    const [index, setIndex] = useState(0)
     const state = useSelector(state => state.data);  
 
-    const [index, setIndex] = useState(0)
+    const navigation = useNavigation()
+    const dispatch = useDispatch()
+
+    const program = state.pastPrograms?.[index] ?? null
 
     const handleNavigate = (direction) => {
         if(direction == 'previous') {
@@ -38,10 +40,9 @@ export default function CurrentProgram() {
         navigation.navigate('Workout')
     }
 
-    const program = (state.pastPrograms && (state.pastPrograms.length > 0)) ? state.pastPrograms[index] : null
     const isActionsDisabled = !program
-    const isNextDisabled = index<=0 
-    const isPreviousDisabled = index==(state.pastPrograms.length-1) || state.pastPrograms.length == 0
+    const isNextDisabled = !program?.pastPrograms || index <= 0
+    const isPreviousDisabled = !program?.pastPrograms || (index >= pastPrograms.length-1)
 
     return (
         <>

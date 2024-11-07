@@ -8,9 +8,14 @@ import { useNavigation } from '@react-navigation/native'
 
 function PastWorkouts() {
 
+    const state = useSelector(state => state.data)
+    if(!state.pastWorkouts) {
+        return(<></>)
+    }
+
     const navigation = useNavigation()
     const dispatch = useDispatch()
-    const state = useSelector(state => state.data);  
+    
     
     const [index, setIndex] = useState(0)
 

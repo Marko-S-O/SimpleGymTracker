@@ -6,4 +6,4 @@ export const SET_CURRENT_PROGRAM = 'SET_CURRENT_PROGRAM' // sets the current act
 export const UPDATE_CURRENT_PROGRAM = 'UPDATE_CURRENT_PROGRAM' // update the active program
 export const ADD_PAST_PROGRAM = 'ADD_PAST_PROGRAM' // add a program to the program history
 export const DELETE_PAST_PROGRAM = 'DELETE_PAST_PROGRAM' // deletes a past program from program history
-
+export const REFRESH_AND_SET_DATA = 'REFRESH_AND_SET_DATA' // refreshes data (read local and server data + merge)
