@@ -19,5 +19,5 @@ export const getEmptyWorkout = () => {
         exercises: [],
         notes: ''        
     }
-    return workout
+    return workout;
 }

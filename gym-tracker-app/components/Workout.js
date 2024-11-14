@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, Text, ScrollView, TouchableOpacity, TextInput } from 'react-native'
-import AppStyles from '../styles/AppStyles'
+import { View, Text, ScrollView, TouchableOpacity, TextInput, Platform } from 'react-native'
 import Exercise from './Exercise'
 import AddExerciseModal from './AddExerciseModal'
 import * as UIconstants from './UIconstants'
+import androidStyles from '../styles/styles.android'
+import webStyles from '../styles/styles.web'
+
+const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
 // Workout is the core component of the app used across all the tabs. 
 // It provides most of the rendering and editing functionality across all tabs.
@@ -158,34 +161,34 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
     }
 
     return (
-        <View style={[AppStyles.day, { flex: 1 }]}>
+        <View style={[styles.day, { flex: 1 }]}>
             <ScrollView ref={scrollViewRef} contentContainerStyle={{ flexGrow: 1, padding: 5 }}>
 
                 {(editable && !programView) && (
-                    <View style={AppStyles.WorkoutHeader}>
-                        <Text style={[AppStyles.boldText, {paddingLeft: 5}]}>Workout Tracker</Text>     
-                        <View style={[AppStyles.WorkoutHeader, {flexDirection: 'row'}]}>
-                            <Text style={AppStyles.normalText}>Saved: </Text>      
+                    <View style={styles.WorkoutHeader}>
+                        <Text style={[styles.boldText, {paddingLeft: 5}]}>Workout Tracker</Text>     
+                        <View style={[styles.WorkoutHeader, {flexDirection: 'row'}]}>
+                            <Text style={styles.normalText}>Saved: </Text>      
                             { workout.saved && (
-                                <Text style={AppStyles.normalText}> {workout.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
+                                <Text style={styles.normalText}> {workout.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
                             )}
                         </View>                    
                     </View>
                 )}
 
                 {(!editable && !programView) && (
-                    <View style={[AppStyles.WorkoutHeader, {flexDirection: 'row'}]}>
-                        <Text style={AppStyles.boldText}> Created: </Text>             
-                        <Text style={AppStyles.normalText}> {workout.created.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
-                        <Text style={AppStyles.boldText}> Finished: </Text>             
-                        <Text style={AppStyles.normalText}> {workout.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
+                    <View style={[styles.WorkoutHeader, {flexDirection: 'row'}]}>
+                        <Text style={styles.boldText}> Created: </Text>             
+                        <Text style={styles.normalText}> {workout.created.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
+                        <Text style={styles.boldText}> Finished: </Text>             
+                        <Text style={styles.normalText}> {workout.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
                     </View>                    
                 )}
 
                 <View style={{ flex: 1 }}>
                     {exercises.length > 0 && 
                         exercises.map((exercise, exerciseIndex) => (
-                           <Exercise 
+                            <Exercise 
                                 key={exerciseIndex} 
                                 exercise={exercise} 
                                 exerciseIndex={exerciseIndex} 
@@ -221,11 +224,11 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
 
                             {!programView && (
                                 <>
-                                    <TouchableOpacity style={AppStyles.fixedButton} onPress={handleSaveWorkout}>
-                                        <Text style={AppStyles.buttonText}>Save Workout</Text>
+                                    <TouchableOpacity style={styles.fixedButton} onPress={handleSaveWorkout}>
+                                        <Text style={styles.buttonText}>Save Workout</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={AppStyles.fixedButton} onPress={handleFinishWorkout}>
-                                        <Text style={AppStyles.buttonText}>Finish Workout</Text>
+                                    <TouchableOpacity style={styles.fixedButton} onPress={handleFinishWorkout}>
+                                        <Text style={styles.buttonText}>Finish Workout</Text>
                                     </TouchableOpacity>     
                                 </>
                             )}

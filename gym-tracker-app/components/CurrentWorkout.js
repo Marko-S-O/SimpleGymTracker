@@ -1,15 +1,22 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View, Platform } from 'react-native'
 import Workout from './Workout'
-import AppStyles from '../styles/AppStyles'
 import { setCurrentWorkout, finishCurrentWorkout } from '../reducers/dataActions'
 import { useNavigation } from '@react-navigation/native'
 import cloneDeep from 'lodash/cloneDeep'
+import androidStyles from '../styles/styles.android'
+import webStyles from '../styles/styles.web'
+
+const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
 function CurrentWorkout() {
 
     const state = useSelector(state => state.data);
+
+    console.log('CurrentWorkout')
+    console.log(state)
+
     const workout = state.currentWorkout ? cloneDeep(state.currentWorkout) : null
 
     const dispatch = useDispatch()
@@ -27,7 +34,7 @@ function CurrentWorkout() {
     }
 
     const handleStartWorkout = () => {
-        const workout = {exercises: [], notes: '', created: new Date()}
+        const workout = {...state.currentWorkout, exercises: [], notes: '', created: new Date()}
         dispatch(setCurrentWorkout(workout))
     }
 
@@ -35,11 +42,11 @@ function CurrentWorkout() {
         workout ? (
             <Workout workout={workout} editable={true} programView={false} exerciseNames={state.exerciseNames} saveWorkout={saveWorkout} finishWorkout={finishWorkout} />
         ):(
-            <View style={[AppStyles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
+            <View style={[styles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
 
                 <Text style={{ marginBottom: 10 }}>No active workout</Text>
-                <TouchableOpacity style={AppStyles.largeButton} onPress={handleStartWorkout} >
-                    <Text style={AppStyles.buttonText}>Start Workout</Text>
+                <TouchableOpacity style={styles.largeButton} onPress={handleStartWorkout} >
+                    <Text style={styles.buttonText}>Start Workout</Text>
                 </TouchableOpacity>    
                 <Text style={{ marginTop: 10 }}>or use a past workout or program to start.</Text>                 
             </View>

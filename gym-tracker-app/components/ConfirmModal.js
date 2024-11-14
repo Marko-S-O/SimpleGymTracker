@@ -1,7 +1,9 @@
 import React from 'react'
-import { Modal, View, Text, TouchableOpacity } from 'react-native'
-import AppStyles from '../styles/AppStyles';
+import { Modal, View, Text, TouchableOpacity, Platform } from 'react-native'
+import androidStyles from '../styles/styles.android'
+import webStyles from '../styles/styles.web'
 
+const styles = Platform.OS === 'web' ? webStyles : androidStyles
 
 const ConfirmModal = ({ visible, onRequestClose, onConfirm, header, message }) => {
 
@@ -12,16 +14,16 @@ const ConfirmModal = ({ visible, onRequestClose, onConfirm, header, message }) =
             visible={visible}
             onRequestClose={onRequestClose} // Called when the user taps the hardware back button
         >
-            <View style={AppStyles.modalOverlay}>
-                <View style={AppStyles.modalContainer}>
-                    <Text style={[AppStyles.boldText, {textAlign: 'center'}]}>{header}</Text>                    
-                    <Text style={[AppStyles.normalText, {textAlign: 'center'}]}>{message}</Text>
-                    <View style={AppStyles.buttonContainer}>
-                        <TouchableOpacity style={AppStyles.modalButton} onPress={onConfirm}>
-                            <Text style={AppStyles.buttonText}>Yes</Text>
+            <View style={styles.modalOverlay}>
+                <View style={styles.modalContainer}>
+                    <Text style={[styles.boldText, {textAlign: 'center'}]}>{header}</Text>                    
+                    <Text style={[styles.normalText, {textAlign: 'center'}]}>{message}</Text>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.modalButton} onPress={onConfirm}>
+                            <Text style={styles.buttonText}>Yes</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={AppStyles.modalButton} onPress={onRequestClose}>
-                            <Text style={AppStyles.buttonText}>Cancel</Text>
+                        <TouchableOpacity style={styles.modalButton} onPress={onRequestClose}>
+                            <Text style={styles.buttonText}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

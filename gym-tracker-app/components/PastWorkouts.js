@@ -1,10 +1,13 @@
 import React, {useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Platform } from 'react-native'
 import Workout from './Workout'
-import AppStyles from '../styles/AppStyles'
 import { setCurrentWorkout, deletePastWorkout } from '../reducers/dataActions'
 import { useNavigation } from '@react-navigation/native'
+import androidStyles from '../styles/styles.android'
+import webStyles from '../styles/styles.web'
+
+const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
 function PastWorkouts() {
 
@@ -53,43 +56,42 @@ function PastWorkouts() {
 
     return(
         <>
-        <View style={[AppStyles.WorkoutHeader, {marginLeft: 4, marginRight: 4, marginBottom: 0}]}>
-            <Text style={[AppStyles.boldText, {paddingLeft: 5}]}>My Past Workouts</Text>     
-            <View style={[AppStyles.WorkoutHeader, { flexDirection: 'row', justifyContent: 'space-between', marginLeft: 4, marginRight: 4, marginBottom: 0}]}>
-                <TouchableOpacity style={[AppStyles.smallButton, isPreviousDisabled && { opacity: 0.5 }]} disabled={isPreviousDisabled} onPress={() => handleNavigate('previous')} >
-                    <Text style={AppStyles.buttonText}>Previous</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[AppStyles.smallButton, isNewDisabled && { opacity: 0.5 }]} disabled={isNewDisabled} onPress={() => handleCopyNew()} >
-                    <Text style={AppStyles.buttonText}>Copy New</Text>
-                </TouchableOpacity>   
-                <TouchableOpacity style={[AppStyles.smallButton, isDeleteDisabled && { opacity: 0.5 }]} disabled={isDeleteDisabled} onPress={() => handleDelete()} >
-                    <Text style={AppStyles.buttonText}>Delete</Text>
-                </TouchableOpacity>                        
-                <TouchableOpacity style={[AppStyles.smallButton, isNextDisabled && { opacity: 0.5 }]} disabled={isNextDisabled} onPress={() => handleNavigate('next')} >
-                    <Text style={AppStyles.buttonText}>Next</Text>
-                </TouchableOpacity>                            
-            </View> 
-        </View>   
-        { workout && (
-            <Workout workout={workout} editable={false} programView={false} />
-        )}
-        { !workout && (            
-            <View style={[AppStyles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
-                <Text style={{ marginBottom: 10 }}>No past workouts</Text>                
-                {isNewDisabled ? (
-                    <Text style={{ marginTop: 10 }}>You have an ongoing active workout.</Text>  
-                ):(
-                    <>
-                    <TouchableOpacity style={AppStyles.largeButton} onPress={handleStartWorkout} >
-                        <Text style={AppStyles.buttonText}>Start Workout</Text>
-                    </TouchableOpacity>    
-                    <Text style={{ marginTop: 10 }}>or use a  program to start one.</Text>  
-                    </>                    
+            <View style={[styles.WorkoutHeader, {marginLeft: 4, marginRight: 4, marginBottom: 0}]}>
+                <Text style={[styles.boldText, {paddingLeft: 5}]}>My Past Workouts</Text>     
+                <View style={[styles.WorkoutHeader, { flexDirection: 'row', justifyContent: 'space-between', marginLeft: 4, marginRight: 4, marginBottom: 0}]}>
+                    <TouchableOpacity style={[styles.smallButton, isPreviousDisabled && { opacity: 0.5 }]} disabled={isPreviousDisabled} onPress={() => handleNavigate('previous')} >
+                        <Text style={styles.buttonText}>Previous</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.smallButton, isNewDisabled && { opacity: 0.5 }]} disabled={isNewDisabled} onPress={() => handleCopyNew()} >
+                        <Text style={styles.buttonText}>Copy New</Text>
+                    </TouchableOpacity>   
+                    <TouchableOpacity style={[styles.smallButton, isDeleteDisabled && { opacity: 0.5 }]} disabled={isDeleteDisabled} onPress={() => handleDelete()} >
+                        <Text style={styles.buttonText}>Delete</Text>
+                    </TouchableOpacity>                        
+                    <TouchableOpacity style={[styles.smallButton, isNextDisabled && { opacity: 0.5 }]} disabled={isNextDisabled} onPress={() => handleNavigate('next')} >
+                        <Text style={styles.buttonText}>Next</Text>
+                    </TouchableOpacity>                            
+                </View> 
+            </View>   
+            { workout && (
+                <Workout workout={workout} editable={false} programView={false} />
+            )}
+            { !workout && (            
+                <View style={[styles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
+                    <Text style={{ marginBottom: 10 }}>No past workouts</Text>                
+                    {isNewDisabled ? (
+                        <Text style={{ marginTop: 10 }}>You have an ongoing active workout.</Text>  
+                    ):(
+                        <>
+                            <TouchableOpacity style={styles.largeButton} onPress={handleStartWorkout} >
+                                <Text style={styles.buttonText}>Start Workout</Text>
+                            </TouchableOpacity>    
+                            <Text style={{ marginTop: 10 }}>or use a  program to start one.</Text>  
+                        </>                    
 
-                )}
-            </View>
-            
-        )}
+                    )}
+                </View>            
+            )}
         </>
     )
 }

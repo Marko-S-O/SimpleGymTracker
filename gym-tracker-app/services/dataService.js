@@ -3,18 +3,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Platform } from 'react-native'
 import axios from 'axios'
-import testData from '../test/testData'
 import { getEmptyData } from '../util/dataHelper'
 
 const API_URL = Platform.OS == 'android' ? 'http://10.0.2.2:3001/api/data' : 'http://localhost:3001/api/data' 
-const testUserId = 'testuser'
-
 
 const saveDataToServer = async (data) => {
 
+    console.log('Saving data to server')
+    //console.trace("Logging call stack")
+    //console.log(data)
     try {
-        const url = API_URL + '/' + testUserId
+        const url = API_URL + '/' + data.username;
         const response = await axios.put(url, data)
+        return response.data
     } catch (error) {
         // eslint-disable-next-line
         console.log('Error saving data to server', error)
@@ -24,7 +25,7 @@ const saveDataToServer = async (data) => {
 export const saveDataLocal = async (data) => {
 
     try {
-        data.data.username = 'testuser'
+        data.data.username = data.username;
         await AsyncStorage.setItem(`gym-tracker-data`, JSON.stringify(data))
     } catch (error) {
         console.error('Error saving data to local storage:', error)
@@ -131,11 +132,11 @@ const selectNewer = (object1, object2) => {
 // - After merge, update the merged data to the server and local storage
 const mergeData = (localData, serverData) => {
 
-    currentWorkout = localData.currentWorkout && serverData.currentWorkout ?
+    const currentWorkout = localData.currentWorkout && serverData.currentWorkout ?
         selectNewer(localData.currentWorkout, serverData.currentWorkout) :
         localData.currentWorkout || serverData.currentWorkout
 
-    currentProgram = localData.currentProgram && serverData.currentProgram ?
+    const currentProgram = localData.currentProgram && serverData.currentProgram ?
         selectNewer(localData.currentProgram, serverData.currentProgram) : 
         localData.currentProgram || serverData.currentProgram
 
@@ -156,6 +157,10 @@ const mergeData = (localData, serverData) => {
     pastPrograms = Array.from(programMap.values())
 
     const username = serverData.username ? serverData.username : localData.username
+
+    if(usernmame == null || username.length == 0) {
+        console.log('No username found in merge')
+    }
 
     const mergedData = {
         currentWorkout: currentWorkout,
@@ -215,17 +220,17 @@ export const readData = async () => {
     const localData = await readDataLocal()   
     const username  = localData.username 
     const serverData = await readDataServer(username)
-    console.log('---- LOCAL')
-    console.log(localData)
-    console.log('---- REMOTE')
-    console.log(serverData)
+    //console.log('---- LOCAL')
+    //console.log(localData)
+    //console.log('---- REMOTE')
+    //console.log(serverData)
 
     let data = mergeData(localData, serverData)
     data = createExerciseList(data)
     data = sortData(data)
 
-    console.log('---- MERGED')
-    console.log(data)
+    //console.log('---- MERGED')
+    //console.log(data)
 
     return data    
 }

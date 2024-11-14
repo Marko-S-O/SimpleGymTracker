@@ -8,32 +8,50 @@
 //
 // Persistence is implemented asynchronously in the middleware to minimize impact on responsibility.
 //
-import { saveData, readData } from '../services/dataService'
+import { saveData, readData, readDataServer } from '../services/dataService'
 import * as actionTypes from '../reducers/actionTypes'
 
 const dataPersisterMiddleware = store => next => async action => {
 
     if(action.type == actionTypes.REFRESH_AND_SET_DATA) {
         // Refresh is done when user clicks the refresh icon in the top-right corner. 
-        // Refresg reads the local and server data, merged them and updates to the global state.
-        // Use case for this is that user prepares the workout or program in web, goes 
-        // to the gym with a phone and starts tracking the exercise.
-
-        console.log('middleware refresh')
-        data = await readData()
+        // Refresh reads the local and server data, merges them and updates to the global state.
+        // Use case for this is that the user prepares the workout or program in web, 
+        // goes to the gym with a phone and starts tracking the exercise.
+        const data = await readData()
         action.payload = data
-        console.log(data)
         next(action)
+        return result
+
+    } else if(action.type == actionTypes.SETUP_USER) {
+
+        console.log('setup user')
+
+        const username = action.payload.username
+
+        // when setting up user, replace the data empty new user data
+        // by the server data if available
+        const data = await readDataServer(username)
+        if(data && data.username && data.username.lenght > 0) {
+            action.payload = {...data}
+        }
+        console.log(action.payload.username)
+        const result = next(action)
+        return result
 
     } else {
         // Data is updated to the global state only when the user clicks save in the workout or program tab.
         // The persistence to the local and global storage is always done when the global state changes.
-        const result = next(action)
+        console.log('middleware');
+        console.log('Action:', action);
+        const result = next(action);
+        console.log('Result:', result);
+        const state = store.getState();
+        console.log('State after action:', state);
+        console.log('Username in state:', state.username);
+        saveData(state);
+        return result;
 
-        const data = store.getState()
-        saveData(data)
-
-        return result
     }
 }
 

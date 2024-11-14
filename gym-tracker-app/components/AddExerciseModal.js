@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, TextInput, Modal, ScrollView, Keyboard } from 'react-native'
-import AppStyles from '../styles/AppStyles'
+import { View, Text, TouchableOpacity, TextInput, Modal, ScrollView, Keyboard, Platform } from 'react-native'
+import androidStyles from '../styles/styles.android'
+import webStyles from '../styles/styles.web'
 
+const styles = Platform.OS === 'web' ? webStyles : androidStyles;
+
+// A dialog component to initialize an exercise. The name can be either chosen from the list
+// that includes exercis from past workouts and programs, or type on new one.
 const AddExerciseModal = ({exerciseNames, addExecise, programView, weekIndex, workoutIndex}) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -19,9 +24,8 @@ const AddExerciseModal = ({exerciseNames, addExecise, programView, weekIndex, wo
 
     return (
         <View>
-
-            <TouchableOpacity style={programView ? AppStyles.mediumButton : AppStyles.fixedButton} onPress={handleAddExercise}>
-                <Text style={AppStyles.buttonText}>Add Exercise</Text>
+            <TouchableOpacity style={programView ? styles.mediumButton : styles.fixedButton} onPress={handleAddExercise}>
+                <Text style={styles.buttonText}>Add Exercise</Text>
             </TouchableOpacity>     
 
             <Modal
@@ -54,12 +58,12 @@ const AddExerciseModal = ({exerciseNames, addExecise, programView, weekIndex, wo
                             onBlur={()=>Keyboard.dismiss()}
                             style={{ borderColor: 'gray', borderWidth: 1, padding: 8, marginVertical: 10, borderRadius: 6 }}
                         />
-                        <TouchableOpacity style={[AppStyles.largeButton, {marginVertical:3}]} disabled={!exerciseName.trim()} onPress={() => addNewExercise(exerciseName) }>
-                            <Text style={AppStyles.buttonText}>Add exercise</Text>
+                        <TouchableOpacity style={[styles.largeButton, {marginVertical:3}]} disabled={!exerciseName.trim()} onPress={() => addNewExercise(exerciseName) }>
+                            <Text style={styles.buttonText}>Add exercise</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={AppStyles.largeButton} onPress={() => setIsModalVisible(false)}>
-                            <Text style={AppStyles.buttonText}>Cancel</Text>
+                        <TouchableOpacity style={styles.largeButton} onPress={() => setIsModalVisible(false)}>
+                            <Text style={styles.buttonText}>Cancel</Text>
                         </TouchableOpacity>
 
                     </View>
@@ -69,4 +73,4 @@ const AddExerciseModal = ({exerciseNames, addExecise, programView, weekIndex, wo
     )
 }
 
-export default AddExerciseModal    
+export default AddExerciseModal

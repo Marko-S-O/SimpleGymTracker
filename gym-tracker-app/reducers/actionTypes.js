@@ -1,3 +1,4 @@
+export const SETUP_USER = 'SETUP_USER' // setups the user when using for the first time in the device
 export const SET_DATA = 'SET_DATA' // set initial data (from server)
 export const SET_CURRENT_WORKOUT = 'SET_CURRENT_WORKOUT'
 export const FINISH_CURRENT_WORKOUT = 'FINISH_CURRENT_WORKOUT' // adds a workout to workout history (finish workout button)

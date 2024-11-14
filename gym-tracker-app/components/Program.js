@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
-import AppStyles from '../styles/AppStyles'
+import { View, Text, ScrollView, TouchableOpacity, Platform } from 'react-native'
 import Workout from './Workout'
 import { TextInput } from 'react-native'
 import * as UIconstants from './UIconstants'
 import { getEmptyWorkout } from '../util/dataHelper'
+import androidStyles from '../styles/styles.android'
+import webStyles from '../styles/styles.web'
+
+const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
 function Program({ program, editable, saveProgram, startProgram, startWorkout, exerciseNames }) {
 
@@ -55,7 +58,7 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout, e
             ...weekToUpdate.workouts.slice(workoutIndex + 1)
         ]
         weekToUpdate.workouts = updatedWorkouts
-        updatedWeeks = [...weeks].map((week, index) => 
+        const updatedWeeks = [...weeks].map((week, index) => 
             index == weekIndex ? weekToUpdate : week
         )
         setWeeks(updatedWeeks)
@@ -95,10 +98,10 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout, e
             <ScrollView ref={scrollViewRef} contentContainerStyle={{ flexGrow: 1, padding: 8 }}>
 
                 {editable ? ( 
-                    <View style={AppStyles.programHeader}>
-                        <Text style={AppStyles.boldText}>Active Program</Text>                        
-                        <View style={[AppStyles.programHeader, {flexDirection: 'row'}]}>
-                            <Text style={[AppStyles.normalText, {fontSize: 16, verticalAlign: 'middle', marginBottom:6, paddingRight: 10}]}>Name: </Text>
+                    <View style={styles.programHeader}>
+                        <Text style={styles.boldText}>Active Program</Text>                        
+                        <View style={[styles.programHeader, {flexDirection: 'row'}]}>
+                            <Text style={[styles.normalText, {fontSize: 16, verticalAlign: 'middle', marginBottom:6, paddingRight: 10}]}>Name: </Text>
                             <TextInput
                                 style={{borderColor: 'gray', borderWidth: 1, borderRadius: 6, padding: 5, marginBottom: 6, fontWeight: 'normal', fontSize: 16}}
                                 placeholder={'<Program Name>'}
@@ -109,57 +112,57 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout, e
                                 editable={editable}
                             />
                         </View>
-                        <View style={[AppStyles.programHeader, {flexDirection: 'row'}]} >
-                                <TouchableOpacity style={AppStyles.mediumButton} onPress={handleAddWeek} >
-                                    <Text style={AppStyles.buttonText}>Add Week</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={AppStyles.mediumButton} onPress={handleSaveProgram} >
-                                    <Text style={AppStyles.buttonText}>Save Program</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={AppStyles.mediumButton} onPress={startProgram} >
-                                    <Text style={AppStyles.buttonText}>Start New</Text>
-                                </TouchableOpacity>                                
+                        <View style={[styles.programHeader, {flexDirection: 'row'}]} >
+                            <TouchableOpacity style={styles.mediumButton} onPress={handleAddWeek} >
+                                <Text style={styles.buttonText}>Add Week</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.mediumButton} onPress={handleSaveProgram} >
+                                <Text style={styles.buttonText}>Save Program</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.mediumButton} onPress={startProgram} >
+                                <Text style={styles.buttonText}>Start New</Text>
+                            </TouchableOpacity>                                
                         </View>
                         <View style={{ flexDirection: 'row' }}>
-                            <Text style={AppStyles.boldText}>Saved: </Text>    
+                            <Text style={styles.boldText}>Saved: </Text>    
                             { program.saved && (
-                                <Text style={AppStyles.normalText}> {program.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>
+                                <Text style={styles.normalText}> {program.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>
                             )}                        
                         </View>    
                     </View>                                           
                 ) : (
-                    <View style={[AppStyles.programHeader, {marginBottom:0}]}>
-                        <Text style={AppStyles.programTitle}>{program.name}</Text>
+                    <View style={[styles.programHeader, {marginBottom:0}]}>
+                        <Text style={styles.programTitle}>{program.name}</Text>
                     </View>                    
                  
                 )}                    
                 {weeks.map((week, weekIndex) => (
-                    <View key={weekIndex} style={AppStyles.week}>
+                    <View key={weekIndex} style={styles.week}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 8, paddingRight: 20 }}>
-                            <Text style={AppStyles.boldText}>Week {weekIndex+1}</Text>
+                            <Text style={styles.boldText}>Week {weekIndex+1}</Text>
                             {editable && (
                                 <>
-                                <TouchableOpacity style={AppStyles.mediumButton} onPress={() => handleAddWorkout(weekIndex)}>
-                                    <Text style={AppStyles.buttonText}>Add Workout</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={AppStyles.mediumButton} onPress={() => handleDeleteWeek(weekIndex)}>
-                                    <Text style={AppStyles.buttonText}>Delete Week</Text>
-                                </TouchableOpacity>                                
+                                    <TouchableOpacity style={styles.mediumButton} onPress={() => handleAddWorkout(weekIndex)}>
+                                        <Text style={styles.buttonText}>Add Workout</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.mediumButton} onPress={() => handleDeleteWeek(weekIndex)}>
+                                        <Text style={styles.buttonText}>Delete Week</Text>
+                                    </TouchableOpacity>                                
                                 </>         
                             )}
                         </View>
                         
                         {week.workouts.map((workout, workoutIndex) => (
-                            <View key={workoutIndex} style={AppStyles.day}>
+                            <View key={workoutIndex} style={styles.day}>
                                 <View style={{flexDirection: 'row', padding: 5}}>
-                                    <Text style={AppStyles.boldText}>Workout {workoutIndex + 1} </Text>
+                                    <Text style={styles.boldText}>Workout {workoutIndex + 1} </Text>
                                     {editable && (
-                                        <TouchableOpacity style={AppStyles.mediumButton} onPress={() => handleDeleteWorkout(weekIndex, workoutIndex)}>
-                                            <Text style={AppStyles.buttonText}>Delete</Text>
+                                        <TouchableOpacity style={styles.mediumButton} onPress={() => handleDeleteWorkout(weekIndex, workoutIndex)}>
+                                            <Text style={styles.buttonText}>Delete</Text>
                                         </TouchableOpacity>                                
                                     )}
-                                    <TouchableOpacity style={AppStyles.mediumButton} onPress={() => handleStartWorkout(weekIndex, workoutIndex)}>
-                                        <Text style={AppStyles.buttonText}>Start →</Text>
+                                    <TouchableOpacity style={styles.mediumButton} onPress={() => handleStartWorkout(weekIndex, workoutIndex)}>
+                                        <Text style={styles.buttonText}>Start →</Text>
                                     </TouchableOpacity>                                
                                 </View>
                                 <Workout 

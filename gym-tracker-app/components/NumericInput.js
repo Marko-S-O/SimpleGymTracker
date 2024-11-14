@@ -1,26 +1,30 @@
 import React from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-import AppStyles from '../styles/AppStyles'
+import { View, Text, TextInput, TouchableOpacity, Platform } from 'react-native'
 import * as UIconstants from './UIconstants'
+import androidStyles from '../styles/styles.android'
+import webStyles from '../styles/styles.web'
+
+const styles = Platform.OS === 'web' ? webStyles : androidStyles;
+
 
 function NumericInput({ value, handleValueChange }) {
 
     
     return (
-        <View style={AppStyles.numericInputContainer}>
-            <TouchableOpacity onPress={() => handleValueChange(UIconstants.SET_FIELD_ACTION_DECREASE) } style={AppStyles.incrementButton}>
-                <Text style={AppStyles.incrementButtonText}>−</Text>
+        <View style={styles.numericInputContainer}>
+            <TouchableOpacity onPress={() => handleValueChange(UIconstants.SET_FIELD_ACTION_DECREASE) } style={styles.incrementButton}>
+                <Text style={styles.incrementButtonText}>−</Text>
             </TouchableOpacity>
 
             <TextInput
-                style={AppStyles.inputField}
+                style={styles.inputField}
                 keyboardType="numeric"
                 value={`${value}`}
                 onChangeText={(text) => handleValueChange(UIconstants.SET_FIELD_ACTION_UPDATE, parseInt(text) || 0) }
             />
 
-            <TouchableOpacity onPress={() => handleValueChange(UIconstants.SET_FIELD_ACTION_INCREASE) } style={AppStyles.incrementButton}>
-                <Text style={AppStyles.incrementButtonText}>+</Text>
+            <TouchableOpacity onPress={() => handleValueChange(UIconstants.SET_FIELD_ACTION_INCREASE) } style={styles.incrementButton}>
+                <Text style={styles.incrementButtonText}>+</Text>
             </TouchableOpacity>
         </View>
     )
