@@ -47,7 +47,7 @@ export default function CurrentProgram() {
                 <Program program={program} editable={true} programView={true} saveProgram={saveProgram} startProgram={startProgram} startWorkout={startWorkout} exerciseNames={state.exerciseNames} />
             </View>
         ):(
-            <View style={[styles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
+            <View style={[styles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', margin: 5}]}>
                 <Text style={{ marginBottom: 10 }}>No active program</Text>
                 <TouchableOpacity style={styles.largeButton} onPress={startProgram} >
                     <Text style={styles.buttonText}>Start Program</Text>

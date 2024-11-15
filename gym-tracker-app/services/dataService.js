@@ -10,7 +10,7 @@ const API_URL = Platform.OS == 'android' ? 'http://10.0.2.2:3001/api/data' : 'ht
 const saveDataToServer = async (data) => {
 
     try {
-        const url = API_URL + '/' + data.username;
+        const url = API_URL + '/' + data.data.userId;
         const response = await axios.put(url, data)
         return response.data
     } catch (error) {
@@ -188,14 +188,15 @@ const readDataLocal = async () => {
     }
 }
 
-export const readDataServer = async (username) => {
-
+export const readDataServer = async (uid) => {
+  
     try {
-        const url = API_URL + '/' + username
+        const url = API_URL + '/' + uid
         const response = await axios.get(url)
         const serverInput = response.data.data
         if (serverInput !== null) {
             let serverData = JSON.parse(serverInput)
+
             serverData = convertDates(serverData)
             serverData = sortData(serverData)
             return serverData

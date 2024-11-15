@@ -21,17 +21,24 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
     // Global state is updated only when the user saves the data either in workout tracking or program editing.
     const [exercises, setExercises] = useState(workout.exercises)
     const [notes, setNotes] = useState(workout.notes)    
+    const scrollViewRef = useRef(null)
 
     useEffect(() => {
         setExercises(workout.exercises || [])
         setNotes(workout.notes || '')
+        if(Platform.OS == 'web') {
+            if (scrollViewRef.current) {
+                scrollViewRef.current.style.overflowY = 'scroll';
+            }
+        }
     }, [workout])
 
-    const scrollViewRef = useRef(null)
 
     // If we are in the program view, also the internal state of program needs to be updated
     // when set or exercise data changes. This does not trigger global state and persistence update.
     const handleProgramUpdate = (exercises, notes, weekIndex, workoutIndex) => {
+        console.log('handleAddSet')
+        console.log(exercises)
         const updatedWorkout = {
             exercises: [...exercises],
             notes: notes
@@ -66,10 +73,14 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
     }    
 
     const handleAddSet = (exerciseIndex, weekIndex, workoutIndex) => {
-        const updatedExercises = (prevExercises) =>
-            prevExercises.map((exercise, iExercise) =>
-                iExercise === exerciseIndex ? {...exercise, sets: [...exercise.sets, { reps: UIconstants.DEFAULT_REPS, weight: 0 }]} : exercise
-            )
+
+        const updatedExercises = exercises.map((exercise, iExercise) =>
+            iExercise === exerciseIndex
+                ? { ...exercise, sets: [...exercise.sets, { reps: UIconstants.DEFAULT_REPS, weight: 0 }] }
+                : exercise
+        )
+
+        console.log('handleAddSet', updatedExercises)
 
         setExercises(updatedExercises)
         if(programView) {
@@ -161,9 +172,13 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
     }
 
     return (
-        <View style={[styles.day, { flex: 1 }]}>
-            <ScrollView ref={scrollViewRef} contentContainerStyle={{ flexGrow: 1, padding: 5 }}>
-
+        <View style={[styles.day, { flex: 1, overflow: 'hidden' }]}>
+            
+            <ScrollView
+                ref={scrollViewRef}
+                style={{ flex: 1, overflow: 'visible' }}
+                keyboardShouldPersistTaps="handled"
+            >
                 {(editable && !programView) && (
                     <View style={styles.WorkoutHeader}>
                         <Text style={[styles.boldText, {paddingLeft: 5}]}>Workout Tracker</Text>     
@@ -185,7 +200,7 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
                     </View>                    
                 )}
 
-                <View style={{ flex: 1 }}>
+                <View>
                     {exercises.length > 0 && 
                         exercises.map((exercise, exerciseIndex) => (
                             <Exercise 

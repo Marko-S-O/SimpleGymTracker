@@ -26,7 +26,7 @@ function CurrentWorkout() {
     const finishWorkout = (exercises, notes) => {
         const workout = {...state.currentWorkout, exercises: exercises, notes: notes, saved: new Date()}
         dispatch(finishCurrentWorkout(workout))
-        navigation.navigate('Past Workouts')
+        navigation.navigate('History')
     }
 
     const handleStartWorkout = () => {
@@ -35,18 +35,27 @@ function CurrentWorkout() {
     }
 
     return(
-        workout ? (
-            <Workout workout={workout} editable={true} programView={false} exerciseNames={state.exerciseNames} saveWorkout={saveWorkout} finishWorkout={finishWorkout} />
-        ):(
-            <View style={[styles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
+        <View style={{flex: 1}}>
+            {workout ? (
+                <Workout 
+                    workout={workout} 
+                    editable={true} 
+                    programView={false} 
+                    exerciseNames={state.exerciseNames} 
+                    saveWorkout={saveWorkout} 
+                    finishWorkout={finishWorkout} 
+                />
+            ):(
+                <View style={[styles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
 
-                <Text style={{ marginBottom: 10 }}>No active workout</Text>
-                <TouchableOpacity style={styles.largeButton} onPress={handleStartWorkout} >
-                    <Text style={styles.buttonText}>Start Workout</Text>
-                </TouchableOpacity>    
-                <Text style={{ marginTop: 10 }}>or use a past workout or program to start.</Text>                 
-            </View>
-        )
+                    <Text style={{ marginBottom: 10 }}>No active workout</Text>
+                    <TouchableOpacity style={styles.largeButton} onPress={handleStartWorkout} >
+                        <Text style={styles.buttonText}>Start Workout</Text>
+                    </TouchableOpacity>    
+                    <Text style={{ marginTop: 10 }}>or use a past workout or program to start.</Text>                 
+                </View>
+            )}
+        </View>
     )
 }
 export default CurrentWorkout

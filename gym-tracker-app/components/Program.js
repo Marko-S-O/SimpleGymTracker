@@ -92,7 +92,7 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout, e
 
     return (
         <View style={{ flex: 1 }}>
-            <ScrollView ref={scrollViewRef} contentContainerStyle={{ flexGrow: 1, padding: 8 }}>
+            <ScrollView ref={scrollViewRef} style={{ flexGrow: 1, padding: 8 }}>
 
                 {editable ? ( 
                     <View style={styles.programHeader}>

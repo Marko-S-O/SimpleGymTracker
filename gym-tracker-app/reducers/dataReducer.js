@@ -16,6 +16,13 @@ const dataReducer = (state = initialState, action) => {
     switch (action.type) {
 
     case actionTypes.SETUP_USER: {
+
+        console.log('SET_DATA')
+        console.log('state before')
+        console.log(state)
+        console.log('payload')
+        console.log(action.payload)
+
         const data = {
             ...state,  
             userId: action.payload.userId,

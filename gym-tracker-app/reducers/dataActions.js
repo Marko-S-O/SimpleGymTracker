@@ -1,16 +1,8 @@
 import * as actionTypes from './actionTypes'
 
-export const setupUser = (uid) => ({
+export const setupUser = (data) => ({
     type: actionTypes.SETUP_USER,
-    payload: {  
-        userId: uid,
-        token: null,
-        currentWorkout: null,
-        pastWorkouts: [],
-        currentProgram: null,
-        pastPrograms: [],
-        exerciseNames: []        
-    }
+    payload: { ...data }
 })
 
 export const setData = (data) => ({

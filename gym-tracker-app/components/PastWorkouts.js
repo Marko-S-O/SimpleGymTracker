@@ -50,7 +50,7 @@ function PastWorkouts() {
     }
     
     const isDeleteDisabled = state.pastWorkouts.length == 0
-    const isNewDisabled = state.currentWorkout && (state.currentWorkout.exercises.length > 0)
+    const isNewDisabled = state.pastWorkouts.length == 0 || state.setCurrentWorkout
     const isNextDisabled = index<=0 
     const isPreviousDisabled = index==(state.pastWorkouts.length-1) || state.pastWorkouts.length == 0
 
@@ -79,17 +79,6 @@ function PastWorkouts() {
             { !workout && (            
                 <View style={[styles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
                     <Text style={{ marginBottom: 10 }}>No past workouts</Text>                
-                    {isNewDisabled ? (
-                        <Text style={{ marginTop: 10 }}>You have an ongoing active workout.</Text>  
-                    ):(
-                        <>
-                            <TouchableOpacity style={styles.largeButton} onPress={handleStartWorkout} >
-                                <Text style={styles.buttonText}>Start Workout</Text>
-                            </TouchableOpacity>    
-                            <Text style={{ marginTop: 10 }}>or use a  program to start one.</Text>  
-                        </>                    
-
-                    )}
                 </View>            
             )}
         </>

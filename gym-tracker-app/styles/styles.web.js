@@ -8,6 +8,22 @@ export default StyleSheet.create({
         borderBottomColor: '#60a5fa',
         fontWeight: 'bold',
     },
+    appHeader: {
+        backgroundColor: '#3b4553',
+        height: 30,
+        paddingVertical: 4,
+        verticalAlign: 'middle',
+        color: '#FFFFFF',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    appHeaderText: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: '#f9fafb',
+        marginLeft:15,
+        textAlignVertical: 'center'
+    },
     boldText: {
         fontWeight: 'bold',
         fontSize: 16,
@@ -243,20 +259,16 @@ export default StyleSheet.create({
         justifyContent: 'center',
         color: '#FFFFFF',
     },
-    stackNavigatorHeader: {
-        backgroundColor: '#4b5563',
-        height: 30,
-    },
     tab: {
         color: '#f9fafb',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingVertical: 0,
+        paddingHorizontal: 10,
         borderBottomWidth: 3,
         borderBottomColor: 'transparent',
     },
     tabBar: {
         backgroundColor: '#4b5563',
-        height: 37,
+        height: 34,
         padding: 0,
         marginTop: 0,
     },
@@ -270,6 +282,7 @@ export default StyleSheet.create({
     tabs: {
         flexDirection: 'row',
         justifyContent: 'space-around',
+        textAlignVertical: 'center',
         backgroundColor: '#4b5563',
         width: '100%',
         paddingVertical: 5,

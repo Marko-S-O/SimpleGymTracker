@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import AppNavigator from './navigation/AppNavigator'
 import { DataProvider } from './context/DataContext'
 import { setData, setupUser } from './reducers/dataActions'
-import { readData, hasLocalData } from './services/dataService'
+import { readData, hasLocalData, readDataServer } from './services/dataService'
 import store from './store/configureStore'
 import SetupScreen from './components/SetupScreen'
 import androidStyles from './styles/styles.android'
@@ -35,14 +35,17 @@ function MainApp() {
         readInitialData();
     }, [dispatch])
 
-    const finalizeSetup = async (uname) => {
-        console.log('Finalizing setup for ' + uname)
-        dispatch(setupUser(uname))
+    const finalizeSetup = async (uid) => {
+        console.log('finalizeSetup: ' + uid)
+        const data = await readDataServer(uid)
+        data.userId = uid
+        console.log(data)
+        dispatch(setupUser(data))
         setIsKnownUser(true)
     }
 
     return (
-        <NavigationContainer style={styles.NavigationContainer}>
+        <NavigationContainer>
             {isKnownUser ? (
                 <AppNavigator />
             ) : (
