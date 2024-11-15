@@ -13,10 +13,6 @@ const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 function CurrentWorkout() {
 
     const state = useSelector(state => state.data);
-
-    console.log('CurrentWorkout')
-    console.log(state)
-
     const workout = state.currentWorkout ? cloneDeep(state.currentWorkout) : null
 
     const dispatch = useDispatch()

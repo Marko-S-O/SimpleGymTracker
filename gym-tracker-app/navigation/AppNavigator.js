@@ -41,21 +41,23 @@ export default function AppNavigator() {
     const [refreshModalVisible, setRefreshModalVisible] = useState(false)
     const dispatch = useDispatch()
     const state = useSelector(state => state.data);
-    const username = state.username && state.username.length > 0 ? state.username : ''
-
-    console.log('AppNavigator ' + username)
+    
+    const userId = state.userId && state.userId.length > 0 ? state.userId : null
 
     // Refresh data: read local and server storage, merge data, update to the global state.
     const refreshData = () => {
-        console.log('refresh')
         dispatch(refreshAndSetData())    
         setRefreshModalVisible(false)
     }
 
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+            screenOptions={{
+                contentStyle: styles.navigationContainer,
+          }}
+        >
             <Stack.Screen
-                name={"Simple Gym Tracker - " + username}
+                name={"Simple Gym Tracker - " + userId}
                 component={TabNavigator}
                 options={{
                     headerRight: () => (            

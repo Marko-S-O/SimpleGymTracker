@@ -203,8 +203,7 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
                         ))
                     }
                     <TextInput
-                        style={{borderColor: 'gray', borderWidth: 1, borderRadius: 6, padding: 5}}
-                        placeholder={editable? '  <Write additional workout notes here...>' : ''}
+                        style={styles.WorkoutNotes}
                         value={notes}
                         onChangeText={handleSetNotes}
                         multiline

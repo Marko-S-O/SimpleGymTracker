@@ -43,9 +43,11 @@ export default function CurrentProgram() {
 
     return (
         program ? (
-            <Program program={program} editable={true} programView={true} saveProgram={saveProgram} startProgram={startProgram} startWorkout={startWorkout} exerciseNames={state.exerciseNames} />
+            <View style={[styles.day, { flex: 1 }]}>
+                <Program program={program} editable={true} programView={true} saveProgram={saveProgram} startProgram={startProgram} startWorkout={startWorkout} exerciseNames={state.exerciseNames} />
+            </View>
         ):(
-            <View style={[styles.container, {padding: 15, alignItems: 'center'}]}>
+            <View style={[styles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
                 <Text style={{ marginBottom: 10 }}>No active program</Text>
                 <TouchableOpacity style={styles.largeButton} onPress={startProgram} >
                     <Text style={styles.buttonText}>Start Program</Text>

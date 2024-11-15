@@ -9,9 +9,6 @@ const API_URL = Platform.OS == 'android' ? 'http://10.0.2.2:3001/api/data' : 'ht
 
 const saveDataToServer = async (data) => {
 
-    console.log('Saving data to server')
-    //console.trace("Logging call stack")
-    //console.log(data)
     try {
         const url = API_URL + '/' + data.username;
         const response = await axios.put(url, data)
@@ -25,7 +22,6 @@ const saveDataToServer = async (data) => {
 export const saveDataLocal = async (data) => {
 
     try {
-        data.data.username = data.username;
         await AsyncStorage.setItem(`gym-tracker-data`, JSON.stringify(data))
     } catch (error) {
         console.error('Error saving data to local storage:', error)
@@ -156,10 +152,10 @@ const mergeData = (localData, serverData) => {
     const programMap = new Map(pastPrograms.map(program => [program.saved, program]))
     pastPrograms = Array.from(programMap.values())
 
-    const username = serverData.username ? serverData.username : localData.username
+    const uid = serverData.userId ? serverData.userId : localData.userId
 
-    if(usernmame == null || username.length == 0) {
-        console.log('No username found in merge')
+    if(uid == null || uid.length == 0) {
+        console.log('No username found in merge. Please send a bug report to the author.')
     }
 
     const mergedData = {
@@ -167,7 +163,7 @@ const mergeData = (localData, serverData) => {
         currentProgram: currentProgram,
         pastWorkouts: pastWorkouts,
         pastPrograms: pastPrograms,
-        username: username
+        userId: uid
     }
 
     return mergedData
@@ -214,23 +210,14 @@ export const readDataServer = async (username) => {
 }
 
 export const readData = async () => {
-
-    //let data = testData.data
-    
+  
     const localData = await readDataLocal()   
     const username  = localData.username 
     const serverData = await readDataServer(username)
-    //console.log('---- LOCAL')
-    //console.log(localData)
-    //console.log('---- REMOTE')
-    //console.log(serverData)
 
     let data = mergeData(localData, serverData)
     data = createExerciseList(data)
     data = sortData(data)
-
-    //console.log('---- MERGED')
-    //console.log(data)
 
     return data    
 }

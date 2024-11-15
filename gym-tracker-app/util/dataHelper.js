@@ -24,13 +24,12 @@ export const getEmptyWorkout = () => {
 
 export const getEmptyData = () => {
     const data = {
+        userId: null,
         currentWorkout: null,
         pastWorkouts: [],
         currentProgram: null,
         pastPrograms: [],
         exerciseNames: [],
-        username: '',
-        token: ''
     }
     return data
 }

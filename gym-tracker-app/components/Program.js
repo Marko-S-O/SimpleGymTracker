@@ -65,8 +65,6 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout, e
     }
 
     const handleSaveProgram = () => {
-        console.log(handleSaveProgram)
-        console.log(weeks)
         saveProgram(weeks, name)
         if (scrollViewRef.current) {
             scrollViewRef.current.scrollTo({ y: 0, animated: true });
@@ -89,7 +87,6 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout, e
     }
 
     const handleSetName = (text) => {
-        console.log('handleSetName: ' + text)
         setName(text)
     }    
 
@@ -104,7 +101,6 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout, e
                             <Text style={[styles.normalText, {fontSize: 16, verticalAlign: 'middle', marginBottom:6, paddingRight: 10}]}>Name: </Text>
                             <TextInput
                                 style={{borderColor: 'gray', borderWidth: 1, borderRadius: 6, padding: 5, marginBottom: 6, fontWeight: 'normal', fontSize: 16}}
-                                placeholder={'<Program Name>'}
                                 value={name}
                                 onChangeText={handleSetName}
                                 multiline

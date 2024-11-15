@@ -7,15 +7,13 @@ const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
 export default function SetupScreen({ finalizeSetup }) {
 
-    const [uname, setUname] = useState('')
+    const [uid, setUid] = useState('')
 
     const handleSetup = () => {
-        if (uname && uname.length > 5) {
-            finalizeSetup(uname)
+        if (uid && uid.length > 5) {
+            finalizeSetup(uid)
         }
     }
-
-    console.log('setup screen ' + uname)
 
     return (
         <View style={[styles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
@@ -27,7 +25,7 @@ export default function SetupScreen({ finalizeSetup }) {
                 Please enter your username if you already have one.
             </Text>
             <Text style={[styles.normalText, {marginBottom: 10}]}>
-                New user? Enter an account name you'd like to use.
+                New user? Enter an account name you'd like to use, minimum 6 characters.
             </Text>
             <Text style={[styles.normalText, {marginBottom: 10}]}>            
                 Note: Your account name is solely for identifying your data on the server. There are no passwords or logins required.                            
@@ -37,8 +35,8 @@ export default function SetupScreen({ finalizeSetup }) {
             </Text>
             <TextInput
                 style={{width: 170, fontSize: 16, marginBottom: 10, borderColor: '#1F2937', borderWidth: 1, backgroundColor: '#F0F0F0'}}
-                value={uname}
-                onChangeText={setUname}
+                value={uid}
+                onChangeText={setUid}
             />
             <TouchableOpacity style={styles.largeButton} onPress={handleSetup} >
                 <Text style={styles.buttonText}>Start using</Text>

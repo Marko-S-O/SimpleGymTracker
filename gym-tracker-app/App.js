@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 import { Provider, useDispatch } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
 import AppNavigator from './navigation/AppNavigator'
@@ -7,11 +8,12 @@ import { setData, setupUser } from './reducers/dataActions'
 import { readData, hasLocalData } from './services/dataService'
 import store from './store/configureStore'
 import SetupScreen from './components/SetupScreen'
+import androidStyles from './styles/styles.android'
+import webStyles from './styles/styles.web'
 
+const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
 function MainApp() {
-
-    console.log('MainApp')
 
     const dispatch = useDispatch();
     const [isKnownUser, setIsKnownUser] = useState(false);
@@ -20,13 +22,12 @@ function MainApp() {
     // If no local data is found, the program goes to the login screen. If there is server data with given username,
     // it is taken into use.
     useEffect(() => {
-        console.log('MainApp useEffect')
         const readInitialData = async () => {
             const isLocalData = await hasLocalData();
             if (isLocalData) {
                 setIsKnownUser(true);
                 const data = await readData();
-                dispatch(setData(data));
+                dispatch(setData({...data}));
             } else {
                 setIsKnownUser(false);
             }
@@ -41,7 +42,7 @@ function MainApp() {
     }
 
     return (
-        <NavigationContainer>
+        <NavigationContainer style={styles.NavigationContainer}>
             {isKnownUser ? (
                 <AppNavigator />
             ) : (

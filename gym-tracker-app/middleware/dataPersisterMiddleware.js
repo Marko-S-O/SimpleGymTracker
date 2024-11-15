@@ -25,31 +25,24 @@ const dataPersisterMiddleware = store => next => async action => {
 
     } else if(action.type == actionTypes.SETUP_USER) {
 
-        console.log('setup user')
-
-        const username = action.payload.username
+        const userId = action.payload.userId
 
         // when setting up user, replace the data empty new user data
         // by the server data if available
-        const data = await readDataServer(username)
-        if(data && data.username && data.username.lenght > 0) {
+        const data = await readDataServer(userId)
+        if(data && data.userId && data.userId.lenght > 0) {
             action.payload = {...data}
         }
-        console.log(action.payload.username)
         const result = next(action)
         return result
 
     } else {
         // Data is updated to the global state only when the user clicks save in the workout or program tab.
         // The persistence to the local and global storage is always done when the global state changes.
-        console.log('middleware');
-        console.log('Action:', action);
+
         const result = next(action);
-        console.log('Result:', result);
         const state = store.getState();
-        console.log('State after action:', state);
-        console.log('Username in state:', state.username);
-        saveData(state);
+        await saveData(state);
         return result;
 
     }

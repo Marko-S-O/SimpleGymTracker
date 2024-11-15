@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes'
 
-export const setupUser = (username) => ({
+export const setupUser = (uid) => ({
     type: actionTypes.SETUP_USER,
     payload: {  
-        username: username,
+        userId: uid,
         token: null,
         currentWorkout: null,
         pastWorkouts: [],
