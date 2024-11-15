@@ -17,12 +17,8 @@ app.use(express.static('dist'))
 
 app.get('/api/data/:id', (request, response, next) => {
     const id = request.params.id
-
-    console.log('app.get: ' + id)
-
     Data.findOne({username: id})
         .then(data => {
-            console.log(data)
             if (data) {
                 response.json(data)
             } else {
@@ -36,9 +32,6 @@ app.put('/api/data/:id', (request, response, next) => {
     const id = request.params.id
     const data = JSON.stringify(request.body.data)
 
-    console.log('PUT id: ' + id)
-    console.log(data)
-
     Data.findOneAndUpdate(
         {username: id}, 
         { data: data }, 
@@ -46,7 +39,6 @@ app.put('/api/data/:id', (request, response, next) => {
     )
         .then(storedData => {
             if (storedData) {
-                console.log('PUT: succesfully saved data')
                 response.status(201).json(storedData)
             } else {
                 console.log('PUT: not able to fetch updated data?')
