@@ -213,8 +213,8 @@ export const readDataServer = async (uid) => {
 export const readData = async () => {
   
     const localData = await readDataLocal()   
-    const username  = localData.username 
-    const serverData = await readDataServer(username)
+    const uid  = localData.userId
+    const serverData = await readDataServer(uid)
 
     let data = mergeData(localData, serverData)
     data = createExerciseList(data)

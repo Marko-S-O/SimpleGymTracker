@@ -20,7 +20,8 @@ const dataPersisterMiddleware = store => next => async action => {
         // goes to the gym with a phone and starts tracking the exercise.
         const data = await readData()
         action.payload = data
-        next(action)
+        console.log(data)
+        result = next(action)
         return result
 
     } else {
