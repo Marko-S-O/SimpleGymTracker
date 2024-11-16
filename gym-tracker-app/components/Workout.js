@@ -37,8 +37,6 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
     // If we are in the program view, also the internal state of program needs to be updated
     // when set or exercise data changes. This does not trigger global state and persistence update.
     const handleProgramUpdate = (exercises, notes, weekIndex, workoutIndex) => {
-        console.log('handleAddSet')
-        console.log(exercises)
         const updatedWorkout = {
             exercises: [...exercises],
             notes: notes
@@ -79,8 +77,6 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
                 ? { ...exercise, sets: [...exercise.sets, { reps: UIconstants.DEFAULT_REPS, weight: 0 }] }
                 : exercise
         )
-
-        console.log('handleAddSet', updatedExercises)
 
         setExercises(updatedExercises)
         if(programView) {
@@ -154,15 +150,14 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
 
     const handleUpdateSet = (exerciseIndex, setIndex, field, action, value) => {
 
-        const updatedExercises = (prevExercises) => 
-            prevExercises.map((exercise, iExercise) => 
-                iExercise == exerciseIndex ? {
-                    ...exercise,
-                    sets: exercise.sets.map((set, iSet) => 
-                        iSet == setIndex ? updateSetValue(set, field, action, value) : set
-                    ),
-                } : exercise
-            )
+        const updatedExercises = exercises.map((exercise, iExercise) => 
+            iExercise == exerciseIndex ? {
+                ...exercise,
+                sets: exercise.sets.map((set, iSet) => 
+                    iSet == setIndex ? updateSetValue(set, field, action, value) : set
+                ),
+            } : exercise
+        )
         setExercises(updatedExercises)
 
         // In program view, the internal state of Program component needs to be updated as well

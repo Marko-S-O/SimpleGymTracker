@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, TouchableOpacity, Platform } from 'react-native'
+import cloneDeep from 'lodash/cloneDeep'
 import Program from './Program'
-import { addPastProgram, deletePastProgram, setCurrentProgram, setCurrentWorkout } from '../reducers/dataActions'
+import { deletePastProgram, setCurrentWorkout, activateProgram } from '../reducers/dataActions'
 import { useNavigation } from '@react-navigation/native'
 import androidStyles from '../styles/styles.android'
 import webStyles from '../styles/styles.web'
@@ -17,7 +18,7 @@ export default function CurrentProgram() {
     const navigation = useNavigation()
     const dispatch = useDispatch()
 
-    const program = state.pastPrograms?.[index] ?? null
+    const program = state.pastPrograms && state.pastPrograms.length > 0 ? state.pastPrograms[index] : null
 
     const handleNavigate = (direction) => {
         if(direction == 'previous') {
@@ -33,19 +34,26 @@ export default function CurrentProgram() {
     }
 
     const handleActivate = () => {
-        dispatch(addPastProgram(state.CurrentProgram))
-        dispatch(setCurrentProgram(state.pastPrograms[index]))
+        const activatedProgram = state.pastPrograms[index]
+        activatedProgram.created = new Date()
+        activatedProgram.saved = new Date()
+        const currentProgram = state.currentProgram
+        currentProgram.saved = new Date() 
+        dispatch(activateProgram(activatedProgram, currentProgram))
         navigation.navigate('Program')     
     }
 
     const startWorkout = (workout) => {
-        dispatch(setCurrentWorkout(workout))
+        const newWorkout = cloneDeep(workout)
+        newWorkout.created = new Date()
+        newWorkout.saved = new Date()
+        dispatch(setCurrentWorkout(newWorkout))
         navigation.navigate('Workout')
     }
 
     const isActionsDisabled = !program
-    const isNextDisabled = !program?.pastPrograms || index <= 0
-    const isPreviousDisabled = !program?.pastPrograms || (index >= program.pastPrograms.length-1)
+    const isNextDisabled = !state.pastPrograms || state.pastPrograms.length <= 0 || index <= 0
+    const isPreviousDisabled = !state || state.pastPrograms.length <= 0 || (index >= state.pastPrograms.length-1)
 
     return (
         <>

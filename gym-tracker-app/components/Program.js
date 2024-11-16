@@ -6,6 +6,7 @@ import * as UIconstants from './UIconstants'
 import { getEmptyWorkout } from '../util/dataHelper'
 import androidStyles from '../styles/styles.android'
 import webStyles from '../styles/styles.web'
+import { cloneDeep } from 'lodash'
 
 const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
@@ -73,13 +74,12 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout, e
 
     const handleStartWorkout = (weekIndex, workoutIndex) => {
         const workout = weeks[weekIndex].workouts[workoutIndex]
-        workout.created = new Date()
+        //workout.created = new Date()
         startWorkout(workout)
     }
 
-    // Update program data when an individual set or exercise has been updated in the Workout component
-    const updateProgramWorkout = (workout, weekIndex, workoutIndex) => {
-        
+    // Update program data when an individual set or exercise has been updated in a Workout component used this one
+    const updateProgramWorkout = (workout, weekIndex, workoutIndex) => {        
         const updatedWeeks = [...weeks]
         updatedWeeks[weekIndex].workouts[workoutIndex] = workout
         setWeeks(updatedWeeks)

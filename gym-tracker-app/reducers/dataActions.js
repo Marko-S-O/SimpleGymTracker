@@ -45,4 +45,13 @@ export const refreshAndSetData = () => ({
     payload: {}
 })
 
+// When we activate an old program, we also need to move the current program to the past programs list.
+// To do this safely, it needs to be done synchronously in the same action.
+export const activateProgram = (activatedProgram, currentProgram) => ({
+    type: actionTypes.ACTIVATE_PROGRAM,
+    payload: {
+        activatedProgram: activatedProgram,
+        currentProgram: currentProgram
+    }
+})
 

@@ -17,12 +17,6 @@ const dataReducer = (state = initialState, action) => {
 
     case actionTypes.SETUP_USER: {
 
-        console.log('SET_DATA')
-        console.log('state before')
-        console.log(state)
-        console.log('payload')
-        console.log(action.payload)
-
         const data = {
             ...state,  
             userId: action.payload.userId,
@@ -56,7 +50,7 @@ const dataReducer = (state = initialState, action) => {
     }
     case actionTypes.SET_CURRENT_WORKOUT: {       
         const data = cloneDeep(state)
-        data.currentWorkout = action.payload
+        data.currentWorkout = cloneDeep(action.payload)
         return data
     }
 
@@ -96,6 +90,13 @@ const dataReducer = (state = initialState, action) => {
                 program => program.created !== action.payload.created
             )
         }
+
+    case actionTypes.ACTIVATE_PROGRAM:
+        return {
+            ...state,
+            currentProgram: {...action.payload.activatedProgram},
+            pastPrograms: [action.payload.currentProgram, ...state.pastPrograms]
+        }        
 
     default:
         return state

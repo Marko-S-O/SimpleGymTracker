@@ -58,7 +58,7 @@ const AddExerciseModal = ({exerciseNames, addExecise, programView, weekIndex, wo
                             onBlur={()=>Keyboard.dismiss()}
                             style={{ borderColor: 'gray', borderWidth: 1, padding: 8, marginVertical: 10, borderRadius: 6 }}
                         />
-                        <TouchableOpacity style={[styles.largeButton, {marginVertical:3}]} disabled={!exerciseName.trim()} onPress={() => addNewExercise(exerciseName) }>
+                        <TouchableOpacity style={[styles.largeButton, {marginVertical:3}]} disabled={!exerciseName.trim()} onPress={() => addNewExercise(exerciseName, weekIndex, workoutIndex) }>
                             <Text style={styles.buttonText}>Add exercise</Text>
                         </TouchableOpacity>
 

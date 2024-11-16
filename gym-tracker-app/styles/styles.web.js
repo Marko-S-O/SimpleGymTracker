@@ -67,6 +67,8 @@ export default StyleSheet.create({
         backgroundColor: '#f9fafb',
     },
     day: {
+        marginTop: 2,
+        marginBottom: 4,
         paddingTop: 4,
         paddingLeft: 5,
         paddingRight: 0,

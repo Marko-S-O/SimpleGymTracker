@@ -37,6 +37,8 @@ export default function CurrentProgram() {
 
     const startWorkout = (workout) => {
         const newWorkout = cloneDeep(workout)
+        newWorkout.created = new Date()
+        newWorkout.saved = new Date()
         dispatch(setCurrentWorkout(newWorkout))
         navigation.navigate('Workout')
     }

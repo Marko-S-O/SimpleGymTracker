@@ -36,10 +36,8 @@ function MainApp() {
     }, [dispatch])
 
     const finalizeSetup = async (uid) => {
-        console.log('finalizeSetup: ' + uid)
         const data = await readDataServer(uid)
         data.userId = uid
-        console.log(data)
         dispatch(setupUser(data))
         setIsKnownUser(true)
     }

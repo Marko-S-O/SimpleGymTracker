@@ -9,4 +9,10 @@ const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(dataPersisterMiddleware),
 })
 
+//store.subscribe(() => {
+//    const currentState = store.getState()
+//    console.log('State has changed:', currentState)
+//    console.trace('trace of state change')
+//})
+
 export default store
