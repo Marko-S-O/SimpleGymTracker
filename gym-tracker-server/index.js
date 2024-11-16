@@ -15,9 +15,10 @@ app.use(cors())
 app.use(express.static('dist'))
 
 
-app.get('/api/data/:id', (request, response, next) => {
-    const id = request.params.id
-    Data.findOne({username: id})
+app.get('/api/data/:uid', (request, response, next) => {
+    const uid = request.params.uid
+
+    Data.findOne({username: uid})
         .then(data => {
             if (data) {
                 response.json(data)
@@ -28,12 +29,12 @@ app.get('/api/data/:id', (request, response, next) => {
         .catch(error => next(error))
 })
 
-app.put('/api/data/:id', (request, response, next) => {
-    const id = request.params.id
+app.put('/api/data/:uid', (request, response, next) => {
+    const uid = request.params.uid
     const data = JSON.stringify(request.body.data)
 
     Data.findOneAndUpdate(
-        {username: id}, 
+        {username: uid}, 
         { data: data }, 
         { new: true, upsert: true, runValidators: true }
     )

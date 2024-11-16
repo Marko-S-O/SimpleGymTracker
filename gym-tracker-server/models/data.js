@@ -5,7 +5,6 @@ mongoose.set('strictQuery', false)
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://mongouser:mongopassword@localhost:3456/gymtracker_db?authSource=admin'
 console.log('connecting to', MONGO_URL)
 
-
 mongoose.connect(MONGO_URL)
     // eslint-disable-next-line
     .then(result => {
