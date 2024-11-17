@@ -127,8 +127,10 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout, e
                         </View>    
                     </View>                                           
                 ) : (
-                    <View style={[styles.programHeader, {marginBottom:0}]}>
-                        <Text style={styles.programTitle}>{program.name}</Text>
+                    <View style={[styles.programHeader, {marginBottom:0, flexDirection: 'row'}]}>
+                        <Text style={styles.boldText}>{program.name}:</Text> 
+                        <Text style={styles.normalText}> {program.created.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_FORMAT)} - {program.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_FORMAT)}</Text>
+
                     </View>                    
                  
                 )}                    

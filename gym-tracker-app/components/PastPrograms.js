@@ -78,7 +78,9 @@ export default function CurrentProgram() {
             </View>
 
             {program ? (
-                <Program program={program} editable={false} programView={true} startWorkout={startWorkout} />
+                <View style={[styles.day, { flex: 1 }]}>
+                    <Program program={program} editable={false} programView={true} startWorkout={startWorkout} />
+                </View>
             ):(                
                 <View style={[styles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
                     <Text>No past programs</Text>
