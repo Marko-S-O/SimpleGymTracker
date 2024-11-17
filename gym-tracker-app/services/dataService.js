@@ -4,13 +4,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Platform } from 'react-native'
 import axios from 'axios'
 import { getEmptyData } from '../util/dataHelper'
+import { API_URL } from '@env'
 
-const API_URL = Platform.OS == 'android' ? 'http://10.0.2.2:3001/api/data' : 'http://localhost:3001/api/data' 
+const DEV_API_URL = Platform.OS == 'android' ? 'http://10.0.2.2:3001/api/data' : 'http://localhost:3001/api/data' 
+const apiUrl = API_URL || DEV_API_URL
 
 const saveDataToServer = async (data) => {
 
+    console.log('SAVE: API URL to use: ' + apiUrl)
+
     try {
-        const url = API_URL + '/' + data.data.userId;
+        const url = apiUrl + '/' + data.data.userId;
         const response = await axios.put(url, data)
         return response.data
     } catch (error) {
@@ -190,8 +194,10 @@ const readDataLocal = async () => {
 
 export const readDataServer = async (uid) => {
   
+    console.log('READ: API URL to use: ' + apiUrl)
+
     try {
-        const url = API_URL + '/' + uid
+        const url = apiUrl + '/' + uid
         const response = await axios.get(url)
         const serverInput = response.data.data
         if (serverInput !== null) {

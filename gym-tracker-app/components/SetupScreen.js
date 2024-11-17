@@ -28,8 +28,12 @@ export default function SetupScreen({ finalizeSetup }) {
                 New user? Enter an account name you'd like to use, minimum 6 characters.
             </Text>
             <Text style={[styles.normalText, {marginBottom: 10}]}>            
-                Note: Your account name is solely for identifying your data on the server. There are no passwords or logins required.                            
+                Note: Your account name is solely for identifying your data on the server. There are no passwords or logins required.
             </Text>
+            <Text style={[styles.normalText, {marginBottom: 10}]}>            
+                Important: Never include any personal or sensitive data in your account name or notes!
+            </Text>
+
             <Text style={[styles.normalText, {marginBottom: 10}]}>
                 Username:
             </Text>
