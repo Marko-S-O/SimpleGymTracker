@@ -5,18 +5,15 @@ import { NavigationContainer } from '@react-navigation/native'
 import AppNavigator from './navigation/AppNavigator'
 import { DataProvider } from './context/DataContext'
 import { setData, setupUser } from './reducers/dataActions'
-import { readData, hasLocalData, readDataServer } from './services/dataService'
+import { readData, hasLocalData, setupSession } from './services/dataService'
 import store from './store/configureStore'
 import SetupScreen from './components/SetupScreen'
-import androidStyles from './styles/styles.android'
-import webStyles from './styles/styles.web'
-
-const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
 function MainApp() {
 
-    const dispatch = useDispatch();
-    const [isKnownUser, setIsKnownUser] = useState(false);
+    const dispatch = useDispatch()
+    const [isKnownUser, setIsKnownUser] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
 
     // In the startup, get the data from the local storage. If data is found, get server data and merge with local.
     // If no local data is found, the program goes to the login screen. If there is server data with given username,
@@ -35,11 +32,17 @@ function MainApp() {
         readInitialData();
     }, [dispatch])
 
-    const finalizeSetup = async (uid) => {
-        const data = await readDataServer(uid)
-        data.userId = uid
-        dispatch(setupUser(data))
-        setIsKnownUser(true)
+    const finalizeSetup = async (uid, password) => {
+
+        const data = await setupSession(uid, password)
+
+        if(data) {
+            dispatch(setupUser(data))            
+            setIsKnownUser(true)
+            setErrorMessage('')
+        } else {
+            setErrorMessage('Setting up a user failed. Please check your password.')
+        }
     }
 
     return (
@@ -47,7 +50,7 @@ function MainApp() {
             {isKnownUser ? (
                 <AppNavigator />
             ) : (
-                <SetupScreen finalizeSetup={finalizeSetup} />
+                <SetupScreen finalizeSetup={finalizeSetup} errorMessage={errorMessage} />
             )}
         </NavigationContainer>
     )

@@ -9,16 +9,47 @@ import { API_URL } from '@env'
 const DEV_API_URL = Platform.OS == 'android' ? 'http://10.0.2.2:3001/api/data' : 'http://localhost:3001/api/data' 
 const apiUrl = API_URL || DEV_API_URL
 
-const saveDataToServer = async (data) => {
-
-    console.log('SAVE: API URL to use: ' + apiUrl)
+// There is no separate user creation and login. If a user does not exist, we create a new one.
+// After done, the token is kept in the local device and is valid as long as the same local async storage is used.
+export const setupSession = async (userId, password) => {
 
     try {
+        const response = await axios.post(apiUrl, {username: userId, password: password})
+    
+        if(response.status == 401) {// failed authentication of an existing user
+            console.log('authentication failed for user: ' + userId)
+            return null
+
+        } else if(response.status == 200) { // existing user, succesfull authentication
+            const { token, userId } = response.data
+            data = await readDataServer(userId, token)
+            data.userId = userId
+            data.token = token
+            return data
+
+        } else if(response.status == 201) { // new user created
+            const { token, userId } = response.data
+            const data = getEmptyData()
+            data.userId = userId
+            data.token = token
+            return data
+            
+        } else {
+            console.log('Unknown server response indicates a bug or environment issue: ' + response.status)
+            return null
+        }
+    } catch (error) {
+        console.log('Failed setting up a user', error)
+    }
+}
+
+const saveDataToServer = async (data) => {    
+    try {
+        const token = data.data.token        
         const url = apiUrl + '/' + data.data.userId;
-        const response = await axios.put(url, data)
+        const response = await axios.put(url, data, {headers: {Authorization: `Bearer ${token}`}})
         return response.data
     } catch (error) {
-        // eslint-disable-next-line
         console.log('Error saving data to server', error)
     }
 }
@@ -163,11 +194,12 @@ const mergeData = (localData, serverData) => {
     }
 
     const mergedData = {
+        userId: uid,
+        token: localData.token,
         currentWorkout: currentWorkout,
         currentProgram: currentProgram,
         pastWorkouts: pastWorkouts,
         pastPrograms: pastPrograms,
-        userId: uid
     }
 
     return mergedData
@@ -192,13 +224,14 @@ const readDataLocal = async () => {
     }
 }
 
-export const readDataServer = async (uid) => {
+export const readDataServer = async (uid, token) => {
   
     console.log('READ: API URL to use: ' + apiUrl)
-
+    
     try {
         const url = apiUrl + '/' + uid
-        const response = await axios.get(url)
+
+        const response = await axios.get(url, {headers: {Authorization: `Bearer ${token}`}})
         const serverInput = response.data.data
         if (serverInput !== null) {
             let serverData = JSON.parse(serverInput)
@@ -220,7 +253,8 @@ export const readData = async () => {
   
     const localData = await readDataLocal()   
     const uid  = localData.userId
-    const serverData = await readDataServer(uid)
+    const token = localData.token
+    const serverData = await readDataServer(uid, token)
 
     let data = mergeData(localData, serverData)
     data = createExerciseList(data)

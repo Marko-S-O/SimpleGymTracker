@@ -5,13 +5,14 @@ import webStyles from '../styles/styles.web'
 
 const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
-export default function SetupScreen({ finalizeSetup }) {
+export default function SetupScreen({ finalizeSetup, errorMessage }) {
 
     const [uid, setUid] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleSetup = () => {
-        if (uid && uid.length > 5) {
-            finalizeSetup(uid)
+        if (uid && uid.length > 5 && password.length > 7) {
+            finalizeSetup(uid, password)
         }
     }
 
@@ -21,31 +22,41 @@ export default function SetupScreen({ finalizeSetup }) {
                 Welcome to the SimpleGymTracker App!
             </Text>                
             <Text style={[styles.normalText, {marginBottom: 10}]}>
-                It looks like no existing data was found locally.
-                Please enter your username if you already have one.
+                It looks like no existing data was found in your device.
+                Please enter your username and password.
             </Text>
             <Text style={[styles.normalText, {marginBottom: 10}]}>
-                New user? Enter an account name you'd like to use, minimum 6 characters.
+                New user? Enter the account name and password you would like to use.
             </Text>
             <Text style={[styles.normalText, {marginBottom: 10}]}>            
-                Note: Your account name is solely for identifying your data on the server. There are no passwords or logins required.
+                Minimum lenght for account name is 6 and password 8 characters. 
+                Lost account name or password can't be recovered when changing to a new device.
             </Text>
-            <Text style={[styles.normalText, {marginBottom: 10}]}>            
-                Important: Never include any personal or sensitive data in your account name or notes!
+            <Text style={[styles.normalText, {marginBottom: 10, fontStyle: 'italic'}]}>            
+                Important: never include any personal or sensitive data in your account name or data you feed into the system! 
             </Text>
-
-            <Text style={[styles.normalText, {marginBottom: 10}]}>
-                Username:
-            </Text>
-            <TextInput
-                style={{width: 170, fontSize: 16, marginBottom: 10, borderColor: '#1F2937', borderWidth: 1, backgroundColor: '#F0F0F0'}}
-                value={uid}
-                onChangeText={setUid}
-            />
+            
+            <View style={{flexDirection: 'row', marginTop: 15}}>
+                <Text style={[styles.normalText, {marginBottom: 10}]}>Username: </Text>
+                <TextInput
+                    style={{width: 170, fontSize: 16, marginBottom: 10, borderColor: '#1F2937', borderWidth: 1, backgroundColor: '#F0F0F0'}}
+                    value={uid}
+                    onChangeText={setUid}
+                />
+            </View>
+            <View style={{flexDirection: 'row', marginBottom: 8}}>
+                <Text style={[styles.normalText, {marginBottom: 10}]}> Password: </Text>
+                <TextInput
+                    style={{width: 170, fontSize: 16, marginBottom: 10, borderColor: '#1F2937', borderWidth: 1, backgroundColor: '#F0F0F0'}}
+                    value={password}
+                    onChangeText={setPassword}
+                />
+            </View>
             <TouchableOpacity style={styles.largeButton} onPress={handleSetup} >
                 <Text style={styles.buttonText}>Start using</Text>
             </TouchableOpacity>  
 
+            <Text style={ [styles.normalText, {color: 'red'}] }> {errorMessage} </Text>
         </View>
     )
 }

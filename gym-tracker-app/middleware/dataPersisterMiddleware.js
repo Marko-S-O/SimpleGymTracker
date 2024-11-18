@@ -8,7 +8,7 @@
 //
 // Persistence is implemented asynchronously in the middleware to minimize impact on responsibility.
 //
-import { saveData, readData, readDataServer } from '../services/dataService'
+import { saveData, readData } from '../services/dataService'
 import * as actionTypes from '../reducers/actionTypes'
 
 const dataPersisterMiddleware = store => next => async action => {
@@ -20,14 +20,12 @@ const dataPersisterMiddleware = store => next => async action => {
         // goes to the gym with a phone and starts tracking the exercise.
         const data = await readData()
         action.payload = data
-        console.log(data)
         result = next(action)
         return result
 
     } else {
         // Data is updated to the global state only when the user clicks save in the workout or program tab.
         // The persistence to the local and global storage is always done when the global state changes.
-
         const result = next(action);
         const state = store.getState();
         await saveData(state);

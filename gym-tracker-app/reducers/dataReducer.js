@@ -1,9 +1,9 @@
-import { clone } from 'lodash'
 import * as actionTypes from './actionTypes'
 import cloneDeep from 'lodash/cloneDeep'
 
 export const initialState = {    
     userId: null,
+    token: null,
     currentWorkout: null,   
     pastWorkouts: [],
     currentProgram: null,   
