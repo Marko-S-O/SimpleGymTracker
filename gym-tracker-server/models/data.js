@@ -1,8 +1,7 @@
-
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
 
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://mongouser:mongopassword@localhost:3456/gymtracker_db?authSource=admin'
+const MONGO_URL = process.env.MONGODB_URI || 'mongodb://mongouser:mongopassword@localhost:3456/gymtracker_db?authSource=admin'
 console.log('connecting to', MONGO_URL)
 
 mongoose.connect(MONGO_URL)
@@ -26,6 +25,15 @@ const dataSchema = new mongoose.Schema({
     }
 })
 
+const userSchema = mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    passwordHash: String
+})
+
 
 dataSchema.set('toJSON', {  
     transform: (document, returnedObject) => {
@@ -34,6 +42,18 @@ dataSchema.set('toJSON', {
     }
 })
 
-// eslint-disable-next-line  
+userSchema.set('toJSON', {
+    transform: (document, returnedObject) => {  
+        delete returnedObject._id
+        delete returnedObject.__v
+        delete returnedObject.passwordHash
+    }
+})
+
 const Data = mongoose.model('Data', dataSchema)
-module.exports = mongoose.model('Data', dataSchema)
+const User = mongoose.model('User', userSchema)
+
+module.exports = {
+    Data,
+    User
+}
