@@ -6,10 +6,13 @@ I have been working out in gym for several decades and tried to find a suitable 
 
 More detailed description of the project and software as documented in the early phases of the project is available in GitHub: [ProjectDecription.md](https://github.com/Marko-S-O/SimpleGymTracker/blob/main/ProjectDescription.md).
 
+Currently, the program is tested in the workbench. I will be taking the app into use at gym in week 47/2024.
+
 # Running the program
 
 -   Android App: available in Google Play as an internal test version: <https://play.google.com/apps/internaltest/4700891926903260742>
--   Web UI: https://gym-tracker-server.fly.dev/
+-   Web UI: <https://gym-tracker-server.fly.dev/>
+-   User instructions in GitHub: <https://github.com/Marko-S-O/SimpleGymTracker/blob/main/UserInstructions.md>
 
 # Working hours report
 
