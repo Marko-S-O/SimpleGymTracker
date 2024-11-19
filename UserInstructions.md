@@ -77,7 +77,7 @@ You can switch between the tabs freely to access their respective features. The 
 
 Data refresh is triggered by clicking the icon ⟳ in the top-right corner of the app.
 
-**Intended use**: If a user submits data from one device and wants to make it available in another one, it needs to be done using the data refresh. Typical use case is setting up a workout beforehand using web UI and later taking it into use in the phone at gym.
+**Intended use**: If a user submits data from one device and wants to make it available in another one, it needs to be done using the data refresh. Typical use case is setting up a workout beforehand using the web UI and later taking it into use in a phone at gym.
 
 **Data merging** rules: See section Data Storage for rules of data merging between local and server storages.
 
