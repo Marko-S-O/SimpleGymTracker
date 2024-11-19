@@ -89,7 +89,7 @@ Data refresh is triggered by clicking the icon ⟳ in the top-right corner of th
 -   When saving data, it is always stored similar in the local and server storages, including timestamps.
 -   The program tries to read local data first. If it is found, server data for the user is read. If no local data is available in the device, setup screen is shown to a user.
 -   Local and server data are merged
-    -   If workout history or old programs lists are differing, local and server lists are combined.
+    -   If workout history or old programs lists are differing, local and server lists are merged. Duplicate copies of list items are removed.
     -   If there is a differing active workout or current program in the local storage and server, the newer one is selected. Data of the older one is lost.
 -   Merged data is immediately saved to both local storage and server to keep it synchronized over time.
 
