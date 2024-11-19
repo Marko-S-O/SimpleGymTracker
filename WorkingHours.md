@@ -11,9 +11,9 @@ Detailed working hours log below. Longer working days are capped to 8 in the lis
 | 27.10.204  | 8     | Basic program frame                          |
 | 28.10.2024 | 8     | Workout functionality                        |
 | 29.10.2024 | 8     | Workout functionality                        |
+| 30.10.2024 | 8     | Program functionality                        |
 | 1.11.2024  | 8     | Program functionality                        |
-| 2.11.2024  | 8     | Program functionality                        |
-| 3.11.2024  | 8     | Persistence + refined state management       |
+| 2.11.2024  | 8     | Persistence + refined state management       |
 | 3.11.2024  | 8     | Testing & fixing                             |
 | 4.11.2024  | 8     | Server & DB                                  |
 | 5.11.2024  | 4     | Server & DB                                  |
