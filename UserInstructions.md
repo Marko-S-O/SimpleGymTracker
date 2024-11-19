@@ -1,4 +1,4 @@
-Getting Started
+# Getting Started
 
 **Setup Screen**
 
@@ -11,7 +11,7 @@ Getting Started
     -   After a successful login, the program will retrieve your data from the server and store a local copy to the device.
     -   Login does not expire and you will not have to re-login in the same device.
 
-Program Structure
+# Program Structure
 
 The app consists of the following functions:
 
@@ -23,7 +23,7 @@ The app consists of the following functions:
 
 You can switch between the tabs freely to access their respective features. The data in tabs is preserved during use of other transfers.
 
-WORKOUT Tab
+# WORKOUT Tab
 
 **Logging an Active Workout**
 
@@ -36,7 +36,7 @@ WORKOUT Tab
 -   **Save Workout**: Save the current workout. Workout will be saved to the local storage and server. If the server is not available, the workout is still saved securely in the local storage.
 -   **Finish Workout**: Mark the workout as completed. The workout is moved to the history list and is available in the HISTORY tab.
 
-HISTORY Tab
+# HISTORY Tab
 
 **Viewing Past Workouts**
 
@@ -44,7 +44,7 @@ HISTORY Tab
 -   Use **Delete** button to remove a past workout. Deleted data can’t be recovered.
 -   Use **Start New** button to start a new workout and initialize it with the data of the old workout.
 
-PROGRAM Tab
+# PROGRAM Tab
 
 **Creating and Managing Programs**
 
@@ -64,7 +64,7 @@ PROGRAM Tab
 -   **Add Week/Workout**: Expand the program with additional weeks or workouts.
 -   **Delete Week/Workout**: Remove unwanted weeks or workouts.
 
-OLD PRS (Old Programs) Tab
+# OLD PRS (Old Programs) Tab
 
 **Viewing Previous Programs**
 
@@ -81,7 +81,7 @@ Data refresh is triggered by clicking the icon ⟳ in the top-right corner of th
 
 **Data merging** rules: See section Data Storage for rules of data merging between local and server storages.
 
-Data storage
+# Data storage
 
 1.  **Data storage rules**: The program stores the data both locally and in the server. The following rules apply for data storage
     -   All user data is stored as a single object including: workout, workout history, program, old programs.
@@ -92,11 +92,13 @@ Data storage
         -   If there is a differing active workout or current program in the local storage and server, the newer one is selected. Data of the older one is lost.
     -   Merged data is immediately saved to both local storage and server to keep it synchronized over time.
 
-Authentication and authorization
+# Security
 
-In setup, user gives a username and password. This information is used to create authentication information that is used authenticate server data retrieval and storage. Authentication in an individual device does not expire.
+**The app is not intended to store personal or sensitive data.** Never submit such information in the system and use an anonymous username in account setup.
 
-Troubleshooting
+In setup, user gives a username and password that are used to create authentication information that is used to secure server data retrieval and storage. Authentication in an individual device does not expire.
+
+# Troubleshooting
 
 -   If you want to change to another user account in a device, you currently need to clear the app cache in Android settings or clear the data of the app in browser settings.
 -   Bugs or issues can be reported to the author: marko@orasaari.com
