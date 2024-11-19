@@ -2,7 +2,7 @@
 
 *SimpleGymTracker* is a user-friendly app designed to easily track workouts at gym and make use of programs or past workouts for easy planning. The program includes an Android app, web UI, Node.js server and MongoDB database.
 
-I have been working out in gym for several decades and tried to find a suitable gym tracker app to track my workouts but, because of their limitations or complexity, ended up using excel sheets instead. Here I implemented my own one, just like I wanted.
+I have been working out in gym for several decades and tried to find a suitable app to track my workouts but, because of their limitations or complexity, ended up using excel sheets instead. Here I implemented my own one, just like I wanted.
 
 More detailed description of the project and software as documented in the early phases of the project is available in GitHub: [ProjectDecription.md](https://github.com/Marko-S-O/SimpleGymTracker/blob/main/ProjectDescription.md).
 
