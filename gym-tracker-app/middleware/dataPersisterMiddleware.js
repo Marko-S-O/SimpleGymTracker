@@ -1,12 +1,12 @@
 // When the global state is updated, the data is also persisted.
 //
 // Updates to the global state only take place when the save to the current program or workout is 
-// triggered by user action, not when just individual exercise or set is updated. 
+// triggered by a user action, not when just an individual exercise or set is updated. 
 // State of these subcomponents is maintained in the internal state of each UI component.
 //
 // Persisting the data is done both to the server and local storage.
 //
-// Persistence is implemented asynchronously in the middleware to minimize impact on responsibility.
+// Persistence is implemented asynchronously in the middleware to minimize impact on responsiveness.
 //
 import { saveData, readData } from '../services/dataService'
 import * as actionTypes from '../reducers/actionTypes'
