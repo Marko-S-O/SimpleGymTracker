@@ -83,18 +83,19 @@ Data refresh is triggered by clicking the icon ⟳ in the top-right corner of th
 
 # Data storage
 
-1.  **Data storage rules**: The program stores the data both locally and in the server. The following rules apply for data storage
-    -   All user data is stored as a single object including: workout, workout history, program, old programs.
-    -   When saving data, it is always stored similar in the local and server storages, including timestamps.
-    -   The program tries to read local data first. If it is found, server data for the user is read. If no local data is available in the device, setup screen is shown to a user.
-    -   Local and server data are merged
-        -   If workout history or old programs lists are differing, local and server lists are combined.
-        -   If there is a differing active workout or current program in the local storage and server, the newer one is selected. Data of the older one is lost.
-    -   Merged data is immediately saved to both local storage and server to keep it synchronized over time.
+**Data storage rules**: The program stores the data both locally and in the server. The following rules apply for data storage
+
+-   All user data is stored as a single object including: workout, workout history, program, old programs.
+-   When saving data, it is always stored similar in the local and server storages, including timestamps.
+-   The program tries to read local data first. If it is found, server data for the user is read. If no local data is available in the device, setup screen is shown to a user.
+-   Local and server data are merged
+    -   If workout history or old programs lists are differing, local and server lists are combined.
+    -   If there is a differing active workout or current program in the local storage and server, the newer one is selected. Data of the older one is lost.
+-   Merged data is immediately saved to both local storage and server to keep it synchronized over time.
 
 # Security
 
-**The app is not intended to store personal or sensitive data.** Never submit such information in the system and use an anonymous username in account setup.
+**The app is not intended to store personal or sensitive data.** Never submit such information in the system and use an anonymous username in the account setup.
 
 In setup, user gives a username and password that are used to create authentication information that is used to secure server data retrieval and storage. Authentication in an individual device does not expire.
 
