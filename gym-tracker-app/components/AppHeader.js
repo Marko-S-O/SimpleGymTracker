@@ -22,8 +22,8 @@ export default function AppHeader() {
 
     return(
         <View style={ styles.appHeader }>
-            <Text style={ styles.appHeaderText }>SimpleGymTracker v. 0.1 - {state.userId}</Text>
-            <TouchableOpacity onPress={()=>setRefreshModalVisible(true)} style={{ marginRight: 15 }}>
+            <Text style={ styles.appHeaderText }>SimpleGymTracker v. 0.3 - {state.userId}</Text>
+            <TouchableOpacity onPress={()=>setRefreshModalVisible(true)} style={{ marginRight: 15, marginBottom: 10 }}>
                 <Icon name="refresh" size={24} color="#fff" />
                 <ConfirmModal
                     visible={refreshModalVisible}

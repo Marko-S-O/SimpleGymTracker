@@ -33,3 +33,31 @@ export const getEmptyData = () => {
     }
     return data
 }
+
+export const createExerciseList = (data) => {
+
+    const exerciseNameSet = new Set()
+
+    data.currentWorkout?.exercises?.forEach(exercise => exerciseNameSet.add(exercise.name))
+
+    data.pastWorkouts?.forEach(workout => {
+        workout.exercises?.forEach(exercise => exerciseNameSet.add(exercise.name))        
+    })
+
+    data.currentProgram?.weeks?.forEach(week => {
+        week.workouts?.forEach(workout => {
+            workout.exercises?.forEach(exercise => exerciseNameSet.add(exercise.name))     
+        })
+    })
+
+    data.pastPrograms?.forEach(program => {
+        program?.weeks?.forEach(week => {
+            week.workouts?.forEach(workout => {
+                workout.exercises?.forEach(exercise => exerciseNameSet.add(exercise.name))     
+            })
+        })
+    })
+
+    const exerciseNames = [...exerciseNameSet].sort()
+    return exerciseNames
+}

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Platform } from 'react-native'
 import { Provider, useDispatch } from 'react-redux'
 import { NavigationContainer } from '@react-navigation/native'
 import AppNavigator from './navigation/AppNavigator'
@@ -34,14 +33,18 @@ function MainApp() {
 
     const finalizeSetup = async (uid, password) => {
 
-        const data = await setupSession(uid, password)
-
-        if(data) {
-            dispatch(setupUser(data))            
-            setIsKnownUser(true)
-            setErrorMessage('')
+        if(uid.length < 6 || password.length <8) {
+            setErrorMessage('Account name must be at least 6 characters and password 8 characters long.')
         } else {
-            setErrorMessage('Setting up a user failed. Please check your password.')
+            uid = uid.toLowerCase()
+            const data = await setupSession(uid, password)
+            if(data) {
+                dispatch(setupUser(data))            
+                setIsKnownUser(true)
+                setErrorMessage('')
+            } else {
+                setErrorMessage('Setting up a user failed. Please check your password.')
+            }
         }
     }
 

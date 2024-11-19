@@ -1,3 +1,4 @@
+import { createExerciseList } from '../util/dataHelper'
 import * as actionTypes from './actionTypes'
 import cloneDeep from 'lodash/cloneDeep'
 
@@ -27,6 +28,7 @@ const dataReducer = (state = initialState, action) => {
             pastPrograms: action.payload.pastPrograms,
             exerciseNames: action.payload.exerciseNames
         }
+
         return data;
     }
 
@@ -41,6 +43,7 @@ const dataReducer = (state = initialState, action) => {
             pastPrograms: action.payload.pastPrograms,
             exerciseNames: action.payload.exerciseNames
         }
+        data.exerciseNames = createExerciseList(data)
         return data
     }
     case actionTypes.REFRESH_AND_SET_DATA: {
@@ -51,16 +54,19 @@ const dataReducer = (state = initialState, action) => {
     case actionTypes.SET_CURRENT_WORKOUT: {       
         const data = cloneDeep(state)
         data.currentWorkout = cloneDeep(action.payload)
+        data.exerciseNames = createExerciseList(data)        
         return data
     }
 
     case actionTypes.FINISH_CURRENT_WORKOUT: {
         const data = {...state, pastWorkouts: [action.payload, ...state.pastWorkouts], currentWorkout: null} 
+        data.exerciseNames = createExerciseList(data)
         return data           
     }
     
     case actionTypes.ADD_PAST_WORKOUT: {
         const data = {...state, pastWorkouts: [action.payload, ...state.pastWorkouts]}
+        data.exerciseNames = createExerciseList(data)
         return data      
     }
 
@@ -74,6 +80,7 @@ const dataReducer = (state = initialState, action) => {
     case actionTypes.SET_CURRENT_PROGRAM: {                                                                                                                                                                                                                                    
         const data = {...state}
         data.currentProgram = cloneDeep(action.payload)
+        data.exerciseNames = createExerciseList(data)
         return data
     }
 

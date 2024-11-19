@@ -27,7 +27,7 @@ export default function AppNavigator() {
                 <Tab.Screen name="Workout" component={CurrentWorkout} />
                 <Tab.Screen name="History" component={PastWorkouts} />
                 <Tab.Screen name="Program" component={CurrentProgram} />
-                <Tab.Screen name="Old Prgms" component={PastPrograms} />
+                <Tab.Screen name="Old Prs" component={PastPrograms} />
             </Tab.Navigator>
         </View>
     )

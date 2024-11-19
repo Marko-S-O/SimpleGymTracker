@@ -21,13 +21,13 @@ function Exercise({exercise, exerciseIndex, editable, handleAddSet, handleDelete
                     {editable ? (
                         <>
                             <NumericInput value={set.reps} handleValueChange={(action, value) => handleUpdateSet(exerciseIndex, setIndex, UIconstants.SET_FIELD_REPS, action, value, weekIndex, workoutIndex)} />                        
-                            <Text> reps </Text>
-                            <View style={{ width: 30 }} />                         
+                            <Text style={styles.normalText}> reps </Text>
+                            <View style={[styles.normalText, { width: 30 }]} />                         
                             <NumericInput value={set.weight} handleValueChange={(action, value) => handleUpdateSet(exerciseIndex, setIndex, UIconstants.SET_FIELD_WEIGHT, action, value, weekIndex, workoutIndex)} />
-                            <Text> kg</Text>
+                            <Text style={styles.normalText}> kg</Text>
                         </>
                     ) : (
-                        <Text style={{ marginRight: 10 }}>{set.reps} reps {set.weight} kg</Text>
+                        <Text style={[styles.normalText, { marginRight: 10 }]}>{set.reps} reps {set.weight} kg</Text>
                     )}
                 </View>
             ))}

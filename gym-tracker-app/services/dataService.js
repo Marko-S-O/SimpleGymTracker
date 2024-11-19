@@ -5,6 +5,7 @@ import { Platform } from 'react-native'
 import axios from 'axios'
 import { getEmptyData } from '../util/dataHelper'
 import { API_URL } from '@env'
+import { createExerciseList } from '../util/dataHelper'
 
 const DEV_API_URL = Platform.OS == 'android' ? 'http://10.0.2.2:3001/api/data' : 'http://localhost:3001/api/data' 
 const apiUrl = API_URL || DEV_API_URL
@@ -76,11 +77,8 @@ export const saveData = async (data) => {
     } catch (error) {
         console.error('Error saving data to server', error)
     }
-
 }
 
-
-// Fix serialized dates to Date objects
 const convertDates = (data) => {
     const fixedData = {...data}
 
@@ -110,36 +108,6 @@ const convertDates = (data) => {
     return fixedData
 }
 
-const createExerciseList = (data) => {
-
-    const fixedData = {...data}
-    const exerciseNameSet = new Set()
-
-    fixedData.currentWorkout?.exercises?.forEach(exercise => exerciseNameSet.add(exercise.name))
-
-    fixedData.pastWorkouts?.forEach(workout => {
-        workout.exercises?.forEach(exercise => exerciseNameSet.add(exercise.name))        
-    })
-
-    fixedData.currentProgram?.weeks?.forEach(week => {
-        week.workouts?.forEach(workout => {
-            workout.exercises?.forEach(exercise => exerciseNameSet.add(exercise.name))     
-        })
-    })
-
-    fixedData.pastPrograms?.forEach(program => {
-        program?.weeks?.forEach(week => {
-            week.workouts?.forEach(workout => {
-                workout.exercises?.forEach(exercise => exerciseNameSet.add(exercise.name))     
-            })
-        })
-    })
-
-    const exerciseNames = [...exerciseNameSet].sort()
-    fixedData.exerciseNames = exerciseNames
-    return fixedData
-}
-
 const sortData = (data) => {
     const sortedData = {...data}
     sortedData.pastWorkouts.sort((w1, w2) => w2.saved - w1.saved)
@@ -154,7 +122,7 @@ const selectNewer = (object1, object2) => {
 }
 
 // Merge server and local data. This is done always when reading the data. Reading data
-// Only happens when there is no existing session or user invokes the refresh action in UI.
+// only happens when there is no existing session or user invokes the refresh action in UI.
 //
 // Merge strategy:
 // - Take newer of the current workout and current program (saved timestamp)
@@ -225,8 +193,6 @@ const readDataLocal = async () => {
 }
 
 export const readDataServer = async (uid, token) => {
-  
-    console.log('READ: API URL to use: ' + apiUrl)
     
     try {
         const url = apiUrl + '/' + uid
@@ -257,9 +223,10 @@ export const readData = async () => {
     const serverData = await readDataServer(uid, token)
 
     let data = mergeData(localData, serverData)
-    data = createExerciseList(data)
     data = sortData(data)
-
+    const exerciseNames = createExerciseList(data)
+    data.exerciseNames = exerciseNames
+    
     return data    
 }
 

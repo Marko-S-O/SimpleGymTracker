@@ -11,9 +11,7 @@ export default function SetupScreen({ finalizeSetup, errorMessage }) {
     const [password, setPassword] = useState('')
 
     const handleSetup = () => {
-        if (uid && uid.length > 5 && password.length > 7) {
-            finalizeSetup(uid, password)
-        }
+        finalizeSetup(uid, password)
     }
 
     return (
@@ -49,6 +47,7 @@ export default function SetupScreen({ finalizeSetup, errorMessage }) {
                 <TextInput
                     style={{width: 170, fontSize: 16, marginBottom: 10, borderColor: '#1F2937', borderWidth: 1, backgroundColor: '#F0F0F0'}}
                     value={password}
+                    secureTextEntry={true}
                     onChangeText={setPassword}
                 />
             </View>

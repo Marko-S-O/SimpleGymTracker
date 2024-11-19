@@ -19,14 +19,14 @@ export default StyleSheet.create({
     },
     appHeaderText: {
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 15,
         color: '#f9fafb',
-        marginLeft:20,
+        marginLeft:15,
         textAlignVertical: 'center'
     },
     boldText: {
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 14,
         color: '#1F2937',
     },
     button: {
@@ -48,7 +48,7 @@ export default StyleSheet.create({
         width: '100%',
     },
     buttonText: {
-        fontSize: 14,
+        fontSize: 13,
         color: '#FFFFFF',
     },
     cancelButton: {
@@ -62,7 +62,7 @@ export default StyleSheet.create({
         flex: 1,
         width: '100%',
         justifyContent: 'center',
-        fontSize: 16,
+        fontSize: 14,
         color: '#3b82f6',
         backgroundColor: '#f9fafb',
     },
@@ -95,8 +95,8 @@ export default StyleSheet.create({
         paddingHorizontal: 8,
         borderRadius: 6,
         marginHorizontal: 5,
-        width: 107,
-        height: 50,
+        width: 109,
+        height: 32,
         alignItems: 'center',
         justifyContent: 'center',
         color: '#FFFFFF',
@@ -112,10 +112,10 @@ export default StyleSheet.create({
         paddingVertical: 5,
         backgroundColor: '#BBBBBB',
         borderRadius: 4,
-        width: 24,
+        width: 23,
     },
     incrementButtonText: {
-        fontSize: 18,
+        fontSize: 16,
         color: '#fff',
     },
     infoTextContainer: {
@@ -126,7 +126,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
     inputField: {
-        width: 45,
+        width: 43,
         textAlign: 'center',
         marginHorizontal: 5,
         padding: 5,
@@ -141,7 +141,7 @@ export default StyleSheet.create({
         paddingHorizontal: 8,
         borderRadius: 6,
         marginHorizontal: 5,
-        width: 170,
+        width: 166,
         alignItems: 'center',
         justifyContent: 'center',
         color: '#FFFFFF',
@@ -152,13 +152,13 @@ export default StyleSheet.create({
         paddingHorizontal: 4,
         borderRadius: 6,
         marginHorizontal: 4,
-        width: 100,
+        width: 98,
         alignItems: 'center',
         justifyContent: 'center',
         color: '#FFFFFF',
     },
     messageText: {
-        fontSize: 18,
+        fontSize: 14,
         marginBottom: 20,
         textAlign: 'center',
     },
@@ -169,7 +169,7 @@ export default StyleSheet.create({
         borderRadius: 6,
         marginHorizontal: 5,
         marginVertical: 10,
-        width: 130,
+        width: 127,
         alignItems: 'center',
         justifyContent: 'center',
         color: '#FFFFFF',
@@ -198,7 +198,7 @@ export default StyleSheet.create({
     },
     normalText: {
         fontWeight: 'normal',
-        fontSize: 16,
+        fontSize: 14,
         color: '#1F2937',
     },
     numericInputContainer: {
@@ -222,7 +222,7 @@ export default StyleSheet.create({
         backgroundColor: '#CCCCFF',
     },
     programTitle: {
-        fontSize: 18,
+        fontSize: 15,
         color: '#1F2937',
         fontWeight: 'bold',
     },
@@ -233,7 +233,7 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
     },
     setInputField: {
-        width: 50,
+        width: 48,
         marginHorizontal: 10,
         padding: 8,
         textAlign: 'center',
@@ -254,7 +254,7 @@ export default StyleSheet.create({
         paddingHorizontal: 8,
         borderRadius: 6,
         marginHorizontal: 5,
-        width: 86,
+        width: 85,
         alignItems: 'center',
         justifyContent: 'center',
         color: '#FFFFFF',
@@ -262,14 +262,15 @@ export default StyleSheet.create({
     tab: {
         color: '#f9fafb',
         paddingVertical: 0,
-        paddingHorizontal: 10,
+        paddingHorizontal: 2,
         borderBottomWidth: 3,
         borderBottomColor: 'transparent',
     },
     tabBar: {
         backgroundColor: '#4b5563',
-        height: 34,
-        padding: 0,
+        height: 40,
+        paddingHorizontal: 0,
+        paddingVertical: 2,
         marginTop: 0,
     },
     tabBarIndicator: {
@@ -278,6 +279,9 @@ export default StyleSheet.create({
     tabBarLabel: {
         color: '#f9fafb',
         fontWeight: 'bold',
+        fontSize: 13,
+        textAlign: 'center',
+        width: '100%',
     },
     tabs: {
         flexDirection: 'row',
@@ -285,7 +289,7 @@ export default StyleSheet.create({
         textAlignVertical: 'center',
         backgroundColor: '#4b5563',
         width: '100%',
-        paddingVertical: 5,
+        paddingVertical: 2,
         position: 'absolute',
         top: 0,
         zIndex: 1000,

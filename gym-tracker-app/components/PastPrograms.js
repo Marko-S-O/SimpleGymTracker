@@ -51,7 +51,6 @@ export default function CurrentProgram() {
         navigation.navigate('Workout')
     }
 
-    console.log(state)
     const isActionsDisabled = !program
     const isNextDisabled = !state.pastPrograms || state.pastPrograms.length <= 0 || index <= 0
     const isPreviousDisabled = !state || state.pastPrograms.length <= 0 || (index >= state.pastPrograms.length-1)

@@ -70,11 +70,22 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
         }        
     }    
 
+    const getNewSet = (exercise) => {
+        if(exercise.sets.length > 1) {
+            previousSet = exercise.sets[exercise.sets.length-1]
+            return {reps: previousSet.reps, weight: previousSet.weight}
+        } else {
+            return {reps: UIconstants.DEFAULT_REPS, weight: 0}
+            
+        }
+
+    }
+
     const handleAddSet = (exerciseIndex, weekIndex, workoutIndex) => {
 
-        const updatedExercises = exercises.map((exercise, iExercise) =>
+        const updatedExercises = exercises.map((exercise, iExercise) => 
             iExercise === exerciseIndex
-                ? { ...exercise, sets: [...exercise.sets, { reps: UIconstants.DEFAULT_REPS, weight: 0 }] }
+                ? { ...exercise, sets: [...exercise.sets, getNewSet(exercise)] }
                 : exercise
         )
 
@@ -176,7 +187,7 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
             >
                 {(editable && !programView) && (
                     <View style={styles.WorkoutHeader}>
-                        <Text style={[styles.boldText, {paddingLeft: 5}]}>Workout Tracker</Text>     
+                        <Text style={[styles.boldText, {paddingLeft: 5}]}>Active Workout</Text>     
                         <View style={[styles.WorkoutHeader, {flexDirection: 'row'}]}>
                             <Text style={styles.normalText}>Saved: </Text>      
                             { workout.saved && (
