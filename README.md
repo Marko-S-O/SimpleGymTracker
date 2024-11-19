@@ -11,7 +11,7 @@ Currently, the program is tested in the workbench. I will be taking the app into
 # Running the program
 
 -   [Android App](https://play.google.com/apps/internaltest/4700891926903260742) is available in Google Play as an internal test version.
--   [Web UI is in fly.io](https://gym-tracker-server.fly.dev/). It is similar to the app UI and there are not optimizations for a larger screen yet.
+-   [Web UI is in fly.io](https://gym-tracker-server.fly.dev/). It is similar to the app UI and there are no optimizations for a larger screen yet.
 -   [User instructions](https://github.com/Marko-S-O/SimpleGymTracker/blob/main/UserInstructions.md) can be found in GitHub.
 
 # Working time used
