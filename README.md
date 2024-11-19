@@ -13,7 +13,7 @@ More detailed description of the project and software as documented in the early
 
 # Working hours report
 
-Sum of working hours is 132*.*
+The sum of working hours is 132 *.*
 
 Detailed log below. Longer working days are capped to 8 in the list.
 
