@@ -10,37 +10,25 @@ Currently, the program is tested in the workbench. I will be taking the app into
 
 # Running the program
 
--   Android App: available in Google Play as an internal test version: <https://play.google.com/apps/internaltest/4700891926903260742>
--   Web UI: <https://gym-tracker-server.fly.dev/>
--   User instructions in GitHub: <https://github.com/Marko-S-O/SimpleGymTracker/blob/main/UserInstructions.md>
+-   [Android App](https://play.google.com/apps/internaltest/4700891926903260742) is available in Google Play as an internal test version.
+-   [Web UI is in fly.io](https://gym-tracker-server.fly.dev/). It is similar to the app UI and there are not optimizations for a larger screen yet.
+-   [User instructions](https://github.com/Marko-S-O/SimpleGymTracker/blob/main/UserInstructions.md) can be found in GitHub.
 
-# Working hours report
+# Working time used
 
-The sum of working hours is 132 *.*
+The sum of working hours is 132.
 
-Detailed log below. Longer working days are capped to 8 in the list.
-
-| **Date**   | **H** | **Tasks**                                    |
-|------------|-------|----------------------------------------------|
-| 23.10.2024 | 4     | Project work topic planning & selection      |
-| 24.10.2024 | 8     | Basic functionality planning, HTML prototype |
-| 27.10.204  | 8     | Basic program frame                          |
-| 28.10.2024 | 8     | Workout functionality                        |
-| 29.10.2024 | 8     | Workout functionality                        |
-| 1.11.2024  | 8     | Program functionality                        |
-| 2.11.2024  | 8     | Program functionality                        |
-| 3.11.2024  | 8     | Persistence + refined state management       |
-| 3.11.2024  | 8     | Testing & fixing                             |
-| 4.11.2024  | 8     | Server & DB                                  |
-| 5.11.2024  | 4     | Server & DB                                  |
-| 6.11.2024  | 8     | Refresh & setup functionality                |
-| 14.11.2024 | 8     | Testing and fixing                           |
-| 15.11.2024 | 8     | Testing and fixing                           |
-| 16.11.2024 | 8     | Testing and fixing                           |
-| 17.11.2024 | 8     | Deployment Mongo, Fly, Play Store            |
-| 18.11.2024 | 8     | Authentication mechanism                     |
-| 19.11.2024 | 4     | Documentation                                |
+The detailed working hours list is available in the GitHub: [WorkingHours.md](https://github.com/Marko-S-O/SimpleGymTracker/blob/main/WorkingHours.md).
 
 # Issues and enhancements
 
-The list of known bugs, issues and enhancement needs is available in the GitHub issue list: <https://github.com/Marko-S-O/SimpleGymTracker/issues>
+The list of known bugs, issues and enhancement ideas is available in the [GitHub issue list](https://github.com/Marko-S-O/SimpleGymTracker/issues).
+
+# Links
+
+-   Project and software description: <https://github.com/Marko-S-O/SimpleGymTracker/blob/main/ProjectDescription.md>
+-   Web UI in fly.io: <https://gym-tracker-server.fly.dev/>
+-   Android app (internal test version): <https://play.google.com/apps/internaltest/4700891926903260742>
+-   GitHub issue list: <https://github.com/Marko-S-O/SimpleGymTracker/issues>
+-   User instructions in GitHub: <https://github.com/Marko-S-O/SimpleGymTracker/blob/main/UserInstructions.md>
+-   Working hours log: <https://github.com/Marko-S-O/SimpleGymTracker/blob/main/WorkingHours.md>
