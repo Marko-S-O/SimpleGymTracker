@@ -18,7 +18,7 @@ Currently, the program is tested in the workbench. I will be taking the app into
 
 The sum of working hours is 132.
 
-The detailed working hours list is available in the GitHub: [WorkingHours.md](https://github.com/Marko-S-O/SimpleGymTracker/blob/main/WorkingHours.md).
+The detailed working hours list is available in GitHub: [WorkingHours.md](https://github.com/Marko-S-O/SimpleGymTracker/blob/main/WorkingHours.md).
 
 # Issues and enhancements
 
