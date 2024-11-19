@@ -21,7 +21,7 @@ The app consists of the following functions:
 4.  **OLD PRS** (old programs) tab: View old programs, re-activate them and initialize a workout session from an old program.
 5.  **Refresh** function: synchronized the data fed in another device to the current device.
 
-You can switch between the tabs freely to access their respective features. The data in tabs is preserved during use of other transfers.
+You can switch between the tabs freely to access their respective features. The data in tabs is preserved during use of other tabs.
 
 # WORKOUT Tab
 
@@ -57,7 +57,7 @@ You can switch between the tabs freely to access their respective features. The 
 3.  **Save Program**:
     -   Use the **Save Program** button to save your progress.
 4.  **Start New**:
-    -   Reset the program to create a new one. The old program will be transferred to the old programs section and an empty one is initialized.
+    -   Reset the program to create a new one. The current active program will be transferred to the old programs section and an empty one is initialized.
 
 **Editing a Program:**
 
@@ -73,11 +73,11 @@ You can switch between the tabs freely to access their respective features. The 
 -   **Delete**: Remove the program. Deleted data can’t be recovered.
 -   **Start →**: You can also use the exercises of the old programs to initialize a new workout, just like workout history and the current program.
 
-Data refresh ⟳
+# Data refresh ⟳
 
 Data refresh is triggered by clicking the icon ⟳ in the top-right corner of the app.
 
-**Intended use**: If a user submits data from one device and wants to make it available in another one, it needs to be made available using the data refresh. Typical use case is setting up a workout beforehand using web UI and later taking it into use in the phone at gym.
+**Intended use**: If a user submits data from one device and wants to make it available in another one, it needs to be done using the data refresh. Typical use case is setting up a workout beforehand using web UI and later taking it into use in the phone at gym.
 
 **Data merging** rules: See section Data Storage for rules of data merging between local and server storages.
 
