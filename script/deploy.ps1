@@ -2,7 +2,7 @@ $clientDir = "C:\Users\ext\SimpleGymTracker\gym-tracker-app"
 $serverDir = "C:\Users\ext\SimpleGymTracker\gym-tracker-server"
 $distDir = "$clientDir\dist"
 
-# Build the app
+# Build the web UI
 Write-Output "Building gym-tracker-app..."
 Set-Location $clientDir
 npx expo export --platform web
@@ -12,7 +12,6 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 # Copy the dist directory to the server
-
 Write-Output "Copying dist directory to the server..."
 Remove-Item -Path $serverDir\dist -Recurse
 Copy-Item $distDir -Destination $serverDir -Recurse -Force
