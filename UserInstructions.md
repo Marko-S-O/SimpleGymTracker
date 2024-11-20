@@ -31,12 +31,12 @@ You can switch between the tabs freely to access their respective features. The 
 
 -   **Add Exercise**: Create a new exercise for your workout.
     -   You are asked to give the exercise name. You can either type the program name or select it from the list.
-    -   The list includes your workout names from past workouts and programs. If needed, use refresh button in the top-right corner to fill the list of exercise names.
--   **Add Set**: Add a set to the current exercise by entering the number of reps and weight (kg). You can either type in the values or adjust the number by pressing + and - buttons. When using buttons, amount of adjustment depends on the weight.
--   **Delete Set**: Remove a set. The last set of the exercise is always removed. If you want to remove a set in the middle of exercise, you have to remove the last one and adjust the others accordingly.
+    -   The list includes your workout names from past workouts and programs.
+-   **Add Set**: Add a set to the current exercise by entering the number of reps and weight (kg). You can either type in the values or adjust the number by pressing + and - buttons. When using buttons in the weight field, amount of increment/decrement depends on the weight.
+-   **Delete Set**: Remove a set. The last set of the exercise is always removed. If you want to remove a set in the middle of the list, you need to remove the last one and adjust the others accordingly.
 -   **Delete Exercise**: Remove the exercise entirely.
--   **Save Workout**: Save the current workout. Workout will be saved to the local storage and server. If the server is not available, the workout is still saved securely in the local storage.
--   **Finish Workout**: Mark the workout as completed. The workout is moved to the history list and is available in the HISTORY tab.
+-   **Save Workout**: Save the current workout. Workout will be saved to the local storage and server. If the server is not available, the workout is still saved securely in the local storage and synchronized to the server later.
+-   **Finish Workout**: Mark the workout as completed. The workout is moved to the history list and can be found in the HISTORY tab.
 
 # HISTORY Tab
 
@@ -50,21 +50,14 @@ You can switch between the tabs freely to access their respective features. The 
 
 **Creating and Managing Programs**
 
-1.  **Create a Program**:
-    -   Enter a name for your program in the **Active Program** section.
+-   **Create a Program:**
+    -   Enter a name for your program in the program header section.
     -   Use the **Add Week** button to add a new week to the program if you have a multi-week training cycle.
     -   Use **Add Workout** to define workouts for each week.
-2.  **Add Exercises to Workouts**:
-    -   Similar to the Workout tab, add sets, reps, and weights for each exercise.
-3.  **Save Program**:
-    -   Use the **Save Program** button to save your progress.
-4.  **Start New**:
-    -   Reset the program to create a new one. The current active program will be transferred to the old programs section and an empty one is initialized.
-
-**Editing a Program:**
-
--   **Add Week/Workout**: Expand the program with additional weeks or workouts.
--   **Delete Week/Workout**: Remove unwanted weeks or workouts.
+-   **Add Exercises to Workouts:** Add sets, reps, and weights for each exercise. Submitting data for an individual exercise is similar to the WORKOUT tab.
+-   **Save Program:** Use the **Save Program** button to save the program.
+-   **Start New:** Start a new program. The current active program will be transferred to the old programs section and an empty one is initialized.
+-   **Delete Week/Workout:** Remove unnecessary weeks or workouts with the corresponding buttons.
 
 # OLD PRS (Old Programs) Tab
 
@@ -73,33 +66,33 @@ You can switch between the tabs freely to access their respective features. The 
 -   Navigate through previously completed programs using the **Previous** and **Next** buttons.
 -   Use **Activate** button to reactivate an old program. The current program will be transferred to the old programs list and the old program will be set to be the current active program.
 -   **Delete**: Remove the program. Deleted data can’t be recovered.
--   **Start →**: You can also use the exercises of the old programs to initialize a new workout, just like workout history and the current program.
+-   **Start →**: You can also use the exercises of the old programs to initialize a new workout, just like in the workout history and the current program.
 
 # Data refresh ⟳
 
 Data refresh is triggered by clicking the icon ⟳ in the top-right corner of the app.
 
-**Intended use**: If a user submits data from one device and wants to make it available in another one, it needs to be done using the data refresh. Typical use case is setting up a workout beforehand using the web UI and later taking it into use in a phone at gym.
+**Intended use**: If a user submits data from one device and wants to make it available in another one, it needs to be done using the data refresh. Typical use case is setting up a workout beforehand in the web UI and later taking it into use in a phone at gym.
 
-**Data merging** rules: See section Data Storage for rules of data merging between local and server storages.
+**Data merging** rules: See section Data Storage for rules of merging local and server data.
 
 # Data storage
 
-**Data storage rules**: The program stores the data both locally and in the server. The following rules apply for data storage
+**Data storage rules**: The program persists the data both locally and in the server. The following rules apply for data storage:
 
--   All user data is stored as a single object including: workout, workout history, program, old programs.
--   When saving data, it is always stored similar in the local and server storages, including timestamps.
--   The program tries to read local data first. If it is found, server data for the user is read. If no local data is available in the device, setup screen is shown to a user.
+-   All user data is stored as a single entity including: workout, workout history, program, old programs.
+-   When saving the data, it is always stored similar in the local and server storages, including timestamps.
+-   The program tries to read the local data in the device first. If found, server data for the user is read. In case no local data is available in the device, the setup screen is shown to the user.
 -   Local and server data are merged
-    -   If workout history or old programs lists are differing, local and server lists are merged. Duplicate copies of list items are removed.
+    -   If workout history or old programs lists are differing, local and server lists are merged. Duplicate copies are removed.
     -   If there is a differing active workout or current program in the local storage and server, the newer one is selected. Data of the older one is lost.
--   Merged data is immediately saved to both local storage and server to keep it synchronized over time.
+-   Merged data is immediately saved to both the local storage and server to keep it synchronized over time.
 
 # Security
 
 **The app is not intended to store personal or sensitive data.** Never submit such information in the system and use an anonymous username in the account setup.
 
-In setup, user gives a username and password that are used to create authentication information that is used to secure server data retrieval and storage. Authentication in an individual device does not expire.
+The server communication is secured by using an https connection and token-based authentication.
 
 # Troubleshooting
 
