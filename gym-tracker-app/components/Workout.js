@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { View, Text, ScrollView, TouchableOpacity, TextInput, Platform } from 'react-native'
 import Exercise from './Exercise'
 import AddExerciseModal from './AddExerciseModal'
+import ConfirmModal from './ConfirmModal'
 import * as UIconstants from './UIconstants'
 import androidStyles from '../styles/styles.android'
 import webStyles from '../styles/styles.web'
@@ -21,6 +22,7 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
     // Global state is updated only when the user saves the data either in workout tracking or program editing.
     const [exercises, setExercises] = useState(workout.exercises)
     const [notes, setNotes] = useState(workout.notes)    
+    const [finishConfirmModalVisible, setFinishConfirmModalVisible] = useState(false)
     const scrollViewRef = useRef(null)
 
     useEffect(() => {
@@ -61,6 +63,7 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
 
     const handleFinishWorkout = () => {
         finishWorkout(exercises, notes)
+        setFinishConfirmModalVisible(false)
     }    
 
     const handleSetNotes = (text, weekIndex, workoutIndex) => {
@@ -198,10 +201,10 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
                 )}
 
                 {(!editable && !programView) && (
-                    <View style={[styles.WorkoutHeader, {flexDirection: 'row'}]}>
-                        <Text style={styles.boldText}> Created: </Text>             
+                    <View style={[styles.WorkoutHeader, {flexDirection: 'row', padding: 1}]}>
+                        <Text style={styles.boldText}> Start: </Text>             
                         <Text style={styles.normalText}> {workout.created.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
-                        <Text style={styles.boldText}> Finished: </Text>             
+                        <Text style={styles.boldText}> Finish: </Text>             
                         <Text style={styles.normalText}> {workout.saved.toLocaleDateString(UIconstants.UI_LOCALE, UIconstants.UI_DATE_TIME_FORMAT)} </Text>                                                        
                     </View>                    
                 )}
@@ -247,8 +250,15 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
                                     <TouchableOpacity style={styles.fixedButton} onPress={handleSaveWorkout}>
                                         <Text style={styles.buttonText}>Save Workout</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={styles.fixedButton} onPress={handleFinishWorkout}>
+                                    <TouchableOpacity style={styles.fixedButton} onPress={()=>setFinishConfirmModalVisible(true)}>
                                         <Text style={styles.buttonText}>Finish Workout</Text>
+                                        <ConfirmModal
+                                            visible={finishConfirmModalVisible}
+                                            onConfirm={handleFinishWorkout}
+                                            onRequestClose={() => setFinishConfirmModalVisible(false) }
+                                            header='Finish workout?'
+                                            message='Confirm that you want to finish the workout.'
+                                        />                                         
                                     </TouchableOpacity>     
                                 </>
                             )}

@@ -12,7 +12,7 @@ const ConfirmModal = ({ visible, onRequestClose, onConfirm, header, message }) =
             transparent={true}
             animationType="fade"
             visible={visible}
-            onRequestClose={onRequestClose} // Called when the user taps the hardware back button
+            onRequestClose={onRequestClose} 
         >
             <View style={styles.modalOverlay}>
                 <View style={styles.modalContainer}>

@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, TouchableOpacity, Platform } from 'react-native'
-import Workout from './Workout'
 import { setCurrentWorkout, deletePastWorkout } from '../reducers/dataActions'
 import { useNavigation } from '@react-navigation/native'
+import Workout from './Workout'
+import ConfirmModal from './ConfirmModal'
 import androidStyles from '../styles/styles.android'
 import webStyles from '../styles/styles.web'
 
@@ -21,14 +22,10 @@ function PastWorkouts() {
     
     
     const [index, setIndex] = useState(0)
+    const [deleteConfirmModalVisible, setDeleteConfirmModalVisible] = useState(false)    
+
 
     const workout = (state.pastWorkouts && (state.pastWorkouts.length >= index)) ? state.pastWorkouts[index] : null
-
-    const handleStartWorkout = () => {
-        const workout = {exercises: [], notes: '', created: new Date()}
-        dispatch(setCurrentWorkout(workout))
-        navigation.navigate('Workout')              
-    }
 
     const handleNavigate = (direction) => {
         if(direction == 'previous') {
@@ -47,6 +44,7 @@ function PastWorkouts() {
     handleDelete = () => {
         dispatch(deletePastWorkout(state.pastWorkouts[index]))
         setIndex(Math.max(index-1, 0))
+        setDeleteConfirmModalVisible(false)
     }
     
     const isDeleteDisabled = state.pastWorkouts.length == 0
@@ -56,17 +54,24 @@ function PastWorkouts() {
 
     return(
         <>
-            <View style={[styles.WorkoutHeader, {marginLeft: 4, marginRight: 4, marginBottom: 0}]}>
+            <View style={[styles.WorkoutHeader, {marginLeft: 0, marginRight: 0, marginBottom: 0}]}>
                 <Text style={[styles.boldText, {paddingLeft: 5}]}>My Past Workouts</Text>     
-                <View style={[styles.WorkoutHeader, { flexDirection: 'row', justifyContent: 'space-between', marginLeft: 4, marginRight: 4, marginBottom: 0}]}>
+                <View style={[styles.WorkoutHeader, { flexDirection: 'row', justifyContent: 'space-between', marginLeft: 0, marginRight: 4, marginBottom: 0}]}>
                     <TouchableOpacity style={[styles.smallButton, isPreviousDisabled && { opacity: 0.5 }]} disabled={isPreviousDisabled} onPress={() => handleNavigate('previous')} >
                         <Text style={styles.buttonText}>Previous</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.smallButton, isNewDisabled && { opacity: 0.5 }]} disabled={isNewDisabled} onPress={() => handleCopyNew()} >
                         <Text style={styles.buttonText}>Copy New</Text>
                     </TouchableOpacity>   
-                    <TouchableOpacity style={[styles.smallButton, isDeleteDisabled && { opacity: 0.5 }]} disabled={isDeleteDisabled} onPress={() => handleDelete()} >
+                    <TouchableOpacity style={[styles.smallButton, isDeleteDisabled && { opacity: 0.5 }]} disabled={isDeleteDisabled} onPress={() => setDeleteConfirmModalVisible(true)} >
                         <Text style={styles.buttonText}>Delete</Text>
+                        <ConfirmModal
+                                            visible={deleteConfirmModalVisible}
+                                            onConfirm={() => handleDelete()}
+                                            onRequestClose={() => setDeleteConfirmModalVisible(false) }
+                                            header='Delete workout?'
+                                            message='Confirm that you want to delete the workout.'
+                                        />                                  
                     </TouchableOpacity>                        
                     <TouchableOpacity style={[styles.smallButton, isNextDisabled && { opacity: 0.5 }]} disabled={isNextDisabled} onPress={() => handleNavigate('next')} >
                         <Text style={styles.buttonText}>Next</Text>

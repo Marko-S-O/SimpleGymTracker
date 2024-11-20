@@ -6,7 +6,6 @@ import * as UIconstants from './UIconstants'
 import { getEmptyWorkout } from '../util/dataHelper'
 import androidStyles from '../styles/styles.android'
 import webStyles from '../styles/styles.web'
-import { cloneDeep } from 'lodash'
 
 const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
@@ -98,9 +97,9 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout, e
                     <View style={styles.programHeader}>
                         <Text style={styles.boldText}>Active Program</Text>                        
                         <View style={[styles.programHeader, {flexDirection: 'row'}]}>
-                            <Text style={[styles.normalText, {fontSize: 16, verticalAlign: 'middle', marginBottom:6, paddingRight: 10}]}>Name: </Text>
+                            <Text style={[styles.normalText, {verticalAlign: 'middle', marginBottom: 0, marginTop: 3, paddingRight: 3}]}>Name: </Text>
                             <TextInput
-                                style={{borderColor: 'gray', borderWidth: 1, borderRadius: 6, padding: 5, marginBottom: 6, fontWeight: 'normal', fontSize: 16}}
+                                style={{borderColor: 'gray', backgroundColor: styles.day.backgroundColor, borderRadius: 6, padding: 5, marginBottom: 0, marginTop: 5, fontWeight: 'normal', width: 210, height: 25, fontSize: 14}}
                                 value={name}
                                 onChangeText={handleSetName}
                                 multiline

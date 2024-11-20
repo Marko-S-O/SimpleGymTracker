@@ -57,7 +57,7 @@ export default function CurrentProgram() {
 
     return (
         <>
-            <View style={[styles.programHeader, {marginBottom: 0, marginLeft: 3, marginRight: 3}]}>
+            <View style={[styles.programHeader, {marginBottom: 0, marginLeft: 2, marginRight: 2}]}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 2 }}>
                     <TouchableOpacity style={[styles.smallButton, isPreviousDisabled && { opacity: 0.5 }]} onPress={()=> handleNavigate('previous')} disabled={isPreviousDisabled} >
                         <Text style={styles.buttonText}>Previous</Text>
