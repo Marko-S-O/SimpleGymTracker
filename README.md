@@ -6,7 +6,7 @@ I have been working out in gym for several decades and tried to find a suitable 
 
 More detailed description of the project and software as documented in the early phases of the project is available in GitHub: [ProjectDecription.md](https://github.com/Marko-S-O/SimpleGymTracker/blob/main/ProjectDescription.md).
 
-The app was put in a real-life test for the first time on Nov 19th, 2024. It felt very nice in the intended use, felt responsive once the setup was done and there were no crashes. A list minor bugs and enhancements was recorded and most of these are already covered in v. 0.4.
+The app was put in a real-life test for the first time on Nov 19th, 2024. It felt very nice in the intended use, felt responsive once the setup was done and there were no crashes. A list of minor bugs and enhancements was recorded and most of these are already covered in v. 0.4.
 
 # Running the program
 
