@@ -11,7 +11,7 @@
     -   After a successful login, the program will retrieve your data from the server and store a local copy to the device.
     -   Login does not expire and you will not have to re-login in the same device.
 
-**Please notify** that the response to “Start using” button may take a while because of the characteristics of the used cloud server. After the initial setup, this will not impact on responsiveness.
+**Please notify** that the response to “Start using” button may take a while because of the characteristics of the used cloud server. After the initial setup, this will have no impact on responsiveness.
 
 # Program Structure
 
