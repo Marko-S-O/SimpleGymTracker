@@ -77,12 +77,11 @@ function Program({ program, editable, saveProgram, startProgram, startWorkout, e
         startWorkout(workout)
     }
 
-    // Update program data when an individual set or exercise has been updated in a Workout component used this one
+    // Update program data when an individual set or exercise has been updated in a Workout component that is used by this one
     const updateProgramWorkout = (workout, weekIndex, workoutIndex) => {        
         const updatedWeeks = [...weeks]
         updatedWeeks[weekIndex].workouts[workoutIndex] = workout
         setWeeks(updatedWeeks)
-
     }
 
     const handleSetName = (text) => {

@@ -5,7 +5,7 @@
     "scheme": "gymtracker",
     "platforms": ["android", "web"],
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "permissions": ["INTERNET"],
@@ -28,12 +28,17 @@
     "android": {
       "package": "com.orasaari.simplegymtracker",
       "versionCode": 1,
-      "permissions": [],
+      "permissions": ["INTERNET"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "targetSdkVersion": 34      
+      "targetSdkVersion": 34,
+      "screen": {
+        "supportsTablet": true,
+        "resizeMode": "contain",
+        "anyDensity": true
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
