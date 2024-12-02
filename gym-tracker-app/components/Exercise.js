@@ -4,6 +4,7 @@ import NumericInput from './NumericInput'
 import * as UIconstants from './UIconstants'
 import androidStyles from '../styles/styles.android'
 import webStyles from '../styles/styles.web'
+import DecimalInput from './DecimalInput'
 
 const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
@@ -23,7 +24,7 @@ function Exercise({exercise, exerciseIndex, editable, handleAddSet, handleDelete
                             <NumericInput value={set.reps} handleValueChange={(action, value) => handleUpdateSet(exerciseIndex, setIndex, UIconstants.SET_FIELD_REPS, action, value, weekIndex, workoutIndex)} />                        
                             <Text style={styles.normalText}> reps </Text>
                             <View style={[styles.normalText, { width: 30 }]} />                         
-                            <NumericInput value={set.weight} handleValueChange={(action, value) => handleUpdateSet(exerciseIndex, setIndex, UIconstants.SET_FIELD_WEIGHT, action, value, weekIndex, workoutIndex)} />
+                            <DecimalInput value={set.weight} handleValueChange={(action, value) => handleUpdateSet(exerciseIndex, setIndex, UIconstants.SET_FIELD_WEIGHT, action, value, weekIndex, workoutIndex)} />
                             <Text style={styles.normalText}> kg</Text>
                         </>
                     ) : (

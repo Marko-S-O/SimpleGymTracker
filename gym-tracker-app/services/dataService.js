@@ -144,10 +144,8 @@ const mergeData = (localData, serverData) => {
     if(serverData.pastWorkouts) {
         pastWorkouts = pastWorkouts.concat(serverData.pastWorkouts)
     }
-    const workoutMap = new Map(pastWorkouts.map(workout => [workout.saved, workout]))
+    const workoutMap = new Map(pastWorkouts.map(workout => [workout.saved.toString(), workout]))
     pastWorkouts = Array.from(workoutMap.values())
-
-
     let pastPrograms = localData.pastPrograms ? localData.pastPrograms : []
     if(serverData.pastPrograms) {
         pastPrograms = pastPrograms.concat(serverData.pastPrograms)
@@ -220,6 +218,7 @@ export const readData = async () => {
     const localData = await readDataLocal()   
     const uid  = localData.userId
     const token = localData.token
+
     const serverData = await readDataServer(uid, token)
 
     let data = mergeData(localData, serverData)
