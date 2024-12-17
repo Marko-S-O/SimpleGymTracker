@@ -5,16 +5,27 @@ import * as UIconstants from './UIconstants'
 import androidStyles from '../styles/styles.android'
 import webStyles from '../styles/styles.web'
 import DecimalInput from './DecimalInput'
+import ChangeExerciseNameModal from './ChangeExerciseNameModal'
 
 const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
-function Exercise({exercise, exerciseIndex, editable, handleAddSet, handleDeleteSet, handleDeleteExercise, handleUpdateSet, weekIndex, workoutIndex}) {
+function Exercise({exercise, exerciseIndex, editable, handleAddSet, handleDeleteSet, handleDeleteExercise, handleUpdateSet, weekIndex, workoutIndex, changeExerciseName, exerciseNames, programView}) {
 
     const isDeleteSetDisabled = exercise.sets.length == 0
 
     return (
         <View style={styles.exercise}>
-            <Text style={styles.normalText}>{exercise.name}</Text>      
+
+            <ChangeExerciseNameModal 
+                exerciseNames={exerciseNames} 
+                changeExerciseName={changeExerciseName} 
+                programView={programView} 
+                weekIndex={weekIndex}
+                workoutIndex={workoutIndex}
+                exerciseIndex={exerciseIndex}
+                currentExerciseName={exercise.name}
+                editable={editable}
+            />    
 
             {exercise.sets.map((set, setIndex) => (
                 <View key={setIndex} style={styles.setInput}>

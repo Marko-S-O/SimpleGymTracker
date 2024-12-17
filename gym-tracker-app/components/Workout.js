@@ -17,6 +17,7 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
         return(<></>)
     }
 
+
     // The state of workout is maintained in the internal state of Workout.
     // Updating the global state with every update would be too heavy.
     // Global state is updated only when the user saves the data either in workout tracking or program editing.
@@ -35,6 +36,21 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
         }
     }, [workout])
 
+
+    const changeExerciseName = (newExerciseName, weekIndex, workoutIndex, exerciseIndex) => {
+
+        const updatedExercises = exercises.map((exercise, iExercise) => 
+            iExercise == exerciseIndex ? {
+                ...exercise,
+                name: newExerciseName
+            } : exercise
+        )
+        setExercises(updatedExercises)
+
+        if(programView) {
+            handleProgramUpdate(updatedExercises, notes, weekIndex, workoutIndex)
+        }
+    }
 
     // If we are in the program view, also the internal state of program needs to be updated
     // when set or exercise data changes. This does not trigger global state and persistence update.
@@ -74,7 +90,7 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
     }    
 
     const getNewSet = (exercise) => {
-        if(exercise.sets.length > 1) {
+        if(exercise.sets.length > 0) {
             previousSet = exercise.sets[exercise.sets.length-1]
             return {reps: previousSet.reps, weight: previousSet.weight}
         } else {
@@ -87,7 +103,7 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
     const handleAddSet = (exerciseIndex, weekIndex, workoutIndex) => {
 
         const updatedExercises = exercises.map((exercise, iExercise) => 
-            iExercise === exerciseIndex
+            iExercise == exerciseIndex
                 ? { ...exercise, sets: [...exercise.sets, getNewSet(exercise)] }
                 : exercise
         )
@@ -223,6 +239,9 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
                                 handleUpdateSet={handleUpdateSet} 
                                 weekIndex={weekIndex}
                                 workoutIndex={workoutIndex}
+                                changeExerciseName={changeExerciseName}
+                                exerciseNames={exerciseNames}
+                                programView={programView}
                             />
                         ))
                     }
