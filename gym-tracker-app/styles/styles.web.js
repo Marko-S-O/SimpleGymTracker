@@ -29,22 +29,10 @@ export default StyleSheet.create({
         fontSize: 16,
         color: '#1F2937',
     },
-    button: {
-        backgroundColor: '#6B7280',
-        color: '#fff',
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        borderRadius: 6,
-        fontSize: 14,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-        elevation: 3,
-    },
     buttonContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
+        padding: 5,
         width: '100%',
     },
     buttonText: {
@@ -76,15 +64,15 @@ export default StyleSheet.create({
         backgroundColor: '#E0E0FF',
     },
     exercise: {
-        marginBottom: 2,
+        marginBottom: 3,
         padding: 6,
         borderRadius: 8,
-        backgroundColor: '#E5E7F8',
+        backgroundColor: '#F3F3FA',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
         shadowRadius: 6,
-        elevation: 3,
+        elevation: 4,
     },
     exerciseList: {
         width: '100%',
@@ -92,13 +80,14 @@ export default StyleSheet.create({
         color: '#3b82f6',
     },
     fixedButton: {
-        backgroundColor: '#6B7280',
+        flex: 1,
+        backgroundColor: '#777780',
         paddingVertical: 5,
         paddingHorizontal: 8,
         borderRadius: 6,
         marginHorizontal: 5,
         width: 107,
-        height: 50,
+        height: 35,
         alignItems: 'center',
         justifyContent: 'center',
         color: '#FFFFFF',
@@ -138,7 +127,8 @@ export default StyleSheet.create({
         color: '#374151',
     },
     largeButton: {
-        backgroundColor: '#6B7280',
+        flex: 1,
+        backgroundColor: '#777780',
         paddingVertical: 5,
         paddingHorizontal: 8,
         borderRadius: 6,
@@ -149,7 +139,8 @@ export default StyleSheet.create({
         color: '#FFFFFF',
     },
     mediumButton: {
-        backgroundColor: '#6B7280',
+        flex: 1,
+        backgroundColor: '#777780',
         paddingVertical: 5,
         paddingHorizontal: 4,
         borderRadius: 6,
@@ -251,6 +242,7 @@ export default StyleSheet.create({
         elevation: 2,
     },
     smallButton: {
+        flex: 1,
         backgroundColor: '#6B7280',
         paddingVertical: 5,
         paddingHorizontal: 8,
@@ -308,10 +300,10 @@ export default StyleSheet.create({
         backgroundColor: '#CCCCFF',
     },
     WorkoutNotes: {
-        borderColor: '#E5E7F8', 
+        borderColor: '#F0F0F9', 
         borderWidth: 1, 
         borderRadius: 6, 
         padding: 5, 
-        backgroundColor: '#E9F0FB'
+        backgroundColor: '#F2F2FA'
     },    
 })

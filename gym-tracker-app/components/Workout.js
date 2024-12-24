@@ -13,11 +13,6 @@ const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 // It provides most of the rendering and editing functionality across all tabs.
 function Workout({workout, editable, programView, exerciseNames=[], saveWorkout, finishWorkout, weekIndex, workoutIndex, updateProgramWorkout}) {
 
-    if(!workout) {
-        return(<></>)
-    }
-
-
     // The state of workout is maintained in the internal state of Workout.
     // Updating the global state with every update would be too heavy.
     // Global state is updated only when the user saves the data either in workout tracking or program editing.
@@ -254,9 +249,10 @@ function Workout({workout, editable, programView, exerciseNames=[], saveWorkout,
                         editable={editable}
                     />                        
                     {editable && (
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 10 }}>
+                        
+                        <View style={styles.buttonContainer}>
 
-                            <AddExerciseModal 
+                            <AddExerciseModal
                                 exerciseNames={exerciseNames} 
                                 addExecise={addExecise} 
                                 programView={programView} 

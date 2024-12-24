@@ -45,7 +45,7 @@ function Exercise({exercise, exerciseIndex, editable, handleAddSet, handleDelete
             ))}
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 }}>
                 {editable && (
-                    <>
+                    <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.mediumButton} onPress={() => handleAddSet(exerciseIndex, weekIndex, workoutIndex) }>
                             <Text style={styles.buttonText}>Add Set</Text>
                         </TouchableOpacity>
@@ -55,7 +55,7 @@ function Exercise({exercise, exerciseIndex, editable, handleAddSet, handleDelete
                         <TouchableOpacity style={styles.mediumButton} onPress={() => handleDeleteExercise(exerciseIndex, weekIndex, workoutIndex)}>
                             <Text style={styles.buttonText}>Del Exercise</Text>
                         </TouchableOpacity>
-                    </>
+                    </View>
                 )}    
             </View>
         </View>

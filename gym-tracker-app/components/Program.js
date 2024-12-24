@@ -11,10 +11,6 @@ const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 
 function Program({ program, editable, saveProgram, startProgram, startWorkout, exerciseNames }) {
 
-    if(!program) {
-        return(<></>)
-    }
-
     const [weeks, setWeeks] = useState(program.weeks || [])
     const [name, setName] = useState(program.name || '')
 

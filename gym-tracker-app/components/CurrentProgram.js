@@ -51,7 +51,7 @@ export default function CurrentProgram() {
         ):(
             <View style={[styles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
                 <Text style={{ marginBottom: 10 }}>No active program</Text>
-                <TouchableOpacity style={styles.largeButton} onPress={startProgram} >
+                <TouchableOpacity style={[styles.largeButton, {maxHeight: 40}]} onPress={startProgram} >
                     <Text style={styles.buttonText}>Start Program</Text>
                 </TouchableOpacity>                     
             </View>

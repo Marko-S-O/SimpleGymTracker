@@ -48,7 +48,7 @@ function CurrentWorkout() {
             ):(
                 <View style={[styles.day, {padding: 15, alignItems: 'center', justifyContent: 'center', flex: 1, margin: 5}]}>
                     <Text style={{ marginBottom: 10 }}>No active workout</Text>
-                    <TouchableOpacity style={styles.largeButton} onPress={handleStartWorkout} >
+                    <TouchableOpacity style={[styles.largeButton, {maxHeight: 40}]} onPress={handleStartWorkout} >
                         <Text style={styles.buttonText}>Start Workout</Text>
                     </TouchableOpacity>    
                     <Text style={{ marginTop: 10 }}>or use a past workout or program to start.</Text>                 

@@ -23,7 +23,7 @@ const AddExerciseModal = ({exerciseNames, addExecise, programView, weekIndex, wo
     }
 
     return (
-        <View>
+        <>
             <TouchableOpacity style={programView ? styles.mediumButton : styles.fixedButton} onPress={handleAddExercise}>
                 <Text style={styles.buttonText}>Add Exercise</Text>
             </TouchableOpacity>     
@@ -39,7 +39,7 @@ const AddExerciseModal = ({exerciseNames, addExecise, programView, weekIndex, wo
                     <View style={{ width: 300, padding: 20, paddingVertical: 8,  backgroundColor: 'white', borderRadius: 10 }}>
                         <Text style={{ fontSize: 18, marginBottom: 15 }}>Add Exercise</Text>
 
-                        <ScrollView style={{ maxHeight: 250 }}>
+                        <ScrollView style={{ maxHeight: 280 }}>
                             {exerciseNames.map((exercise, index) => (
                                 <TouchableOpacity 
                                     key={index} 
@@ -58,18 +58,19 @@ const AddExerciseModal = ({exerciseNames, addExecise, programView, weekIndex, wo
                             onBlur={()=>Keyboard.dismiss()}
                             style={{ borderColor: 'gray', borderWidth: 1, padding: 8, marginVertical: 10, borderRadius: 6 }}
                         />
-                        <TouchableOpacity style={[styles.largeButton, {marginVertical:3}]} disabled={!exerciseName.trim()} onPress={() => addNewExercise(exerciseName, weekIndex, workoutIndex) }>
-                            <Text style={styles.buttonText}>Add exercise</Text>
-                        </TouchableOpacity>
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.largeButton} disabled={!exerciseName.trim()} onPress={() => addNewExercise(exerciseName, weekIndex, workoutIndex) }>
+                                <Text style={styles.buttonText}>Add exercise</Text>
+                            </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.largeButton} onPress={() => setIsModalVisible(false)}>
-                            <Text style={styles.buttonText}>Cancel</Text>
-                        </TouchableOpacity>
-
+                            <TouchableOpacity style={styles.largeButton} onPress={() => setIsModalVisible(false)}>
+                                <Text style={styles.buttonText}>Cancel</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </Modal>
-        </View>
+        </>
     )
 }
 

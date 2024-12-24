@@ -28,14 +28,32 @@ function DecimalInput({ value, handleValueChange }) {
 
     const handleIncrement = () => {
         const numericValue = parseFloat(localValue) || 0
-        const incrementedValue = numericValue + 1
+        let incrementedValue = numericValue;
+        if(numericValue < 14) {
+            incrementedValue = numericValue + 1
+        } else if(numericValue < 30) {
+            incrementedValue = numericValue + 2;
+        } else if(numericValue < 50) {
+            incrementedValue = numericValue + 5;
+        } else {
+            incrementedValue = numericValue + 10;
+        }
         setLocalValue(formatNumber(incrementedValue))
         handleValueChange(UIconstants.SET_FIELD_ACTION_UPDATE, incrementedValue)
     }
 
     const handleDecrement = () => {
         const numericValue = parseFloat(localValue) || 0
-        const decrementedValue = numericValue - 1
+        let decrementedValue = numericValue;
+        if(numericValue < 15) {
+            decrementedValue = numericValue - 1
+        } else if(numericValue < 32) {
+            decrementedValue = numericValue - 2;
+        } else if(numericValue < 55) {
+            decrementedValue = numericValue - 5;
+        } else {
+            decrementedValue = numericValue - 10;
+        }
         setLocalValue(formatNumber(decrementedValue))
         handleValueChange(UIconstants.SET_FIELD_ACTION_UPDATE, decrementedValue)
     }
@@ -58,7 +76,6 @@ function DecimalInput({ value, handleValueChange }) {
                 value={localValue}
                 onChangeText={handleTextChange}
                 onBlur={handleBlur} // Format and update value on blur
-                placeholder="Enter a number"
             />
 
             {/* Increase Button */}

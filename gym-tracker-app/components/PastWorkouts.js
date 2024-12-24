@@ -56,7 +56,7 @@ function PastWorkouts() {
         <>
             <View style={[styles.WorkoutHeader, {marginLeft: 0, marginRight: 0, marginBottom: 0}]}>
                 <Text style={[styles.boldText, {paddingLeft: 5}]}>My Past Workouts</Text>     
-                <View style={[styles.WorkoutHeader, { flexDirection: 'row', justifyContent: 'space-between', marginLeft: 0, marginRight: 4, marginBottom: 0}]}>
+                <View style={styles.buttonContainer}>
                     <TouchableOpacity style={[styles.smallButton, isPreviousDisabled && { opacity: 0.5 }]} disabled={isPreviousDisabled} onPress={() => handleNavigate('previous')} >
                         <Text style={styles.buttonText}>Previous</Text>
                     </TouchableOpacity>
