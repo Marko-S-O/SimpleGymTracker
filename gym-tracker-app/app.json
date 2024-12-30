@@ -1,56 +1,54 @@
 {
-  "expo": {
-    "name": "SimpleGymTracker",
-    "slug": "gym-tracker-app",
-    "scheme": "gymtracker",
-    "platforms": ["android", "web"],
-    "version": "1.0.0",
-    "orientation": "default",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "permissions": ["INTERNET"],
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.orasaari.simplegymtracker",
-      "buildNumber": "1.0.0"
-    },
-    "android": {
-      "package": "com.orasaari.simplegymtracker",
-      "versionCode": 1,
-      "permissions": ["INTERNET"],
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "targetSdkVersion": 34,
-      "screen": {
-        "supportsTablet": true,
-        "resizeMode": "contain",
-        "anyDensity": true
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "2bb447c0-186d-4f13-8e41-3de8de6835fe"
-      },
-      "apiUrl": "https://gym-tracker-server.fly.dev/api"
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
+    "expo": {
+        "name": "SimpleGymTracker",
+        "slug": "gym-tracker-app",
+        "scheme": "gymtracker",
+        "platforms": ["android", "web"],
+        "version": "1.0.0",
+        "orientation": "default",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "light",
+        "permissions": ["INTERNET"],
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "com.orasaari.simplegymtracker",
+            "buildNumber": "1.0.0"
+        },
+        "android": {
+            "package": "com.orasaari.simplegymtracker",
+            "versionCode": 1,
+            "permissions": ["INTERNET"],
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#ffffff"
+            },
+            "targetSdkVersion": 34,
+            "screen": {
+                "supportsTablet": true,
+                "resizeMode": "contain",
+                "anyDensity": true
+            }
+        },
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "extra": {
+            "eas": {
+                "projectId": "2bb447c0-186d-4f13-8e41-3de8de6835fe"
+            },
+            "apiUrl": "https://gym-tracker-server.fly.dev/api"
+        },
+        "runtimeVersion": {
+            "policy": "appVersion"
+        }
     }
-  }
 }

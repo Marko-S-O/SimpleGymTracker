@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     activeContent: {
@@ -21,8 +21,8 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 15,
         color: '#f9fafb',
-        marginLeft:15,
-        textAlignVertical: 'center'
+        marginLeft: 15,
+        textAlignVertical: 'center',
     },
     boldText: {
         fontWeight: 'bold',
@@ -63,7 +63,7 @@ export default StyleSheet.create({
     },
     exercise: {
         marginBottom: 3,
-        padding: 6,
+        padding: 2,
         borderRadius: 8,
         backgroundColor: '#F3F3FA',
         shadowColor: '#000',
@@ -98,14 +98,19 @@ export default StyleSheet.create({
     },
     incrementButton: {
         paddingHorizontal: 5,
-        paddingVertical: 5,
+        paddingVertical: 0,
         backgroundColor: '#BBBBBB',
         borderRadius: 4,
-        width: 23,
+        width: 24,
+        marginRight: 1,
+        height: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     incrementButtonText: {
-        fontSize: 16,
+        fontSize: 11,
         color: '#fff',
+        textAlign: 'center',
     },
     infoTextContainer: {
         color: '#FFFFFF',
@@ -186,7 +191,7 @@ export default StyleSheet.create({
     },
     navigationContainer: {
         backgroundColor: '#E0E0FF',
-        flex: 1
+        flex: 1,
     },
     normalText: {
         fontWeight: 'normal',
@@ -304,10 +309,10 @@ export default StyleSheet.create({
         backgroundColor: '#CCCCFF',
     },
     WorkoutNotes: {
-        borderColor: '#F0F0F9', 
-        borderWidth: 1, 
-        borderRadius: 6, 
-        padding: 5, 
-        backgroundColor: '#F2F2FA'
-    },    
-})
+        borderColor: '#F0F0F9',
+        borderWidth: 1,
+        borderRadius: 6,
+        padding: 5,
+        backgroundColor: '#F2F2FA',
+    },
+});
