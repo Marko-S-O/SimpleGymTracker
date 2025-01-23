@@ -73,7 +73,7 @@ const AddExerciseModal = ({
                         </Text>
 
                         <ScrollView style={{ maxHeight: 280 }}>
-                            {exerciseNames.map((exercise, index) => (
+                            {exerciseNames.map((exercise, index) => ( (exerciseName.length == 0 || exercise.indexOf(exerciseName) != -1) &&                                 
                                 <TouchableOpacity
                                     key={index}
                                     onPress={() =>
@@ -88,7 +88,7 @@ const AddExerciseModal = ({
                                     <Text style={{ fontSize: 15 }}>
                                         {exercise}
                                     </Text>
-                                </TouchableOpacity>
+                                </TouchableOpacity>                            
                             ))}
                         </ScrollView>
 
