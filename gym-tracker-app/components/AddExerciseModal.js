@@ -73,23 +73,28 @@ const AddExerciseModal = ({
                         </Text>
 
                         <ScrollView style={{ maxHeight: 280 }}>
-                            {exerciseNames.map((exercise, index) => ( (exerciseName.length == 0 || exercise.indexOf(exerciseName) != -1) &&                                 
-                                <TouchableOpacity
-                                    key={index}
-                                    onPress={() =>
-                                        addNewExercise(
-                                            exercise,
-                                            weekIndex,
-                                            workoutIndex
-                                        )
-                                    }
-                                    style={{ paddingVertical: 8 }}
-                                >
-                                    <Text style={{ fontSize: 15 }}>
-                                        {exercise}
-                                    </Text>
-                                </TouchableOpacity>                            
-                            ))}
+                            {exerciseNames.map(
+                                (exercise, index) =>
+                                    (exerciseName.length == 0 ||
+                                        exercise.indexOf(exerciseName) !=
+                                            -1) && (
+                                        <TouchableOpacity
+                                            key={index}
+                                            onPress={() =>
+                                                addNewExercise(
+                                                    exercise,
+                                                    weekIndex,
+                                                    workoutIndex
+                                                )
+                                            }
+                                            style={{ paddingVertical: 8 }}
+                                        >
+                                            <Text style={{ fontSize: 15 }}>
+                                                {exercise}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    )
+                            )}
                         </ScrollView>
 
                         <TextInput

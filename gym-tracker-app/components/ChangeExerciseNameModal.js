@@ -19,7 +19,6 @@ const styles = Platform.OS === 'web' ? webStyles : androidStyles;
 const ChangeExerciseNameModal = ({
     exerciseNames,
     changeExerciseName,
-    programView,
     weekIndex,
     workoutIndex,
     exerciseIndex,
@@ -42,7 +41,7 @@ const ChangeExerciseNameModal = ({
     };
 
     return (
-        <View style={{ alignItems: 'flex-start' }}>
+        <View style={{ alignItems: 'flex-start', alignContent: 'stretch' }}>
             <Text style={styles.normalText} onPress={openDialog}>
                 {currentExerciseName}
             </Text>
@@ -75,24 +74,29 @@ const ChangeExerciseNameModal = ({
                         </Text>
 
                         <ScrollView style={{ maxHeight: 250 }}>
-                            {exerciseNames.map((exercise, index) => (
-                                <TouchableOpacity
-                                    key={index}
-                                    onPress={() =>
-                                        handleChange(
-                                            exercise,
-                                            weekIndex,
-                                            workoutIndex,
-                                            exerciseIndex
-                                        )
-                                    }
-                                    style={{ paddingVertical: 8 }}
-                                >
-                                    <Text style={{ fontSize: 15 }}>
-                                        {exercise}
-                                    </Text>
-                                </TouchableOpacity>
-                            ))}
+                            {exerciseNames.map(
+                                (exercise, index) =>
+                                    (exerciseName.length == 0 ||
+                                        exercise.indexOf(exerciseName) !=
+                                            -1) && (
+                                        <TouchableOpacity
+                                            key={index}
+                                            onPress={() =>
+                                                handleChange(
+                                                    exercise,
+                                                    weekIndex,
+                                                    workoutIndex,
+                                                    exerciseIndex
+                                                )
+                                            }
+                                            style={{ paddingVertical: 8 }}
+                                        >
+                                            <Text style={{ fontSize: 15 }}>
+                                                {exercise}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    )
+                            )}
                         </ScrollView>
 
                         <TextInput

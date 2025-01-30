@@ -80,14 +80,13 @@ function Exercise({
                     { marginBottom: 0, padding: 0 },
                     reorderMode ? { opacity: 0.8 } : {},
                 ]}
-                onLongPress={onLongPress} // Attach the long press handler
+                onLongPress={onLongPress}
                 pointerEvents={reorderMode ? 'box-none' : 'auto'}
             >
                 <View style={styles.exercise}>
                     <ChangeExerciseNameModal
                         exerciseNames={exerciseNames}
                         changeExerciseName={changeExerciseName}
-                        programView={programView}
                         weekIndex={weekIndex}
                         workoutIndex={workoutIndex}
                         exerciseIndex={exerciseIndex}

@@ -22,7 +22,7 @@ export default function AppHeader() {
     return (
         <View style={styles.appHeader}>
             <Text style={styles.appHeaderText}>
-                SimpleGymTracker v. 0.9 - {state.userId}
+                SimpleGymTracker v. 0.9.1 - {state.userId}
             </Text>
             <TouchableOpacity
                 onPress={() => setRefreshModalVisible(true)}
